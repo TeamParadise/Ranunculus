@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team1165.robot.commands.DriveWithJoysticks;
 import org.usfirst.frc.team1165.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team1165.robot.subsystems.UltrasonicSensorSource;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -22,6 +23,7 @@ public class Robot extends IterativeRobot
 {
 
     public static final DriveTrain driveTrain = new DriveTrain();
+    public static final UltrasonicSensorSource ultrasonicSensorSource = new UltrasonicSensorSource();
     public static OI oi;
 
     Command autonomousCommand;
