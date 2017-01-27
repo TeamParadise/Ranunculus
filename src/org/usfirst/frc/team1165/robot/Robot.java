@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team1165.robot.commands.DriveWithJoysticks;
 import org.usfirst.frc.team1165.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team1165.robot.subsystems.UltrasonicPID;
 import org.usfirst.frc.team1165.robot.subsystems.UltrasonicSensorSource;
 
 /**
@@ -24,6 +25,7 @@ public class Robot extends IterativeRobot
 
     public static final DriveTrain driveTrain = new DriveTrain();
     public static final UltrasonicSensorSource ultrasonicSensorSource = new UltrasonicSensorSource();
+    public static final UltrasonicPID ultrasonicPID = new UltrasonicPID();
     public static OI oi;
 
     Command autonomousCommand;

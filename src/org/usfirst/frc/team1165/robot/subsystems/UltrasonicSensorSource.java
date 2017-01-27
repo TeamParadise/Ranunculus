@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class UltrasonicSensorSource extends Subsystem
 {
 
+    public enum StrafeType {NONE, LEFT, RIGHT};
+
     Ultrasonic ultrasonicLeft;
     Ultrasonic ultrasonicRight;
 
@@ -42,9 +44,11 @@ public class UltrasonicSensorSource extends Subsystem
 	SmartDashboard.putNumber("Ultrasonic Right", ultrasonicRight.getRangeInches());
     }
     
-    public double getUltrasonic(boolean a)
+    public double getUltrasonicReading(StrafeType direction)
     {
-	if(a)
+	if(direction == StrafeType.NONE)
+	    return 0;
+	else if(direction == StrafeType.LEFT)
 	    return ultrasonicLeft.getRangeInches();
 	return ultrasonicRight.getRangeInches();
     }
