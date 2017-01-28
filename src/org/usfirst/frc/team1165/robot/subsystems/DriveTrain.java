@@ -23,9 +23,9 @@ public class DriveTrain extends Subsystem
     public DriveTrain()
     {
 	robotDrive = new RobotDrive(frontLeft, rearLeft, frontRight, rearRight);
-	 // invert the left motors
+	// invert the right motors
 	robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
-	robotDrive.setInvertedMotor(MotorType.kRearRight, true); 
+	robotDrive.setInvertedMotor(MotorType.kRearRight, true);
     }
 
     public void initDefaultCommand()
@@ -33,7 +33,7 @@ public class DriveTrain extends Subsystem
 	// Set the default command for a subsystem here.
 	setDefaultCommand(new DriveWithJoysticks());
     }
-    
+
     public void driveCartesian(double x, double y, double twist, double gyroAngle)
     {
 	robotDrive.mecanumDrive_Cartesian(x, y, twist, gyroAngle);

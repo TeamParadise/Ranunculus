@@ -30,7 +30,7 @@ public class DriveWithJoysticks extends Command
     @Override
     protected void execute()
     {
-	//Reducing sensitivity of Joystick
+	// Reducing sensitivity of Joystick
 	double x = stick.getX() * stick.getX() * stick.getX();
 	double y = stick.getY() * stick.getY() * stick.getY();
 	double twist = stick.getTwist() * stick.getTwist() * stick.getTwist();

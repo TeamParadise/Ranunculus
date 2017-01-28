@@ -1,6 +1,9 @@
 
 package org.usfirst.frc.team1165.robot;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.UsbCameraInfo;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -12,6 +15,7 @@ import org.usfirst.frc.team1165.robot.commands.DriveWithJoysticks;
 import org.usfirst.frc.team1165.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team1165.robot.subsystems.UltrasonicPID;
 import org.usfirst.frc.team1165.robot.subsystems.UltrasonicSensorSource;
+import org.usfirst.frc.team1165.robot.subsystems.VisionGRIP;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -26,6 +30,13 @@ public class Robot extends IterativeRobot
     public static final DriveTrain driveTrain = new DriveTrain();
     public static final UltrasonicSensorSource ultrasonicSensorSource = new UltrasonicSensorSource();
     public static final UltrasonicPID ultrasonicPID = new UltrasonicPID();
+
+    private final int usbCameraImageWidth = 640;
+    private final int usbCameraImageHeight = 480;
+    private final int usbCameraFrameRate = 10;
+    public static UsbCamera usbCameras[];
+
+    public static VisionGRIP visionGRIP;
     public static OI oi;
 
     Command autonomousCommand;
@@ -42,6 +53,26 @@ public class Robot extends IterativeRobot
 	chooser.addDefault("Default Auto", new DriveWithJoysticks());
 	// chooser.addObject("My Auto", new MyAutoCommand());
 	SmartDashboard.putData("Auto mode", chooser);
+
+	// Do not delete this line
+	CameraServer.getInstance();
+	initializeUsbCameras();
+    }
+
+    private void initializeUsbCameras()
+    {
+	UsbCameraInfo infos[] = UsbCamera.enumerateUsbCameras();
+	usbCameras = new UsbCamera[infos.length];
+	
+	SmartDashboard.putNumber("No. Of cameras", infos.length);
+	for (int i = 0; i < usbCameras.length; i++)
+	{
+	    usbCameras[i] = new UsbCamera("USB" + i, infos[i].path);
+	    usbCameras[i].setResolution(usbCameraImageWidth, usbCameraImageHeight);
+	    usbCameras[i].setFPS(usbCameraFrameRate);
+	    System.out.println("Created USB camera " + i + ": " + usbCameras[i].getPath());
+	    CameraServer.getInstance().startAutomaticCapture(usbCameras[i]);
+	}
     }
 
     /**
@@ -107,6 +138,7 @@ public class Robot extends IterativeRobot
 	// this line or comment it out.
 	if (autonomousCommand != null)
 	    autonomousCommand.cancel();
+	visionGRIP = new VisionGRIP();
     }
 
     /**

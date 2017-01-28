@@ -18,7 +18,7 @@ public class OI
     // You create one by telling it which joystick it's on and which button
     // number it is.
     Joystick stick = new Joystick(0);
-    
+
     JoystickButton ultrasonicPIDButton = new JoystickButton(stick, RobotMap.enableUltrasonicPID);
     // Button button = new JoystickButton(stick, buttonNumber);
 
@@ -32,5 +32,5 @@ public class OI
     public OI()
     {
 	ultrasonicPIDButton.whenPressed(new EnableUltrasonicSetpoint());
-    }   
+    }
 }

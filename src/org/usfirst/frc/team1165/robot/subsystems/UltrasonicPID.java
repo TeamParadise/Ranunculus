@@ -66,7 +66,7 @@ public class UltrasonicPID extends PIDSubsystem
 	// yourPot.getAverageVoltage() / kYourMaxVoltage;
 	return Robot.ultrasonicSensorSource.getUltrasonicReading(getUltrasonic());
     }
-    
+
     public void setSetpoint()
     {
 	super.setSetpoint(kHoldDistance);
@@ -74,7 +74,7 @@ public class UltrasonicPID extends PIDSubsystem
 
     public StrafeType getUltrasonic()
     {
-	//Find which ultrasonic sensor to use
+	// Find which ultrasonic sensor to use
 	if (Robot.ultrasonicSensorSource.ultrasonicLeft.getRangeInches() < kHoldDistance)
 	{
 	    if (Robot.ultrasonicSensorSource.ultrasonicRight.getRangeInches() < kHoldDistance)
@@ -107,9 +107,9 @@ public class UltrasonicPID extends PIDSubsystem
     protected void usePIDOutput(double output)
     {
 	// Use output to drive your system, like a motor
-	if(getUltrasonic() == StrafeType.LEFT)
+	if (getUltrasonic() == StrafeType.LEFT)
 	    Robot.driveTrain.driveCartesian(output, 0, 0, 0);
-	else if(getUltrasonic() == StrafeType.RIGHT)
+	else if (getUltrasonic() == StrafeType.RIGHT)
 	    Robot.driveTrain.driveCartesian(-output, 0, 0, 0);
     }
 }
