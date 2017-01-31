@@ -1,9 +1,10 @@
 package org.usfirst.frc.team1165.robot;
 
+import org.usfirst.frc.team1165.robot.commands.DriveShooter;
 import org.usfirst.frc.team1165.robot.commands.EnableUltrasonicSetpoint;
+import org.usfirst.frc.team1165.robot.commands.RotateToHeading;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
@@ -17,9 +18,16 @@ public class OI
     //// joystick.
     // You create one by telling it which joystick it's on and which button
     // number it is.
-    Joystick stick = new Joystick(0);
+    public Joystick stick = new Joystick(RobotMap.joystickPort);
+    
+    JoystickButton shooterRPMButton = new JoystickButton(stick, RobotMap.shooterRPMPortNumber);
 
     JoystickButton ultrasonicPIDButton = new JoystickButton(stick, RobotMap.enableUltrasonicPID);
+    
+    JoystickButton rotateN180 = new JoystickButton(stick, RobotMap.rotateRobotN180);
+    JoystickButton rotate180 = new JoystickButton(stick, RobotMap.rotateRobot180);
+    JoystickButton rotateN90 = new JoystickButton(stick, RobotMap.rotateRobotN90);
+    JoystickButton rotate90 = new JoystickButton(stick, RobotMap.rotateRobot90);
     // Button button = new JoystickButton(stick, buttonNumber);
 
     // There are a few additional built in buttons you can use. Additionally,
@@ -32,5 +40,13 @@ public class OI
     public OI()
     {
 	ultrasonicPIDButton.whenPressed(new EnableUltrasonicSetpoint());
+	shooterRPMButton.whileHeld(new DriveShooter());
+	shooterRPMButton.whenReleased(new DriveShooter(true));
+	
+	//Rotate To Heading
+	rotateN180.whenPressed(new RotateToHeading(RobotMap.rotateRobotN180));
+	rotate180.whenPressed(new RotateToHeading(RobotMap.rotateRobot180));
+	rotateN90.whenPressed(new RotateToHeading(RobotMap.rotateRobotN90));
+	rotate90.whenPressed(new RotateToHeading(RobotMap.rotateRobot90));
     }
 }

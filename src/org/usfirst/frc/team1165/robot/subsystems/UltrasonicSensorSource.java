@@ -3,6 +3,7 @@ package org.usfirst.frc.team1165.robot.subsystems;
 import org.usfirst.frc.team1165.robot.RobotMap;
 import org.usfirst.frc.team1165.robot.commands.ReportUltrasonicValues;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.Ultrasonic.Unit;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -21,6 +22,9 @@ public class UltrasonicSensorSource extends Subsystem
 
     Ultrasonic ultrasonicLeft;
     Ultrasonic ultrasonicRight;
+    
+    double previousReading = 0;
+    double currentReading;
 
     // Initialize your subsystem here
     public UltrasonicSensorSource()
@@ -43,8 +47,16 @@ public class UltrasonicSensorSource extends Subsystem
 
     public void reportValues()
     {
-	SmartDashboard.putNumber("Ultrasonic Left", ultrasonicLeft.getRangeInches());
-	SmartDashboard.putNumber("Ultrasonic Right", ultrasonicRight.getRangeInches());
+	SmartDashboard.putNumber(RobotMap.displayUltrasonicLeftString, ultrasonicLeft.getRangeInches());
+	SmartDashboard.putNumber(RobotMap.displayUltrasonicRightString, ultrasonicRight.getRangeInches());
+	inchesPerSecond();
+    }
+    
+    public void inchesPerSecond()
+    {
+	currentReading = ultrasonicRight.getRangeInches();
+	SmartDashboard.putNumber("Inches Per Second", (currentReading-previousReading)/0.05);
+	previousReading = currentReading;
     }
 
     public double getUltrasonicReading(StrafeType direction)

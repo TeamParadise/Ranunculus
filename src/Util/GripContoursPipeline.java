@@ -49,9 +49,9 @@ public class GripContoursPipeline implements VisionPipeline
     {
 	// Step HSV_Threshold0:
 	Mat hsvThresholdInput = source0;
-	double[] hsvThresholdHue = { 67.98561151079136, 126.24573378839591 };
-	double[] hsvThresholdSaturation = { 41.276978417266186, 128.80546075085326 };
-	double[] hsvThresholdValue = { 160.52158273381295, 224.53924914675767 };
+	double[] hsvThresholdHue = { 3.425554299174368, 47.90182311347448 };
+	double[] hsvThresholdSaturation = { 0.0, 37.4232081911263 };
+	double[] hsvThresholdValue = { 243.07553956834533, 255.0 };
 	hsvThreshold(hsvThresholdInput, hsvThresholdHue, hsvThresholdSaturation, hsvThresholdValue, hsvThresholdOutput);
 
 	// Step Blur0:
@@ -67,17 +67,17 @@ public class GripContoursPipeline implements VisionPipeline
 
 	// Step Filter_Contours0:
 	ArrayList<MatOfPoint> filterContoursContours = findContoursOutput;
-	double filterContoursMinArea = 500.0;
-	double filterContoursMinPerimeter = 500.0;
+	double filterContoursMinArea = 1000.0;
+	double filterContoursMinPerimeter = 100.0;
 	double filterContoursMinWidth = 0.0;
-	double filterContoursMaxWidth = 1000;
-	double filterContoursMinHeight = 0;
-	double filterContoursMaxHeight = 1000;
+	double filterContoursMaxWidth = 100.0;
+	double filterContoursMinHeight = 0.0;
+	double filterContoursMaxHeight = 1000.0;
 	double[] filterContoursSolidity = { 0, 100 };
-	double filterContoursMaxVertices = 100.0;
-	double filterContoursMinVertices = 0;
-	double filterContoursMinRatio = 0;
-	double filterContoursMaxRatio = 1000;
+	double filterContoursMaxVertices = 25.0;
+	double filterContoursMinVertices = 0.0;
+	double filterContoursMinRatio = 0.0;
+	double filterContoursMaxRatio = 1000.0;
 	filterContours(filterContoursContours, filterContoursMinArea, filterContoursMinPerimeter,
 		filterContoursMinWidth, filterContoursMaxWidth, filterContoursMinHeight, filterContoursMaxHeight,
 		filterContoursSolidity, filterContoursMaxVertices, filterContoursMinVertices, filterContoursMinRatio,
@@ -319,4 +319,5 @@ public class GripContoursPipeline implements VisionPipeline
 	    output.add(contour);
 	}
     }
+
 }

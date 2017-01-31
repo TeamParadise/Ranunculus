@@ -1,6 +1,6 @@
 package org.usfirst.frc.team1165.robot.subsystems;
 
-import org.usfirst.frc.team1165.robot.commands.DriveWithJoysticks;
+import org.usfirst.frc.team1165.robot.commands.DriveWithJoystick;
 
 import com.ctre.CANTalon;
 
@@ -17,6 +17,8 @@ public class DriveTrain extends Subsystem
     CANTalon rearLeft = new CANTalon(1);
     CANTalon frontRight = new CANTalon(2);
     CANTalon rearRight = new CANTalon(3);
+    
+ 
 
     public RobotDrive robotDrive;
 
@@ -31,7 +33,7 @@ public class DriveTrain extends Subsystem
     public void initDefaultCommand()
     {
 	// Set the default command for a subsystem here.
-	setDefaultCommand(new DriveWithJoysticks());
+	setDefaultCommand(new DriveWithJoystick());
     }
 
     public void driveCartesian(double x, double y, double twist, double gyroAngle)

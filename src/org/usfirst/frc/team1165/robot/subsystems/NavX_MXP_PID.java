@@ -1,5 +1,9 @@
 package org.usfirst.frc.team1165.robot.subsystems;
 
+import org.usfirst.frc.team1165.robot.commands.ReportNavXValues;
+
+//import org.usfirst.frc.team1165.robot.commands.ReportNavXValues;
+
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -7,9 +11,6 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-/**
- *
- */
 public class NavX_MXP_PID extends PIDSubsystem
 {
     AHRS ahrs;
@@ -21,6 +22,8 @@ public class NavX_MXP_PID extends PIDSubsystem
 
     // derivative speed constant
     private static final double kD = 1.5;
+    
+    public double rotateToAngleRate = 0;
 
     double max_collision = 0;
 
@@ -33,27 +36,28 @@ public class NavX_MXP_PID extends PIDSubsystem
     int collisionDetected = 0;
 
     final static double kCollisionThreshold_DeltaG = 1.8f;
-    /* This tuning parameter indicates how close to "on target" the */
-    /* PID Controller will attempt to get. */
-
+    /*
+     * This tuning parameter indicates how close to "on target" the PID
+     * Controller will attempt to get.
+     */
     static final double kToleranceDegrees = 2.0f;
 
     // Initialize your subsystem here
     public NavX_MXP_PID()
     {
-	super(0, 0, 0);
+	super(kP, kI, kD);
 	try
 	{
-	    /* Communicate w/navX-MXP via the MXP SPI Bus. */
-	    /*
+	     /*Communicate w/navX-MXP via the MXP SPI Bus. 
+	    
 	     * Alternatively: I2C.Port.kMXP, SerialPort.Port.kMXP or
 	     * SerialPort.Port.kUSB
-	     */
-	    /*
+	     
+	    
 	     * See
 	     * http://navx-mxp.kauailabs.com/guidance/selecting-an-interface/
 	     * for details.
-	     */
+	    */ 
 	    ahrs = new AHRS(SPI.Port.kMXP);
 	} catch (RuntimeException ex)
 	{
@@ -68,8 +72,20 @@ public class NavX_MXP_PID extends PIDSubsystem
     public void initDefaultCommand()
     {
 	// Set the default command for a subsystem here.
-	// setDefaultCommand(new MySpecialCommand());
+	setDefaultCommand(new ReportNavXValues());
     }
+    
+    public void reset()
+    {
+	ahrs.reset();
+    }
+    
+    public double getHeading()
+    {
+	return ahrs.getAngle();
+    }
+    
+    //Collision Detection Feature (Very Experimental)
 
     public void updateAccel()
     {
@@ -102,18 +118,28 @@ public class NavX_MXP_PID extends PIDSubsystem
 	SmartDashboard.putNumber("CollisionDetected", collisionDetected);
 	return false;
     }
+    
+    public void setSetpoint(double setpoint)
+    {
+	setSetpoint(setpoint);
+    }
 
     protected double returnPIDInput()
     {
 	// Return your input value for the PID loop
 	// e.g. a sensor, like a potentiometer:
 	// yourPot.getAverageVoltage() / kYourMaxVoltage;
-	return 0.0;
+	return ahrs.getAngle();
     }
 
     protected void usePIDOutput(double output)
     {
 	// Use output to drive your system, like a motor
-	// e.g. yourMotor.set(output);
+	rotateToAngleRate = output;
+    }
+    
+    public void report()
+    {
+	SmartDashboard.putNumber("Heading", ahrs.getAngle());
     }
 }

@@ -9,11 +9,10 @@ import org.usfirst.frc.team1165.robot.RobotMap;
 /**
  *
  */
-public class DriveWithJoysticks extends Command
+public class DriveWithJoystick extends Command
 {
-    Joystick stick;
 
-    public DriveWithJoysticks()
+    public DriveWithJoystick()
     {
 	// Use requires() here to declare subsystem dependencies
 	requires(Robot.driveTrain);
@@ -23,7 +22,6 @@ public class DriveWithJoysticks extends Command
     @Override
     protected void initialize()
     {
-	stick = new Joystick(RobotMap.joystickPort);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -31,16 +29,16 @@ public class DriveWithJoysticks extends Command
     protected void execute()
     {
 	// Reducing sensitivity of Joystick
-	double x = stick.getX() * stick.getX() * stick.getX();
-	double y = stick.getY() * stick.getY() * stick.getY();
-	double twist = stick.getTwist() * stick.getTwist() * stick.getTwist();
+	double x = Robot.oi.stick.getX(); // * stick.getX() * stick.getX();
+	double y = Robot.oi.stick.getY(); // * stick.getY() * stick.getY();
+	double twist = Robot.oi.stick.getTwist(); // * stick.getTwist() * stick.getTwist();
 	if (Math.abs(x) < 0.1)
 	    x = 0;
 	if (Math.abs(y) < 0.1)
 	    y = 0;
-	if (Math.abs(twist) < 0.1)
+	if (Math.abs(twist) < 0.2)
 	    twist = 0;
-	Robot.driveTrain.driveCartesian(stick.getX(), stick.getY(), stick.getTwist(), 0);
+	Robot.driveTrain.driveCartesian(x, y, twist, 0);
     }
 
     // Make this return true when this Command no longer needs to run execute()

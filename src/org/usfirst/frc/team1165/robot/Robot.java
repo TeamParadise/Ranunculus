@@ -11,8 +11,10 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team1165.robot.commands.DriveWithJoysticks;
+import org.usfirst.frc.team1165.robot.commands.DriveWithJoystick;
 import org.usfirst.frc.team1165.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team1165.robot.subsystems.NavX_MXP_PID;
+import org.usfirst.frc.team1165.robot.subsystems.Shooter;
 import org.usfirst.frc.team1165.robot.subsystems.UltrasonicPID;
 import org.usfirst.frc.team1165.robot.subsystems.UltrasonicSensorSource;
 import org.usfirst.frc.team1165.robot.subsystems.VisionGRIP;
@@ -30,6 +32,8 @@ public class Robot extends IterativeRobot
     public static final DriveTrain driveTrain = new DriveTrain();
     public static final UltrasonicSensorSource ultrasonicSensorSource = new UltrasonicSensorSource();
     public static final UltrasonicPID ultrasonicPID = new UltrasonicPID();
+    public static final Shooter shooter = new Shooter();
+    public static final NavX_MXP_PID navX = new NavX_MXP_PID();
 
     private final int usbCameraImageWidth = 640;
     private final int usbCameraImageHeight = 480;
@@ -50,20 +54,29 @@ public class Robot extends IterativeRobot
     public void robotInit()
     {
 	oi = new OI();
-	chooser.addDefault("Default Auto", new DriveWithJoysticks());
+	chooser.addDefault("Default Auto", new DriveWithJoystick());
 	// chooser.addObject("My Auto", new MyAutoCommand());
+	SmartDashboard.putNumber(RobotMap.getFeederWheelString, 1200);
+	SmartDashboard.putNumber(RobotMap.getShooterWheelString, 1200);
 	SmartDashboard.putData("Auto mode", chooser);
+	SmartDashboard.putBoolean("Camera Crashed", false);
 
 	// Do not delete this line
-	CameraServer.getInstance();
-	initializeUsbCameras();
+	try
+	{
+	    CameraServer.getInstance();
+	    initializeUsbCameras();
+	} catch (Exception e)
+	{
+	    SmartDashboard.putBoolean("Camera Crashed", true);
+	}
     }
 
     private void initializeUsbCameras()
     {
 	UsbCameraInfo infos[] = UsbCamera.enumerateUsbCameras();
 	usbCameras = new UsbCamera[infos.length];
-	
+
 	SmartDashboard.putNumber("No. Of cameras", infos.length);
 	for (int i = 0; i < usbCameras.length; i++)
 	{
