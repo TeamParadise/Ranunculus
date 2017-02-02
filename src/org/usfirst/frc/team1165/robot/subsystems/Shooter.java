@@ -10,7 +10,6 @@ import com.ctre.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-
 public class Shooter extends Subsystem
 {
     public CANTalon shooterWheel;
@@ -25,7 +24,6 @@ public class Shooter extends Subsystem
 	shooterWheel = new CANTalon(4);
 	feederWheel = new CANTalon(5);
 
-	
 	shooterWheel.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 	shooterWheel.configEncoderCodesPerRev(20);
 
@@ -42,7 +40,7 @@ public class Shooter extends Subsystem
 	feederWheel.setD(kD);
 	feederWheel.setCloseLoopRampRate(0.01);
     }
-    
+
     public void initDefaultCommand()
     {
 	// Set the default command for a subsystem here.
@@ -62,12 +60,12 @@ public class Shooter extends Subsystem
 	feederWheel.setControlMode(TalonControlMode.Speed.getValue());
 	feederWheel.set(rpm);
     }
-    
+
     public double getShooterWheelRPM()
     {
 	return SmartDashboard.getNumber(RobotMap.getShooterWheelString);
     }
-    
+
     public double getFeederWheelRPM()
     {
 	return SmartDashboard.getNumber(RobotMap.getFeederWheelString);

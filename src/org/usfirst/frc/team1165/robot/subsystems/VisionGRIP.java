@@ -30,29 +30,29 @@ public class VisionGRIP extends Subsystem
 
     public VisionGRIP()
     {
-	
+
     }
-    
+
     public void findCenter()
     {
 	try
 	{
-	visionThread = new VisionThread(Robot.usbCameras[0], new GripContoursPipeline(), pipeline ->
-	{
-		int i = 0;
-	    if (!pipeline.filterContoursOutput().isEmpty())
+	    visionThread = new VisionThread(Robot.usbCameras[0], new GripContoursPipeline(), pipeline ->
 	    {
-		Rect r = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
-		synchronized (imgLock)
+		int i = 0;
+		if (!pipeline.filterContoursOutput().isEmpty())
 		{
-		    centerX = r.x + (r.width / 2);
-		    SmartDashboard.putNumber("CenterX", i++);
+		    Rect r = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
+		    synchronized (imgLock)
+		    {
+			centerX = r.x + (r.width / 2);
+			SmartDashboard.putNumber("CenterX", i++);
+		    }
 		}
-	    }
-	    SmartDashboard.putNumber("CenterX", i++);
-	});
-	visionThread.start();
-	}catch (Exception e)
+		SmartDashboard.putNumber("CenterX", i++);
+	    });
+	    visionThread.start();
+	} catch (Exception e)
 	{
 	    SmartDashboard.putBoolean("Camera Crashed", true);
 	}

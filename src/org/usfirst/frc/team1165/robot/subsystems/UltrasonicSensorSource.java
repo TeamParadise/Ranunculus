@@ -22,7 +22,7 @@ public class UltrasonicSensorSource extends Subsystem
 
     Ultrasonic ultrasonicLeft;
     Ultrasonic ultrasonicRight;
-    
+
     double previousReading = 0;
     double currentReading;
 
@@ -51,11 +51,11 @@ public class UltrasonicSensorSource extends Subsystem
 	SmartDashboard.putNumber(RobotMap.displayUltrasonicRightString, ultrasonicRight.getRangeInches());
 	inchesPerSecond();
     }
-    
+
     public void inchesPerSecond()
     {
 	currentReading = ultrasonicRight.getRangeInches();
-	SmartDashboard.putNumber("Inches Per Second", (currentReading-previousReading)/0.05);
+	SmartDashboard.putNumber("Inches Per Second", (currentReading - previousReading) / 0.05);
 	previousReading = currentReading;
     }
 

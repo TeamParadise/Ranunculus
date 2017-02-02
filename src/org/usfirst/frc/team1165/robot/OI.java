@@ -19,11 +19,11 @@ public class OI
     // You create one by telling it which joystick it's on and which button
     // number it is.
     public Joystick stick = new Joystick(RobotMap.joystickPort);
-    
+
     JoystickButton shooterRPMButton = new JoystickButton(stick, RobotMap.shooterRPMPortNumber);
 
     JoystickButton ultrasonicPIDButton = new JoystickButton(stick, RobotMap.enableUltrasonicPID);
-    
+
     JoystickButton rotateN180 = new JoystickButton(stick, RobotMap.rotateRobotN180);
     JoystickButton rotate180 = new JoystickButton(stick, RobotMap.rotateRobot180);
     JoystickButton rotateN90 = new JoystickButton(stick, RobotMap.rotateRobotN90);
@@ -42,8 +42,8 @@ public class OI
 	ultrasonicPIDButton.whenPressed(new EnableUltrasonicSetpoint());
 	shooterRPMButton.whileHeld(new DriveShooter());
 	shooterRPMButton.whenReleased(new DriveShooter(true));
-	
-	//Rotate To Heading
+
+	// Rotate To Heading
 	rotateN180.whenPressed(new RotateToHeading(RobotMap.rotateRobotN180));
 	rotate180.whenPressed(new RotateToHeading(RobotMap.rotateRobot180));
 	rotateN90.whenPressed(new RotateToHeading(RobotMap.rotateRobotN90));

@@ -31,7 +31,8 @@ public class DriveWithJoystick extends Command
 	// Reducing sensitivity of Joystick
 	double x = Robot.oi.stick.getX(); // * stick.getX() * stick.getX();
 	double y = Robot.oi.stick.getY(); // * stick.getY() * stick.getY();
-	double twist = Robot.oi.stick.getTwist(); // * stick.getTwist() * stick.getTwist();
+	double twist = Robot.oi.stick.getTwist(); // * stick.getTwist() *
+						  // stick.getTwist();
 	if (Math.abs(x) < 0.1)
 	    x = 0;
 	if (Math.abs(y) < 0.1)

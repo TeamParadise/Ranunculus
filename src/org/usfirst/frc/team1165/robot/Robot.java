@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team1165.robot.commands.DriveWithJoystick;
 import org.usfirst.frc.team1165.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team1165.robot.subsystems.NavX_MXP_PID;
+import org.usfirst.frc.team1165.robot.subsystems.NavX_MXP_Source;
 import org.usfirst.frc.team1165.robot.subsystems.Shooter;
 import org.usfirst.frc.team1165.robot.subsystems.UltrasonicPID;
 import org.usfirst.frc.team1165.robot.subsystems.UltrasonicSensorSource;
@@ -32,6 +33,7 @@ public class Robot extends IterativeRobot
     public static final DriveTrain driveTrain = new DriveTrain();
     public static final UltrasonicSensorSource ultrasonicSensorSource = new UltrasonicSensorSource();
     public static final UltrasonicPID ultrasonicPID = new UltrasonicPID();
+    public static final NavX_MXP_Source navXSource = new NavX_MXP_Source();
     public static final Shooter shooter = new Shooter();
     public static final NavX_MXP_PID navX = new NavX_MXP_PID();
 

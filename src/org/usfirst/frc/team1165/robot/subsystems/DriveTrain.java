@@ -17,8 +17,6 @@ public class DriveTrain extends Subsystem
     CANTalon rearLeft = new CANTalon(1);
     CANTalon frontRight = new CANTalon(2);
     CANTalon rearRight = new CANTalon(3);
-    
- 
 
     public RobotDrive robotDrive;
 
