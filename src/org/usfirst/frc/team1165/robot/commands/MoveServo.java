@@ -1,17 +1,17 @@
 package org.usfirst.frc.team1165.robot.commands;
 
 import org.usfirst.frc.team1165.robot.Robot;
+import org.usfirst.frc.team1165.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-
-public class ReportUltrasonicValues extends Command
+public class MoveServo extends Command
 {
-
-    public ReportUltrasonicValues()
+    private double angle;
+    public MoveServo(double angle)
     {
-	// Use requires() here to declare subsystem dependencies
-	requires(Robot.ultrasonicSensorSource);
+	this.angle = angle;
+	requires(Robot.servo);
     }
 
     // Called just before this Command runs the first time
@@ -22,13 +22,13 @@ public class ReportUltrasonicValues extends Command
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
-	Robot.ultrasonicSensorSource.reportValues();
+	Robot.servo.setServoPosition(Robot.servo.findServoAngle());
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished()
     {
-	return false;
+	return true;
     }
 
     // Called once after isFinished returns true

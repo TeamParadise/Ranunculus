@@ -10,7 +10,7 @@ public class ReportNavXValues extends Command
     public ReportNavXValues()
     {
 	// Use requires() here to declare subsystem dependencies
-	requires(Robot.navX);
+	requires(Robot.navXSource);
     }
 
     // Called just before this Command runs the first time
@@ -21,6 +21,7 @@ public class ReportNavXValues extends Command
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
+	Robot.navXSource.report();
     }
 
     // Make this return true when this Command no longer needs to run execute()

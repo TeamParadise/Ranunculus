@@ -21,6 +21,12 @@ public class RobotMap
     public static final int ultrasonicLeftEchoChannel = 1;
     public static final int ultrasonicRightPingChannel = 2;
     public static final int ultrasonicRightEchoChannel = 3;
+    
+    public static final int shooterWheelPortNumber = 4;
+    public static final int feederWheelPortNumber = 5;
+    
+    public static final int rightServoPortNumber = 0;
+    public static final int rightServoButtonNumber = 11;
 
     public static final int rotateRobotN180 = 3;
     public static final int rotateRobot180 = 4;
@@ -30,7 +36,7 @@ public class RobotMap
     public static final int enableUltrasonicPID = 10;
 
     public static final String getShooterWheelString = "Shooter Wheel RPM";
-    public static final String getFeederWheelString = "Shooter Wheel RPM";
+    public static final String getFeederWheelString = "Feeder Wheel RPM";
 
     public static final String displayShooterWheelString = "Display Shooter Wheel RPM";
     public static final String displayFeederWheelString = "Display Feeder Wheel RPM";

@@ -4,31 +4,34 @@ import org.usfirst.frc.team1165.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-
-public class ReportUltrasonicValues extends Command
+/**
+ *
+ */
+public class ToggleServo extends Command
 {
 
-    public ReportUltrasonicValues()
+    public ToggleServo()
     {
 	// Use requires() here to declare subsystem dependencies
-	requires(Robot.ultrasonicSensorSource);
+	requires(Robot.servo);
     }
 
     // Called just before this Command runs the first time
     protected void initialize()
     {
+	Robot.servo.toggleServo();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
-	Robot.ultrasonicSensorSource.reportValues();
+	//Nothing to do. Servo has been toggled
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished()
     {
-	return false;
+	return true;
     }
 
     // Called once after isFinished returns true

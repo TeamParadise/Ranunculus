@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1165.robot.subsystems;
 
+import org.usfirst.frc.team1165.robot.Robot;
 import org.usfirst.frc.team1165.robot.commands.DriveWithJoystick;
 
 import com.ctre.CANTalon;
@@ -7,10 +8,8 @@ import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-/**
- *
- */
 public class DriveTrain extends Subsystem
 {
     CANTalon frontLeft = new CANTalon(0);
@@ -37,5 +36,7 @@ public class DriveTrain extends Subsystem
     public void driveCartesian(double x, double y, double twist, double gyroAngle)
     {
 	robotDrive.mecanumDrive_Cartesian(x, y, twist, gyroAngle);
+	//SmartDashboard.putNumber("Heading", Robot.navXSource.getHeading());
+
     }
 }

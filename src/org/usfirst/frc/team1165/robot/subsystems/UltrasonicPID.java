@@ -5,9 +5,6 @@ import org.usfirst.frc.team1165.robot.subsystems.UltrasonicSensorSource.StrafeTy
 
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
-/**
- *
- */
 public class UltrasonicPID extends PIDSubsystem
 {
     // proportional speed constant

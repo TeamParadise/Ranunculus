@@ -23,6 +23,10 @@ public class Shooter extends Subsystem
     {
 	shooterWheel = new CANTalon(4);
 	feederWheel = new CANTalon(5);
+	
+	//Intentionally set different from one another
+	shooterWheel.setInverted(true);
+	feederWheel.setInverted(true);
 
 	shooterWheel.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 	shooterWheel.configEncoderCodesPerRev(20);
@@ -51,6 +55,7 @@ public class Shooter extends Subsystem
     // here. Call these from Commands.
     public void driveShooterWheelAtRPM(double rpm)
     {
+	SmartDashboard.putNumber("RPM in Drive Function", rpm);
 	shooterWheel.setControlMode(TalonControlMode.Speed.getValue());
 	shooterWheel.set(rpm);
     }

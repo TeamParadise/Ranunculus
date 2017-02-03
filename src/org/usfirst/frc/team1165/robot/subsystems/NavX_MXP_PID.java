@@ -24,10 +24,10 @@ public class NavX_MXP_PID extends PIDSubsystem
     private static final double kD = 0.00;
 
     public double rotateToAngleRate = 0;
-    /*
-     * This tuning parameter indicates how close to "on target" the PID
-     * Controller will attempt to get.
-     */
+    
+    /* * This tuning parameter indicates how close to "on target" the PID
+     * Controller will attempt to get.*/
+     
     static final double kToleranceDegrees = 2.0f;
 
     // Initialize your subsystem here
@@ -43,7 +43,6 @@ public class NavX_MXP_PID extends PIDSubsystem
     public void initDefaultCommand()
     {
 	// Set the default command for a subsystem here.
-	setDefaultCommand(new ReportNavXValues());
     }
 
     public void setSetpoint(double setpoint)
@@ -56,13 +55,14 @@ public class NavX_MXP_PID extends PIDSubsystem
 	// Return your input value for the PID loop
 	// e.g. a sensor, like a potentiometer:
 	// yourPot.getAverageVoltage() / kYourMaxVoltage;
-	return Robot.navXSource.getHeading();
+	return Robot.navXSource.pidInput();
     }
 
     protected void usePIDOutput(double output)
     {
 	// Use output to drive your system, like a motor
 	rotateToAngleRate = output;
+	SmartDashboard.putNumber("PID Output", output);
 	Robot.driveTrain.driveCartesian(Robot.oi.stick.getX(), Robot.oi.stick.getY(), Robot.navX.rotateToAngleRate,
 		Robot.navXSource.getHeading());
     }

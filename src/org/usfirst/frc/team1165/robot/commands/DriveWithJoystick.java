@@ -6,9 +6,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team1165.robot.Robot;
 import org.usfirst.frc.team1165.robot.RobotMap;
 
-/**
- *
- */
 public class DriveWithJoystick extends Command
 {
 

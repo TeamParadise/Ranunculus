@@ -9,9 +9,6 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-/**
- *
- */
 public class NavX_MXP_Source extends Subsystem
 {
 
@@ -32,8 +29,8 @@ public class NavX_MXP_Source extends Subsystem
     {
 	try
 	{
-	    /*
-	     * Communicate w/navX-MXP via the MXP SPI Bus.
+	    
+	   /*  * Communicate w/navX-MXP via the MXP SPI Bus.
 	     * 
 	     * Alternatively: I2C.Port.kMXP, SerialPort.Port.kMXP or
 	     * SerialPort.Port.kUSB
@@ -41,8 +38,8 @@ public class NavX_MXP_Source extends Subsystem
 	     * 
 	     * See
 	     * http://navx-mxp.kauailabs.com/guidance/selecting-an-interface/
-	     * for details.
-	     */
+	     * for details.*/
+	     
 	    ahrs = new AHRS(SPI.Port.kMXP);
 	} catch (RuntimeException ex)
 	{
@@ -54,7 +51,6 @@ public class NavX_MXP_Source extends Subsystem
 	// Set the default command for a subsystem here.
 	setDefaultCommand(new ReportNavXValues());
     }
-    
 
     public void reset()
     {
@@ -63,7 +59,7 @@ public class NavX_MXP_Source extends Subsystem
 
     public double getHeading()
     {
-	return ahrs.getAngle();
+	return ahrs.getAngle()%360;
     }
 
     // Collision Detection Feature (Very Experimental)
@@ -99,9 +95,16 @@ public class NavX_MXP_Source extends Subsystem
 	SmartDashboard.putNumber("CollisionDetected", collisionDetected);
 	return false;
     }
+    
+    public double pidInput()
+    {
+	return ahrs.pidGet();
+    }
     public void report()
     {
-	SmartDashboard.putNumber("Gyro Angle", ahrs.getAngle());
+	SmartDashboard.putNumber("Gyro Angle", getHeading());
+	SmartDashboard.putNumber("Acceleration Y", ahrs.getRawAccelX());
+	SmartDashboard.putNumber("Raw Mag z", ahrs.getRawMagZ());
+	SmartDashboard.putNumber("PID Get", ahrs.pidGet());
     }
-
 }

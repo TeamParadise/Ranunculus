@@ -13,7 +13,7 @@ public class RotateToHeading extends Command
     public static boolean rotateToAngle = false;
     
     public double targetHeading;
-    public double currentHeading;
+    public double initialHeading;
 
     public RotateToHeading(int buttonNumber)
     {
@@ -23,8 +23,6 @@ public class RotateToHeading extends Command
 	this.buttonNumber = buttonNumber;
 	try
 	{
-	    SmartDashboard.putNumber("Finished Initialize", 0);
-	    SmartDashboard.putNumber("Finished Initialize", 1);
 	    if (buttonNumber == 3)
 		targetHeading = -179.9f;
 	    else if (buttonNumber == 4)
@@ -33,13 +31,12 @@ public class RotateToHeading extends Command
 		targetHeading = -90f;
 	    else if (buttonNumber == 6)
 		targetHeading = 90.0f;
-	    SmartDashboard.putNumber("Finished Initialize", 2);
-	    SmartDashboard.putNumber("Finished Initialize", 3);
 	} catch (Exception e)
 	{
 	    DriverStation.reportError(e.getMessage(), false);
 	}
 	SmartDashboard.putNumber("Button Number", buttonNumber);
+	initialHeading = Robot.navXSource.getHeading();
     }
 
     // Called just before this Command runs the first time
@@ -54,8 +51,8 @@ public class RotateToHeading extends Command
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
-	currentHeading = Robot.navXSource.getHeading();
-	SmartDashboard.putNumber("Heading", Robot.navXSource.getHeading());
+	SmartDashboard.putNumber("Initial Heading", initialHeading);
+	SmartDashboard.putNumber("Absolute Difference",  Math.abs(Robot.navXSource.pidInput()-targetHeading));
     }
 
     // Make this return true when this Command no longer needs to run execute()

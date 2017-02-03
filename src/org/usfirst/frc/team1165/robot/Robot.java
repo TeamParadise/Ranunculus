@@ -1,4 +1,3 @@
-
 package org.usfirst.frc.team1165.robot;
 
 import edu.wpi.cscore.UsbCamera;
@@ -11,10 +10,10 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team1165.robot.commands.DriveWithJoystick;
 import org.usfirst.frc.team1165.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team1165.robot.subsystems.NavX_MXP_PID;
 import org.usfirst.frc.team1165.robot.subsystems.NavX_MXP_Source;
+import org.usfirst.frc.team1165.robot.subsystems.ServoSystem;
 import org.usfirst.frc.team1165.robot.subsystems.Shooter;
 import org.usfirst.frc.team1165.robot.subsystems.UltrasonicPID;
 import org.usfirst.frc.team1165.robot.subsystems.UltrasonicSensorSource;
@@ -29,11 +28,11 @@ import org.usfirst.frc.team1165.robot.subsystems.VisionGRIP;
  */
 public class Robot extends IterativeRobot
 {
-
     public static final DriveTrain driveTrain = new DriveTrain();
     public static final UltrasonicSensorSource ultrasonicSensorSource = new UltrasonicSensorSource();
     public static final UltrasonicPID ultrasonicPID = new UltrasonicPID();
     public static final NavX_MXP_Source navXSource = new NavX_MXP_Source();
+    public static final ServoSystem servo = new ServoSystem();
     public static final Shooter shooter = new Shooter();
     public static final NavX_MXP_PID navX = new NavX_MXP_PID();
 
@@ -56,10 +55,11 @@ public class Robot extends IterativeRobot
     public void robotInit()
     {
 	oi = new OI();
-	chooser.addDefault("Default Auto", new DriveWithJoystick());
+	//chooser.addDefault("Default Auto", new DriveWithJoystick());
 	// chooser.addObject("My Auto", new MyAutoCommand());
-	SmartDashboard.putNumber(RobotMap.getFeederWheelString, 1200);
+	
 	SmartDashboard.putNumber(RobotMap.getShooterWheelString, 1200);
+	SmartDashboard.putNumber(RobotMap.getFeederWheelString, 1200);
 	SmartDashboard.putData("Auto mode", chooser);
 	SmartDashboard.putBoolean("Camera Crashed", false);
 
@@ -153,7 +153,7 @@ public class Robot extends IterativeRobot
 	// this line or comment it out.
 	if (autonomousCommand != null)
 	    autonomousCommand.cancel();
-	visionGRIP = new VisionGRIP();
+	//visionGRIP = new VisionGRIP();
     }
 
     /**
