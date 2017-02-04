@@ -7,38 +7,39 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class MoveServo extends Command
 {
-    private double angle;
-    public MoveServo(double angle)
-    {
-	this.angle = angle;
-	requires(Robot.servo);
-    }
+	private double angle;
 
-    // Called just before this Command runs the first time
-    protected void initialize()
-    {
-    }
+	public MoveServo(double angle)
+	{
+		this.angle = angle;
+		requires(Robot.servo);
+	}
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute()
-    {
-	Robot.servo.setServoPosition(Robot.servo.findServoAngle());
-    }
+	// Called just before this Command runs the first time
+	protected void initialize()
+	{
+	}
 
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished()
-    {
-	return true;
-    }
+	// Called repeatedly when this Command is scheduled to run
+	protected void execute()
+	{
+		Robot.servo.setServoPosition(Robot.servo.findServoAngle());
+	}
 
-    // Called once after isFinished returns true
-    protected void end()
-    {
-    }
+	// Make this return true when this Command no longer needs to run execute()
+	protected boolean isFinished()
+	{
+		return true;
+	}
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted()
-    {
-    }
+	// Called once after isFinished returns true
+	protected void end()
+	{
+	}
+
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
+	protected void interrupted()
+	{
+	}
 }

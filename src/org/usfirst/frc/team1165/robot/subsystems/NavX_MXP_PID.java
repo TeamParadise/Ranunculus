@@ -17,44 +17,46 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class NavX_MXP_PID implements PIDOutput
 
 {
-    // proportional speed constant
-    private static final double kP = 0.03;
+	// proportional speed constant
+	private static final double kP = 0.03;
 
-    // integral speed constant
-    private static final double kI = 0.01;
+	// integral speed constant
+	private static final double kI = 0.01;
 
-    // derivative speed constant
-    private static final double kD = 0.03;
+	// derivative speed constant
+	private static final double kD = 0.03;
 
-    public double rotateToAngleRate = 0;
-    
-    /* * This tuning parameter indicates how close to "on target" the PID
-     * Controller will attempt to get.*/
-     
-    public static final double kToleranceDegrees = 2.0f;
-    
-    public PIDController navXController;
+	public double rotateToAngleRate = 0;
 
-    // Initialize your subsystem here
-    public NavX_MXP_PID()
-    {
-	navXController = new PIDController(kP, kI, kD, Robot.navXSource.ahrs, this);
-	navXController.setInputRange(-180.0f, 180.0f);
-	navXController.setOutputRange(-0.25, 0.25);
-	navXController.setAbsoluteTolerance(kToleranceDegrees);
-	navXController.setContinuous(true);
-    }
+	/*
+	 * * This tuning parameter indicates how close to "on target" the PID
+	 * Controller will attempt to get.
+	 */
 
-    public void initDefaultCommand()
-    {
-	// Set the default command for a subsystem here.
-    }
+	public static final double kToleranceDegrees = 2.0f;
 
-    @Override
-    public void pidWrite(double output)
-    {
-	// TODO Auto-generated method stub
-	SmartDashboard.putNumber("PID Output", output);
-	rotateToAngleRate = output;
-    }
+	public PIDController navXController;
+
+	// Initialize your subsystem here
+	public NavX_MXP_PID()
+	{
+		navXController = new PIDController(kP, kI, kD, Robot.navXSource.ahrs, this);
+		navXController.setInputRange(-180.0f, 180.0f);
+		navXController.setOutputRange(-0.25, 0.25);
+		navXController.setAbsoluteTolerance(kToleranceDegrees);
+		navXController.setContinuous(true);
+	}
+
+	public void initDefaultCommand()
+	{
+		// Set the default command for a subsystem here.
+	}
+
+	@Override
+	public void pidWrite(double output)
+	{
+		// TODO Auto-generated method stub
+		SmartDashboard.putNumber("PID Output", output);
+		rotateToAngleRate = output;
+	}
 }

@@ -19,53 +19,53 @@ import edu.wpi.first.wpilibj.vision.VisionRunner;
 public class VisionGRIP extends Subsystem
 {
 
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
-    private static final int IMG_WIDTH = 320;
-    private static final int IMG_HEIGHT = 240;
-    public int centerX = 0;
+	// Put methods for controlling this subsystem
+	// here. Call these from Commands.
+	private static final int IMG_WIDTH = 320;
+	private static final int IMG_HEIGHT = 240;
+	public int centerX = 0;
 
-    private VisionThread visionThread;
-    private final Object imgLock = new Object();
+	private VisionThread visionThread;
+	private final Object imgLock = new Object();
 
-    public VisionGRIP()
-    {
-
-    }
-
-    public void findCenter()
-    {
-	try
+	public VisionGRIP()
 	{
-	    visionThread = new VisionThread(Robot.usbCameras[0], new GripContoursPipeline(), pipeline ->
-	    {
-		int i = 0;
-		if (!pipeline.filterContoursOutput().isEmpty())
-		{
-		    Rect r = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
-		    synchronized (imgLock)
-		    {
-			centerX = r.x + (r.width / 2);
-			SmartDashboard.putNumber("CenterX", i++);
-		    }
-		}
-		SmartDashboard.putNumber("CenterX", i++);
-	    });
-	    visionThread.start();
-	} catch (Exception e)
-	{
-	    SmartDashboard.putBoolean("Camera Crashed", true);
+
 	}
-    }
 
-    public void displayCenter()
-    {
-	SmartDashboard.putNumber("Center X", centerX);
-    }
+	public void findCenter()
+	{
+		try
+		{
+			visionThread = new VisionThread(Robot.usbCameras[0], new GripContoursPipeline(), pipeline ->
+			{
+				int i = 0;
+				if (!pipeline.filterContoursOutput().isEmpty())
+				{
+					Rect r = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
+					synchronized (imgLock)
+					{
+						centerX = r.x + (r.width / 2);
+						SmartDashboard.putNumber("CenterX", i++);
+					}
+				}
+				SmartDashboard.putNumber("CenterX", i++);
+			});
+			visionThread.start();
+		} catch (Exception e)
+		{
+			SmartDashboard.putBoolean("Camera Crashed", true);
+		}
+	}
 
-    public void initDefaultCommand()
-    {
-	// Set the default command for a subsystem here.
-	setDefaultCommand(new DisplayContourCenter());
-    }
+	public void displayCenter()
+	{
+		SmartDashboard.putNumber("Center X", centerX);
+	}
+
+	public void initDefaultCommand()
+	{
+		// Set the default command for a subsystem here.
+		setDefaultCommand(new DisplayContourCenter());
+	}
 }

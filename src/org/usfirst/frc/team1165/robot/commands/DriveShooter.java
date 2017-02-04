@@ -10,48 +10,48 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveShooter extends Command
 {
-    public DriveShooter()
-    {
-	// Use requires() here to declare subsystem dependencies
-	requires(Robot.shooter);
-    }
+	public DriveShooter()
+	{
+		// Use requires() here to declare subsystem dependencies
+		requires(Robot.shooter);
+	}
 
-    // Called just before this Command runs the first time
-    protected void initialize()
-    {
-    }
+	// Called just before this Command runs the first time
+	protected void initialize()
+	{
+	}
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute()
-    {
-	if (SmartDashboard.getNumber(RobotMap.displayFeederWheelString) == 0)
-	    Robot.shooter.setFeederWheelSpeed(0.85);
-	else
-	    Robot.shooter.driveFeederWheelAtRPM(Robot.shooter.getFeederWheelRPM());
+	// Called repeatedly when this Command is scheduled to run
+	protected void execute()
+	{
+		if (SmartDashboard.getNumber(RobotMap.displayFeederWheelString) == 0)
+			Robot.shooter.setFeederWheelSpeed(0.85);
+		else
+			Robot.shooter.driveFeederWheelAtRPM(Robot.shooter.getFeederWheelRPM());
 
-	if (SmartDashboard.getNumber(RobotMap.displayShooterWheelString) == 0)
-	    Robot.shooter.setShooterWheelSpeed(0.90);
-	else
-	    Robot.shooter.driveShooterWheelAtRPM(Robot.shooter.getShooterWheelRPM());
-	Robot.shooter.report();
-    }
+		if (SmartDashboard.getNumber(RobotMap.displayShooterWheelString) == 0)
+			Robot.shooter.setShooterWheelSpeed(0.90);
+		else
+			Robot.shooter.driveShooterWheelAtRPM(Robot.shooter.getShooterWheelRPM());
+		Robot.shooter.report();
+	}
 
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished()
-    {
-	return !Robot.oi.stick.getRawButton(RobotMap.shooterRPMPortNumber);
-    }
+	// Make this return true when this Command no longer needs to run execute()
+	protected boolean isFinished()
+	{
+		return !Robot.oi.stick.getRawButton(RobotMap.shooterRPMPortNumber);
+	}
 
-    // Called once after isFinished returns true
-    protected void end()
-    {
-	Robot.shooter.feederWheel.set(0);
-	Robot.shooter.shooterWheel.set(0);
-    }
+	// Called once after isFinished returns true
+	protected void end()
+	{
+		Robot.shooter.feederWheel.set(0);
+		Robot.shooter.shooterWheel.set(0);
+	}
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted()
-    {
-    }
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
+	protected void interrupted()
+	{
+	}
 }

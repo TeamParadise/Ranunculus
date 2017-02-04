@@ -12,88 +12,88 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Shooter extends Subsystem
 {
-    public CANTalon shooterWheel;
-    public CANTalon feederWheel;
+	public CANTalon shooterWheel;
+	public CANTalon feederWheel;
 
-    public static final double kP = 0.75;
-    public static final double kI = 0.01;
-    public static final double kD = 0.75;
+	public static final double kP = 0.75;
+	public static final double kI = 0.01;
+	public static final double kD = 0.75;
 
-    public Shooter()
-    {
-	shooterWheel = new CANTalon(4);
-	feederWheel = new CANTalon(5);
-	
-	//Intentionally set different from one another
-	shooterWheel.setInverted(true);
-	feederWheel.setInverted(true);
+	public Shooter()
+	{
+		shooterWheel = new CANTalon(4);
+		feederWheel = new CANTalon(5);
 
-	shooterWheel.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-	shooterWheel.configEncoderCodesPerRev(20);
+		// Intentionally set different from one another
+		shooterWheel.setInverted(true);
+		feederWheel.setInverted(true);
 
-	feederWheel.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-	feederWheel.configEncoderCodesPerRev(20);
+		shooterWheel.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+		shooterWheel.configEncoderCodesPerRev(20);
 
-	shooterWheel.setP(kP);
-	shooterWheel.setI(kI);
-	shooterWheel.setD(kD);
-	shooterWheel.setCloseLoopRampRate(0.01);
+		feederWheel.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+		feederWheel.configEncoderCodesPerRev(20);
 
-	feederWheel.setP(kP);
-	feederWheel.setI(kI);
-	feederWheel.setD(kD);
-	feederWheel.setCloseLoopRampRate(0.01);
-	
-	shooterWheel.enable();
-	feederWheel.enable();
-    }
+		shooterWheel.setP(kP);
+		shooterWheel.setI(kI);
+		shooterWheel.setD(kD);
+		shooterWheel.setCloseLoopRampRate(0.01);
 
-    public void initDefaultCommand()
-    {
-	// Set the default command for a subsystem here.
-	setDefaultCommand(new ReportShooterValues());
-    }
+		feederWheel.setP(kP);
+		feederWheel.setI(kI);
+		feederWheel.setD(kD);
+		feederWheel.setCloseLoopRampRate(0.01);
 
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
-    public void driveShooterWheelAtRPM(double rpm)
-    {
-	SmartDashboard.putNumber("RPM in Drive Function", rpm);
-	shooterWheel.setControlMode(TalonControlMode.Speed.getValue());
-	shooterWheel.set(rpm);
-    }
+		shooterWheel.enable();
+		feederWheel.enable();
+	}
 
-    public void setShooterWheelSpeed(double speed)
-    {
-	shooterWheel.changeControlMode(TalonControlMode.PercentVbus);
-	shooterWheel.set(speed);
-    }
-    
-    public void setFeederWheelSpeed(double speed)
-    {
-	feederWheel.changeControlMode(TalonControlMode.PercentVbus);
-	feederWheel.set(speed);
-    }
-    
-    public void driveFeederWheelAtRPM(double rpm)
-    {
-	feederWheel.setControlMode(TalonControlMode.Speed.getValue());
-	feederWheel.set(rpm);
-    }
+	public void initDefaultCommand()
+	{
+		// Set the default command for a subsystem here.
+		setDefaultCommand(new ReportShooterValues());
+	}
 
-    public double getShooterWheelRPM()
-    {
-	return SmartDashboard.getNumber(RobotMap.getShooterWheelString);
-    }
+	// Put methods for controlling this subsystem
+	// here. Call these from Commands.
+	public void driveShooterWheelAtRPM(double rpm)
+	{
+		SmartDashboard.putNumber("RPM in Drive Function", rpm);
+		shooterWheel.setControlMode(TalonControlMode.Speed.getValue());
+		shooterWheel.set(rpm);
+	}
 
-    public double getFeederWheelRPM()
-    {
-	return SmartDashboard.getNumber(RobotMap.getFeederWheelString);
-    }
+	public void setShooterWheelSpeed(double speed)
+	{
+		shooterWheel.changeControlMode(TalonControlMode.PercentVbus);
+		shooterWheel.set(speed);
+	}
 
-    public void report()
-    {
-	SmartDashboard.putNumber(RobotMap.displayShooterWheelString, shooterWheel.getSpeed());
-	SmartDashboard.putNumber(RobotMap.displayFeederWheelString, feederWheel.getSpeed());
-    }
+	public void setFeederWheelSpeed(double speed)
+	{
+		feederWheel.changeControlMode(TalonControlMode.PercentVbus);
+		feederWheel.set(speed);
+	}
+
+	public void driveFeederWheelAtRPM(double rpm)
+	{
+		feederWheel.setControlMode(TalonControlMode.Speed.getValue());
+		feederWheel.set(rpm);
+	}
+
+	public double getShooterWheelRPM()
+	{
+		return SmartDashboard.getNumber(RobotMap.getShooterWheelString);
+	}
+
+	public double getFeederWheelRPM()
+	{
+		return SmartDashboard.getNumber(RobotMap.getFeederWheelString);
+	}
+
+	public void report()
+	{
+		SmartDashboard.putNumber(RobotMap.displayShooterWheelString, shooterWheel.getSpeed());
+		SmartDashboard.putNumber(RobotMap.displayFeederWheelString, feederWheel.getSpeed());
+	}
 }
