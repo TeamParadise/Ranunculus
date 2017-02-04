@@ -17,7 +17,10 @@ import org.usfirst.frc.team1165.robot.subsystems.ServoSystem;
 import org.usfirst.frc.team1165.robot.subsystems.Shooter;
 import org.usfirst.frc.team1165.robot.subsystems.UltrasonicPID;
 import org.usfirst.frc.team1165.robot.subsystems.UltrasonicSensorSource;
-import org.usfirst.frc.team1165.robot.subsystems.VisionGRIP;
+import org.usfirst.frc.team1165.robot.subsystems.VisionGRIPSource;
+import org.usfirst.frc.team1165.robot.subsystems.VisionPID;
+
+import Util.GripContoursPipeline;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -35,13 +38,15 @@ public class Robot extends IterativeRobot
 	public static final ServoSystem servo = new ServoSystem();
 	public static final Shooter shooter = new Shooter();
 	public static final NavX_MXP_PID navX = new NavX_MXP_PID();
+	public static final GripContoursPipeline pipeline = new GripContoursPipeline();
+	public static final VisionPID visionPID = new VisionPID();
 
 	private final int usbCameraImageWidth = 640;
 	private final int usbCameraImageHeight = 480;
 	private final int usbCameraFrameRate = 10;
 	public static UsbCamera usbCameras[];
 
-	public static VisionGRIP visionGRIP;
+	public static VisionGRIPSource visionGRIP;
 	public static OI oi;
 
 	Command autonomousCommand;
@@ -153,7 +158,7 @@ public class Robot extends IterativeRobot
 		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
-		// visionGRIP = new VisionGRIP();
+		visionGRIP = new VisionGRIPSource();
 	}
 
 	/**

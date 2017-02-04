@@ -2,6 +2,7 @@ package org.usfirst.frc.team1165.robot;
 
 import org.usfirst.frc.team1165.robot.commands.DriveShooter;
 import org.usfirst.frc.team1165.robot.commands.EnableUltrasonicSetpoint;
+import org.usfirst.frc.team1165.robot.commands.LineWithVisionTape;
 import org.usfirst.frc.team1165.robot.commands.RotateToHeading;
 import org.usfirst.frc.team1165.robot.commands.ToggleServo;
 
@@ -24,6 +25,8 @@ public class OI
 	JoystickButton shooterRPMButton = new JoystickButton(stick, RobotMap.shooterRPMPortNumber);
 
 	JoystickButton ultrasonicPIDButton = new JoystickButton(stick, RobotMap.enableUltrasonicPID);
+	
+	JoystickButton visionPIDButton = new JoystickButton(stick, RobotMap.enableVisionPID);
 
 	JoystickButton servoButton = new JoystickButton(stick, RobotMap.rightServoButtonNumber);
 	JoystickButton rotateN180 = new JoystickButton(stick, RobotMap.rotateRobotN180);
@@ -45,6 +48,8 @@ public class OI
 		ultrasonicPIDButton.whenPressed(new EnableUltrasonicSetpoint());
 
 		servoButton.whenPressed(new ToggleServo());
+		
+		visionPIDButton.whenPressed(new LineWithVisionTape());
 		// Rotate To Heading
 		rotateN180.whenPressed(new RotateToHeading(RobotMap.rotateRobotN180));
 		rotate180.whenPressed(new RotateToHeading(RobotMap.rotateRobot180));

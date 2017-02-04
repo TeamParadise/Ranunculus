@@ -33,7 +33,7 @@ public class GripContoursPipeline implements VisionPipeline
 	private Mat hsvThresholdOutput = new Mat();
 	private Mat blurOutput = new Mat();
 	private ArrayList<MatOfPoint> findContoursOutput = new ArrayList<MatOfPoint>();
-	private ArrayList<MatOfPoint> filterContoursOutput = new ArrayList<MatOfPoint>();
+	public ArrayList<MatOfPoint> filterContoursOutput = new ArrayList<MatOfPoint>();
 
 	static
 	{
@@ -49,9 +49,9 @@ public class GripContoursPipeline implements VisionPipeline
 	{
 		// Step HSV_Threshold0:
 		Mat hsvThresholdInput = source0;
-		double[] hsvThresholdHue = { 3.425554299174368, 47.90182311347448 };
-		double[] hsvThresholdSaturation = { 0.0, 37.4232081911263 };
-		double[] hsvThresholdValue = { 243.07553956834533, 255.0 };
+		double[] hsvThresholdHue = { 46.94244604316547, 87.84982935153585 };
+		double[] hsvThresholdSaturation = { 0.0, 87.46587030716726 };
+		double[] hsvThresholdValue = { 215.5575539568345, 255.0 };
 		hsvThreshold(hsvThresholdInput, hsvThresholdHue, hsvThresholdSaturation, hsvThresholdValue, hsvThresholdOutput);
 
 		// Step Blur0:

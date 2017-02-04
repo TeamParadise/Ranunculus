@@ -32,6 +32,8 @@ public class RobotMap
 	public static final int rotateRobot180 = 4;
 	public static final int rotateRobotN90 = 5;
 	public static final int rotateRobot90 = 6;
+	
+	public static final int enableVisionPID = 12;
 
 	public static final int enableUltrasonicPID = 10;
 
