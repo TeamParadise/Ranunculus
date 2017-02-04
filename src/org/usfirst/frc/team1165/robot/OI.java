@@ -41,8 +41,7 @@ public class OI
     // three ways:
     public OI()
     {
-	shooterRPMButton.whileHeld(new DriveShooter(false));
-	shooterRPMButton.whenReleased(new DriveShooter(true));
+	shooterRPMButton.whenPressed(new DriveShooter());
 	ultrasonicPIDButton.whenPressed(new EnableUltrasonicSetpoint());
 	
 	servoButton.whenPressed(new ToggleServo());

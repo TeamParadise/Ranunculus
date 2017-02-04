@@ -58,8 +58,8 @@ public class Robot extends IterativeRobot
 	//chooser.addDefault("Default Auto", new DriveWithJoystick());
 	// chooser.addObject("My Auto", new MyAutoCommand());
 	
-	SmartDashboard.putNumber(RobotMap.getShooterWheelString, 1200);
-	SmartDashboard.putNumber(RobotMap.getFeederWheelString, 1200);
+	SmartDashboard.putNumber(RobotMap.getShooterWheelString, 3500);
+	SmartDashboard.putNumber(RobotMap.getFeederWheelString, 2400);
 	SmartDashboard.putData("Auto mode", chooser);
 	SmartDashboard.putBoolean("Camera Crashed", false);
 

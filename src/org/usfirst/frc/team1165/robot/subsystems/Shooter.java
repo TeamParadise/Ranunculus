@@ -43,6 +43,9 @@ public class Shooter extends Subsystem
 	feederWheel.setI(kI);
 	feederWheel.setD(kD);
 	feederWheel.setCloseLoopRampRate(0.01);
+	
+	shooterWheel.enable();
+	feederWheel.enable();
     }
 
     public void initDefaultCommand()
@@ -60,6 +63,18 @@ public class Shooter extends Subsystem
 	shooterWheel.set(rpm);
     }
 
+    public void setShooterWheelSpeed(double speed)
+    {
+	shooterWheel.changeControlMode(TalonControlMode.PercentVbus);
+	shooterWheel.set(speed);
+    }
+    
+    public void setFeederWheelSpeed(double speed)
+    {
+	feederWheel.changeControlMode(TalonControlMode.PercentVbus);
+	feederWheel.set(speed);
+    }
+    
     public void driveFeederWheelAtRPM(double rpm)
     {
 	feederWheel.setControlMode(TalonControlMode.Speed.getValue());

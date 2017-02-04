@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1165.robot.commands;
 
 import org.usfirst.frc.team1165.robot.Robot;
+import org.usfirst.frc.team1165.robot.subsystems.NavX_MXP_PID;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
@@ -19,14 +20,13 @@ public class RotateToHeading extends Command
     {
 	// Use requires() here to declare subsystem dependencies
 	requires(Robot.driveTrain);
-	requires(Robot.navX);
 	this.buttonNumber = buttonNumber;
 	try
 	{
 	    if (buttonNumber == 3)
 		targetHeading = -179.9f;
 	    else if (buttonNumber == 4)
-		Robot.navX.setSetpoint(179.9f);
+		targetHeading = 179.9f;
 	    else if (buttonNumber == 5)
 		targetHeading = -90f;
 	    else if (buttonNumber == 6)
@@ -35,36 +35,41 @@ public class RotateToHeading extends Command
 	{
 	    DriverStation.reportError(e.getMessage(), false);
 	}
-	SmartDashboard.putNumber("Button Number", buttonNumber);
+	//SmartDashboard.putNumber("Button Number", buttonNumber);
 	initialHeading = Robot.navXSource.getHeading();
     }
 
     // Called just before this Command runs the first time
     protected void initialize()
     {
-	Robot.navX.disable();
+	Robot.navX.navXController.disable();
 	Robot.navXSource.reset();
-	Robot.navX.setSetpoint(targetHeading);
-	Robot.navX.enable();
+	Robot.navX.navXController.setSetpoint(targetHeading);
+	Robot.navX.navXController.enable();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
 	SmartDashboard.putNumber("Initial Heading", initialHeading);
-	SmartDashboard.putNumber("Absolute Difference",  Math.abs(Robot.navXSource.pidInput()-targetHeading));
+	SmartDashboard.putNumber("Target Heading", targetHeading);
+	SmartDashboard.putNumber("Target Difference", Robot.navXSource.pidInput() - targetHeading);
+	
+	Robot.driveTrain.driveCartesian(Robot.oi.stick.getX(), Robot.oi.stick.getY(), Robot.navX.rotateToAngleRate,
+		Robot.navXSource.getHeading());
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished()
     {
-	return Robot.navX.onTarget();
+	//return Math.abs(Robot.navXSource.pidInput() + targetHeading) < NavX_MXP_PID.kToleranceDegrees;
+	return Robot.navX.navXController.onTarget();
     }
 
     // Called once after isFinished returns true
     protected void end()
     {
-	Robot.navX.disable();
+	Robot.navX.navXController.disable();
 	Robot.driveTrain.driveCartesian(0, 0, 0, 0);
     }
 

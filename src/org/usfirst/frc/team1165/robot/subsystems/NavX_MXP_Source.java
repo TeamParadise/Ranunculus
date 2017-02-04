@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class NavX_MXP_Source extends Subsystem
 {
 
-    AHRS ahrs;
+    public AHRS ahrs;
 
     double max_collision = 0;
 
