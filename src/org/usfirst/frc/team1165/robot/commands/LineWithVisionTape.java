@@ -41,6 +41,7 @@ public class LineWithVisionTape extends Command
 	protected void end()
 	{
 		Robot.visionPID.disable();
+		SmartDashboard.putBoolean("Vision PID On Target", true);
 	}
 
 	// Called when another command which requires one or more of the same

@@ -11,17 +11,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class VisionPID extends PIDSubsystem
 {
 	// proportional speed constant
-	private static final double kP = 0.5;
+	private static final double kP = 0.03;
 
 	// integral speed constant
 	private static final double kI = 0.0;
 
 	// derivative speed constant
-	private static final double kD = 0.5;
+	private static final double kD = 0.0;
 
 	// Minimum and maximum allowable speeds:
-	private final static double minSpeed = -0.6;
-	private final static double maxSpeed = 0.6;
+	private final static double minSpeed = -0.5;
+	private final static double maxSpeed = 0.5;
 
 	private final static double tolerance = 5;
 
@@ -34,7 +34,7 @@ public class VisionPID extends PIDSubsystem
 		super(kP, kI, kD);
 		setInputRange(0, usbCameraImageWidth);
 		setOutputRange(minSpeed, maxSpeed);
-		setAbsoluteTolerance(0.5);
+		setAbsoluteTolerance(tolerance);
 	}
 
 	public void initDefaultCommand()

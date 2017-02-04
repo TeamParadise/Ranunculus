@@ -63,7 +63,7 @@ public class NavX_MXP_Source extends Subsystem
 
 	public double getHeading()
 	{
-		return ahrs.getAngle() % 360;
+		return ahrs.getAngle() % 180;
 	}
 
 	// Collision Detection Feature (Very Experimental)

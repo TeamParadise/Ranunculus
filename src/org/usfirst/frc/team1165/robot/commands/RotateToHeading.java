@@ -55,6 +55,7 @@ public class RotateToHeading extends Command
 		SmartDashboard.putNumber("Target Heading", targetHeading);
 		SmartDashboard.putNumber("Target Difference", Robot.navXSource.pidInput() - targetHeading);
 
+		SmartDashboard.putBoolean("RotateToHeadingFinished", Robot.navX.navXController.onTarget());
 		Robot.driveTrain.driveCartesian(Robot.oi.stick.getX(), Robot.oi.stick.getY(), Robot.navX.rotateToAngleRate,
 				Robot.navXSource.getHeading());
 	}

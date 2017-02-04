@@ -28,7 +28,6 @@ import org.opencv.objdetect.*;
  */
 public class GripContoursPipeline implements VisionPipeline
 {
-
 	// Outputs
 	private Mat hsvThresholdOutput = new Mat();
 	private Mat blurOutput = new Mat();

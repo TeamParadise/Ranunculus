@@ -18,13 +18,13 @@ public class NavX_MXP_PID implements PIDOutput
 
 {
 	// proportional speed constant
-	private static final double kP = 0.03;
+	private static final double kP = 0.01;
 
 	// integral speed constant
-	private static final double kI = 0.01;
+	private static final double kI = 0.00;
 
 	// derivative speed constant
-	private static final double kD = 0.03;
+	private static final double kD = 0.00;
 
 	public double rotateToAngleRate = 0;
 
@@ -33,7 +33,7 @@ public class NavX_MXP_PID implements PIDOutput
 	 * Controller will attempt to get.
 	 */
 
-	public static final double kToleranceDegrees = 2.0f;
+	public static final double kToleranceDegrees = 40.0f;
 
 	public PIDController navXController;
 
