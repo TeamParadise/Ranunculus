@@ -41,6 +41,21 @@ public class UltrasonicSensorSource extends Subsystem
 		// Set the default command for a subsystem here.
 		setDefaultCommand(new ReportUltrasonicValues());
 	}
+	
+	public double distancePower(double distance, double power)
+	{
+		if(ultrasonicLeft.getRangeInches() < distance * 2 && distance > -1)
+		{
+			//forward
+			return 0.15;
+		}
+		return power;
+	}
+	
+	public boolean atDistance(double distance)
+	{
+		return ultrasonicLeft.getRangeInches() < distance && distance > -1;
+	}
 
 	public void reportValues()
 	{

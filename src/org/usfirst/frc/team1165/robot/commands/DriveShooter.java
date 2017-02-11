@@ -25,12 +25,12 @@ public class DriveShooter extends Command
 	protected void execute()
 	{
 		if (SmartDashboard.getNumber(RobotMap.displayFeederWheelString) == 0)
-			Robot.shooter.setFeederWheelSpeed(0.85);
+			Robot.shooter.setFeederWheelSpeed(SmartDashboard.getNumber(RobotMap.getFeederWheelValue));
 		else
 			Robot.shooter.driveFeederWheelAtRPM(Robot.shooter.getFeederWheelRPM());
 
 		if (SmartDashboard.getNumber(RobotMap.displayShooterWheelString) == 0)
-			Robot.shooter.setShooterWheelSpeed(0.90);
+			Robot.shooter.setShooterWheelSpeed(SmartDashboard.getNumber(RobotMap.getShooterWheelValue));
 		else
 			Robot.shooter.driveShooterWheelAtRPM(Robot.shooter.getShooterWheelRPM());
 		Robot.shooter.report();

@@ -4,6 +4,7 @@ import org.usfirst.frc.team1165.robot.Robot;
 import org.usfirst.frc.team1165.robot.subsystems.NavX_MXP_PID;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -16,6 +17,10 @@ public class RotateToHeading extends Command
 	public double targetHeading;
 	public double initialHeading;
 
+	public RotateToHeading(double heading)
+	{
+		targetHeading = heading;
+	}
 	public RotateToHeading(int buttonNumber)
 	{
 		// Use requires() here to declare subsystem dependencies
@@ -44,6 +49,8 @@ public class RotateToHeading extends Command
 	{
 		Robot.navX.navXController.disable();
 		Robot.navXSource.reset();
+		//targetHeading = Robot.navXSource.getHeading() - targetHeading;
+		SmartDashboard.putNumber("Target Heading", targetHeading);
 		Robot.navX.navXController.setSetpoint(targetHeading);
 		Robot.navX.navXController.enable();
 	}
@@ -51,21 +58,16 @@ public class RotateToHeading extends Command
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute()
 	{
-		SmartDashboard.putNumber("Initial Heading", initialHeading);
-		SmartDashboard.putNumber("Target Heading", targetHeading);
-		SmartDashboard.putNumber("Target Difference", Robot.navXSource.pidInput() - targetHeading);
-
+		SmartDashboard.putNumber("NavX Target Heading", targetHeading);
 		SmartDashboard.putBoolean("RotateToHeadingFinished", Robot.navX.navXController.onTarget());
-		Robot.driveTrain.driveCartesian(Robot.oi.stick.getX(), Robot.oi.stick.getY(), Robot.navX.rotateToAngleRate,
-				Robot.navXSource.getHeading());
+		Robot.driveTrain.driveCartesian(Robot.oi.stick.getX(), Robot.oi.stick.getY(), Robot.navX.rotateToAngleRate,0);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished()
 	{
-		// return Math.abs(Robot.navXSource.pidInput() + targetHeading) <
-		// NavX_MXP_PID.kToleranceDegrees;
-		return Robot.navX.navXController.onTarget();
+		return Math.abs(Robot.navX.getTargetDifference()) < NavX_MXP_PID.kToleranceDegrees
+		 && Robot.navX.navXController.onTarget();
 	}
 
 	// Called once after isFinished returns true

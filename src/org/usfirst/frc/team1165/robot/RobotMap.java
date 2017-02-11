@@ -42,6 +42,12 @@ public class RobotMap
 
 	public static final String displayShooterWheelString = "Display Shooter Wheel RPM";
 	public static final String displayFeederWheelString = "Display Feeder Wheel RPM";
+	
+	public static final String displayShooterWheelValue = "Display Shooter Wheel Value";
+	public static final String displayFeederWheelValue = "Display Feeder Wheel Value";
+	
+	public static final String getShooterWheelValue = "Shooter Wheel Value";
+	public static final String getFeederWheelValue = "Feeder Wheel Value";
 
 	public static final String displayUltrasonicLeftString = "Ultrasonic Left";
 	public static final String displayUltrasonicRightString = "Ultrasonic Right";

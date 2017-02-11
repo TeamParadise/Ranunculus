@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1165.robot;
 
 import org.usfirst.frc.team1165.robot.commands.DriveShooter;
+import org.usfirst.frc.team1165.robot.commands.DriveStraightNavX;
 import org.usfirst.frc.team1165.robot.commands.EnableUltrasonicSetpoint;
 import org.usfirst.frc.team1165.robot.commands.LineWithVisionTape;
 import org.usfirst.frc.team1165.robot.commands.RotateToHeading;
@@ -27,6 +28,8 @@ public class OI
 	JoystickButton ultrasonicPIDButton = new JoystickButton(stick, RobotMap.enableUltrasonicPID);
 	
 	JoystickButton visionPIDButton = new JoystickButton(stick, RobotMap.enableVisionPID);
+	
+	JoystickButton driveStraightButton = new JoystickButton(stick, 7);
 
 	JoystickButton servoButton = new JoystickButton(stick, RobotMap.rightServoButtonNumber);
 	JoystickButton rotateN180 = new JoystickButton(stick, RobotMap.rotateRobotN180);
@@ -55,5 +58,7 @@ public class OI
 		rotate180.whenPressed(new RotateToHeading(RobotMap.rotateRobot180));
 		rotateN90.whenPressed(new RotateToHeading(RobotMap.rotateRobotN90));
 		rotate90.whenPressed(new RotateToHeading(RobotMap.rotateRobot90));
+		
+		driveStraightButton.whenPressed(new DriveStraightNavX(0.5, true));
 	}
 }

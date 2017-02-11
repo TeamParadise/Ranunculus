@@ -15,6 +15,13 @@ public class NavX_MXP_Source extends Subsystem
 	public AHRS ahrs;
 
 	double max_collision = 0;
+	
+	final double twistPower = 0.2;
+	final double smallTwistPower = 0.1;
+	final double smallAngle = 1;
+	final double bigAngle = 3;
+	
+	double difference = 0;
 
 	double last_world_linear_accel_x;
 	double last_world_linear_accel_y;
@@ -52,6 +59,7 @@ public class NavX_MXP_Source extends Subsystem
 
 	public void initDefaultCommand()
 	{
+		
 		// Set the default command for a subsystem here.
 		setDefaultCommand(new ReportNavXValues());
 	}
@@ -63,9 +71,25 @@ public class NavX_MXP_Source extends Subsystem
 
 	public double getHeading()
 	{
-		return ahrs.getAngle() % 180;
+		return ahrs.getAngle();
 	}
 
+	public double getTwistCorrection(double initialAngle)
+	{
+		double angle = getHeading();
+		double difference = angle - initialAngle;
+		this.difference = difference;
+
+		if (Math.abs(difference) > bigAngle)
+		{
+			return difference > 0 ? -twistPower : twistPower;
+		}
+		if (Math.abs(difference) < smallAngle)
+		{
+			return 0;
+		}
+		return difference > 0 ? -smallTwistPower : smallTwistPower;
+	}
 	// Collision Detection Feature (Very Experimental)
 
 	public void updateAccel()
@@ -107,9 +131,8 @@ public class NavX_MXP_Source extends Subsystem
 
 	public void report()
 	{
-		SmartDashboard.putNumber("Gyro Angle", getHeading());
-		SmartDashboard.putNumber("Acceleration Y", ahrs.getRawAccelX());
-		SmartDashboard.putNumber("Raw Mag z", ahrs.getRawMagZ());
-		SmartDashboard.putNumber("PID Get", ahrs.pidGet());
+		SmartDashboard.putNumber("NavX Gyro Angle", getHeading());
+		SmartDashboard.putNumber("NavX PID Get", ahrs.pidGet());
+		SmartDashboard.putNumber("Difference Drive Straight", difference);
 	}
 }

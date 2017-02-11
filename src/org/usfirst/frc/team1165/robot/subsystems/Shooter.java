@@ -15,9 +15,13 @@ public class Shooter extends Subsystem
 	public CANTalon shooterWheel;
 	public CANTalon feederWheel;
 
-	public static final double kP = 0.75;
-	public static final double kI = 0.01;
-	public static final double kD = 0.75;
+	public static final double kPShooter = 0.75;
+	public static final double kIShooter = 0.01;
+	public static final double kDShooter = 0.75;
+	
+	public static final double kPFeeder = 2;
+	public static final double kIFeeder = 0.01;
+	public static final double kDFeeder = 3;
 
 	public Shooter()
 	{
@@ -34,14 +38,14 @@ public class Shooter extends Subsystem
 		feederWheel.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		feederWheel.configEncoderCodesPerRev(20);
 
-		shooterWheel.setP(kP);
-		shooterWheel.setI(kI);
-		shooterWheel.setD(kD);
+		shooterWheel.setP(kPShooter);
+		shooterWheel.setI(kIShooter);
+		shooterWheel.setD(kDShooter);
 		shooterWheel.setCloseLoopRampRate(0.01);
 
-		feederWheel.setP(kP);
-		feederWheel.setI(kI);
-		feederWheel.setD(kD);
+		feederWheel.setP(kPFeeder);
+		feederWheel.setI(kIFeeder);
+		feederWheel.setD(kDFeeder);
 		feederWheel.setCloseLoopRampRate(0.01);
 
 		shooterWheel.enable();
@@ -95,5 +99,7 @@ public class Shooter extends Subsystem
 	{
 		SmartDashboard.putNumber(RobotMap.displayShooterWheelString, shooterWheel.getSpeed());
 		SmartDashboard.putNumber(RobotMap.displayFeederWheelString, feederWheel.getSpeed());
+		SmartDashboard.putNumber(RobotMap.displayShooterWheelValue, shooterWheel.getSpeed());
+		SmartDashboard.putNumber(RobotMap.displayFeederWheelValue, feederWheel.getSpeed());
 	}
 }

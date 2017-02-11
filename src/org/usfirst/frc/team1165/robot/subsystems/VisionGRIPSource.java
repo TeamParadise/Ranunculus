@@ -38,15 +38,7 @@ public class VisionGRIPSource extends Subsystem
 	{
 		date = new Date();
 	}
-
-	/*
-	 * public void findCenter() { if
-	 * (!Robot.pipeline.filterContoursOutput().isEmpty()) {
-	 * SmartDashboard.putString("FilterContoursOutput",
-	 * Robot.pipeline.filterContoursOutput.get(0).toString());
-	 * SmartDashboard.putBoolean("Filter Contours Empty", false); } else
-	 * SmartDashboard.putBoolean("Filter Contours Empty", true); }
-	 */
+	
 	public void findCenter()
 	{
 		try
@@ -87,6 +79,13 @@ public class VisionGRIPSource extends Subsystem
 		}
 		average /= center.length;
 	}
+	
+	public boolean filterContoursEmpty()
+	{
+		if(center.length == 0)
+			return true;
+		return false;
+	}	
 
 	public void report()
 	{
@@ -94,6 +93,7 @@ public class VisionGRIPSource extends Subsystem
 		{
 			SmartDashboard.putNumber("Center" + (i + 1), center[i]);
 		}
+		SmartDashboard.putNumber("Number of Contours", center.length);
 		SmartDashboard.putNumber("Average", average);
 	}
 

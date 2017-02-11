@@ -18,13 +18,13 @@ public class NavX_MXP_PID implements PIDOutput
 
 {
 	// proportional speed constant
-	private static final double kP = 0.01;
+	private static final double kP = 2.75;
 
 	// integral speed constant
 	private static final double kI = 0.00;
 
 	// derivative speed constant
-	private static final double kD = 0.00;
+	private static final double kD = 4.00;
 
 	public double rotateToAngleRate = 0;
 
@@ -33,7 +33,7 @@ public class NavX_MXP_PID implements PIDOutput
 	 * Controller will attempt to get.
 	 */
 
-	public static final double kToleranceDegrees = 40.0f;
+	public static final double kToleranceDegrees = 2.0f;
 
 	public PIDController navXController;
 
@@ -42,7 +42,8 @@ public class NavX_MXP_PID implements PIDOutput
 	{
 		navXController = new PIDController(kP, kI, kD, Robot.navXSource.ahrs, this);
 		navXController.setInputRange(-180.0f, 180.0f);
-		navXController.setOutputRange(-0.25, 0.25);
+		//Reversed to account for direction of turn
+		navXController.setOutputRange(-0.5, 0.5);
 		navXController.setAbsoluteTolerance(kToleranceDegrees);
 		navXController.setContinuous(true);
 	}
@@ -51,12 +52,22 @@ public class NavX_MXP_PID implements PIDOutput
 	{
 		// Set the default command for a subsystem here.
 	}
+	
+	public double getTargetDifference()
+	{
+		double difference = Robot.navXSource.ahrs.pidGet() - navXController.getSetpoint();
+		SmartDashboard.putNumber("NavX Target Difference", difference);
+		return difference;
+
+	}
 
 	@Override
 	public void pidWrite(double output)
 	{
 		// TODO Auto-generated method stub
-		SmartDashboard.putNumber("PID Output", output);
+		if(Math.abs(getTargetDifference()) < 20)
+			output /= 2;
+		SmartDashboard.putNumber("NavX PID Output", output);
 		rotateToAngleRate = output;
 	}
 }

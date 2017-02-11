@@ -59,7 +59,7 @@ public class VisionPID extends PIDSubsystem
 	protected void usePIDOutput(double output)
 	{
 		// Use output to drive your system, like a motor
-		Robot.driveTrain.driveCartesian(-output, 0, 0, 0);
-		SmartDashboard.putNumber("Vision PID Output", -output);
+		Robot.driveTrain.driveCartesian(output, 0, 0, 0);
+		SmartDashboard.putNumber("Vision PID Output", output);
 	}
 }
