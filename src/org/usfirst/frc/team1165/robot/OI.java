@@ -9,6 +9,7 @@ import org.usfirst.frc.team1165.robot.commands.ToggleServo;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -30,6 +31,8 @@ public class OI
 	JoystickButton visionPIDButton = new JoystickButton(stick, RobotMap.enableVisionPID);
 	
 	JoystickButton driveStraightButton = new JoystickButton(stick, 7);
+	
+	JoystickButton visionSonar = new JoystickButton(stick, 8);
 
 	JoystickButton servoButton = new JoystickButton(stick, RobotMap.rightServoButtonNumber);
 	JoystickButton rotateN180 = new JoystickButton(stick, RobotMap.rotateRobotN180);
@@ -53,6 +56,7 @@ public class OI
 		servoButton.whenPressed(new ToggleServo());
 		
 		visionPIDButton.whenPressed(new LineWithVisionTape());
+		visionSonar.whenPressed(new LineWithVisionTape(20));
 		// Rotate To Heading
 		rotateN180.whenPressed(new RotateToHeading(RobotMap.rotateRobotN180));
 		rotate180.whenPressed(new RotateToHeading(RobotMap.rotateRobot180));
@@ -60,5 +64,7 @@ public class OI
 		rotate90.whenPressed(new RotateToHeading(RobotMap.rotateRobot90));
 		
 		driveStraightButton.whenPressed(new DriveStraightNavX(0.5, true));
+		
+		SmartDashboard.putData(new ToggleServo());
 	}
 }

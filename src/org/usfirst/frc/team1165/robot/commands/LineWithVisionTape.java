@@ -11,16 +11,30 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class LineWithVisionTape extends Command
 {
 
+	boolean useDistance = false;
+	private double distance = -1;
+	private double targetHeading;
+	private double forwardSpeed = -0.75;
+	private double initialAngle;
 	public LineWithVisionTape()
 	{
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.visionPID);
 		requires(Robot.driveTrain);
 	}
+	
+	public LineWithVisionTape(double distance)
+	{
+		this();
+		useDistance = true;
+		this.distance = distance;
+		targetHeading = Robot.navXSource.getHeading();
+	}
 
 	// Called just before this Command runs the first time
 	protected void initialize()
 	{
+		initialAngle = Robot.navXSource.getHeading();
 		Robot.visionPID.setSetpoint();
 		Robot.visionPID.enable();
 	}
@@ -29,12 +43,18 @@ public class LineWithVisionTape extends Command
 	protected void execute()
 	{
 		SmartDashboard.putBoolean("Vision PID On Target", Robot.visionPID.onTarget());
+		if(useDistance)
+		{
+			double twistCorrection = Robot.navXSource.getTwistCorrection(initialAngle);
+			double powerCorrection = Robot.ultrasonicSensorSource.distancePower(distance, forwardSpeed);
+			Robot.driveTrain.driveCartesian(0, powerCorrection, twistCorrection, 0);
+		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished()
 	{
-		return Robot.visionPID.onTarget() || Robot.visionGRIP.filterContoursEmpty();
+		return useDistance?Robot.visionPID.onTarget() || Robot.visionGRIP.filterContoursEmpty():Robot.ultrasonicSensorSource.atDistance(distance);
 	}
 
 	// Called once after isFinished returns true

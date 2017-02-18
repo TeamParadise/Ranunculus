@@ -87,10 +87,20 @@ public class Shooter extends Subsystem
 
 	public double getShooterWheelRPM()
 	{
-		return SmartDashboard.getNumber(RobotMap.getShooterWheelString);
+		return shooterWheel.getSpeed();
 	}
 
 	public double getFeederWheelRPM()
+	{
+		return feederWheel.getSpeed();
+	}
+	
+	public double getShooterWheelSetpoint()
+	{
+		return SmartDashboard.getNumber(RobotMap.getShooterWheelString);
+	}
+	
+	public double getFeederWheelSetpoint()
 	{
 		return SmartDashboard.getNumber(RobotMap.getFeederWheelString);
 	}

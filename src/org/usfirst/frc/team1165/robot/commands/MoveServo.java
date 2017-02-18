@@ -15,6 +15,10 @@ public class MoveServo extends Command
 		requires(Robot.servo);
 	}
 
+	public MoveServo()
+	{
+		requires(Robot.servo);
+	}
 	// Called just before this Command runs the first time
 	protected void initialize()
 	{

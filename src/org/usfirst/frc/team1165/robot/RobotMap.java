@@ -26,6 +26,7 @@ public class RobotMap
 	public static final int feederWheelPortNumber = 5;
 
 	public static final int rightServoPortNumber = 0;
+	public static final int shooterServoPortNumber = 1;
 	public static final int rightServoButtonNumber = 11;
 
 	public static final int rotateRobotN180 = 3;
@@ -36,6 +37,13 @@ public class RobotMap
 	public static final int enableVisionPID = 12;
 
 	public static final int enableUltrasonicPID = 10;
+	
+	//Encoder Ports
+	public static final int backLeftEncoderPort1 = 0;
+	public static final int backLeftEncoderPort2 = 1;
+	
+	public static final int backRightEncoderPort1 = 2;
+	public static final int backRightEncoderPort2 = 3;
 
 	public static final String getShooterWheelString = "Shooter Wheel RPM";
 	public static final String getFeederWheelString = "Feeder Wheel RPM";

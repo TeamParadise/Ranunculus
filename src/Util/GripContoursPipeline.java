@@ -28,8 +28,10 @@ import org.opencv.objdetect.*;
  */
 public class GripContoursPipeline implements VisionPipeline
 {
+
 	// Outputs
-	private Mat hsvThresholdOutput = new Mat();
+	private Mat cvErodeOutput = new Mat();
+	private Mat rgbThresholdOutput = new Mat();
 	private Mat blurOutput = new Mat();
 	private ArrayList<MatOfPoint> findContoursOutput = new ArrayList<MatOfPoint>();
 	public ArrayList<MatOfPoint> filterContoursOutput = new ArrayList<MatOfPoint>();
@@ -46,15 +48,25 @@ public class GripContoursPipeline implements VisionPipeline
 	@Override
 	public void process(Mat source0)
 	{
-		// Step HSV_Threshold0:
-		Mat hsvThresholdInput = source0;
-		double[] hsvThresholdHue = { 46.94244604316547, 87.84982935153585 };
-		double[] hsvThresholdSaturation = { 0.0, 87.46587030716726 };
-		double[] hsvThresholdValue = { 215.5575539568345, 255.0 };
-		hsvThreshold(hsvThresholdInput, hsvThresholdHue, hsvThresholdSaturation, hsvThresholdValue, hsvThresholdOutput);
+		// Step CV_erode0:
+		Mat cvErodeSrc = source0;
+		Mat cvErodeKernel = new Mat();
+		Point cvErodeAnchor = new Point(-1, -1);
+		double cvErodeIterations = 5.0;
+		int cvErodeBordertype = Core.BORDER_CONSTANT;
+		Scalar cvErodeBordervalue = new Scalar(-1);
+		cvErode(cvErodeSrc, cvErodeKernel, cvErodeAnchor, cvErodeIterations, cvErodeBordertype, cvErodeBordervalue,
+				cvErodeOutput);
+
+		// Step RGB_Threshold0:
+		Mat rgbThresholdInput = cvErodeOutput;
+		double[] rgbThresholdRed = { 0.0, 146.21160409556316 };
+		double[] rgbThresholdGreen = { 183.45323741007192, 255.0 };
+		double[] rgbThresholdBlue = { 201.79856115107913, 255.0 };
+		rgbThreshold(rgbThresholdInput, rgbThresholdRed, rgbThresholdGreen, rgbThresholdBlue, rgbThresholdOutput);
 
 		// Step Blur0:
-		Mat blurInput = hsvThresholdOutput;
+		Mat blurInput = rgbThresholdOutput;
 		BlurType blurType = BlurType.get("Box Blur");
 		double blurRadius = 3.6036036036036037;
 		blur(blurInput, blurType, blurRadius, blurOutput);
@@ -66,17 +78,17 @@ public class GripContoursPipeline implements VisionPipeline
 
 		// Step Filter_Contours0:
 		ArrayList<MatOfPoint> filterContoursContours = findContoursOutput;
-		double filterContoursMinArea = 0.0;
-		double filterContoursMinPerimeter = 0.0;
-		double filterContoursMinWidth = 75.0;
-		double filterContoursMaxWidth = 100.0;
-		double filterContoursMinHeight = 100.0;
-		double filterContoursMaxHeight = 1000.0;
+		double filterContoursMinArea = 750.0;
+		double filterContoursMinPerimeter = 0;
+		double filterContoursMinWidth = 0;
+		double filterContoursMaxWidth = 1000;
+		double filterContoursMinHeight = 0;
+		double filterContoursMaxHeight = 1000;
 		double[] filterContoursSolidity = { 0, 100 };
-		double filterContoursMaxVertices = 1000.0;
-		double filterContoursMinVertices = 0.0;
-		double filterContoursMinRatio = 0.0;
-		double filterContoursMaxRatio = 1.0E7;
+		double filterContoursMaxVertices = 1000000;
+		double filterContoursMinVertices = 0;
+		double filterContoursMinRatio = 0;
+		double filterContoursMaxRatio = 1000;
 		filterContours(filterContoursContours, filterContoursMinArea, filterContoursMinPerimeter,
 				filterContoursMinWidth, filterContoursMaxWidth, filterContoursMinHeight, filterContoursMaxHeight,
 				filterContoursSolidity, filterContoursMaxVertices, filterContoursMinVertices, filterContoursMinRatio,
@@ -85,13 +97,23 @@ public class GripContoursPipeline implements VisionPipeline
 	}
 
 	/**
-	 * This method is a generated getter for the output of a HSV_Threshold.
+	 * This method is a generated getter for the output of a CV_erode.
 	 * 
-	 * @return Mat output from HSV_Threshold.
+	 * @return Mat output from CV_erode.
 	 */
-	public Mat hsvThresholdOutput()
+	public Mat cvErodeOutput()
 	{
-		return hsvThresholdOutput;
+		return cvErodeOutput;
+	}
+
+	/**
+	 * This method is a generated getter for the output of a RGB_Threshold.
+	 * 
+	 * @return Mat output from RGB_Threshold.
+	 */
+	public Mat rgbThresholdOutput()
+	{
+		return rgbThresholdOutput;
 	}
 
 	/**
@@ -125,23 +147,59 @@ public class GripContoursPipeline implements VisionPipeline
 	}
 
 	/**
-	 * Segment an image based on hue, saturation, and value ranges.
-	 *
+	 * Expands area of lower value in an image.
+	 * 
+	 * @param src
+	 *            the Image to erode.
+	 * @param kernel
+	 *            the kernel for erosion.
+	 * @param anchor
+	 *            the center of the kernel.
+	 * @param iterations
+	 *            the number of times to perform the erosion.
+	 * @param borderType
+	 *            pixel extrapolation method.
+	 * @param borderValue
+	 *            value to be used for a constant border.
+	 * @param dst
+	 *            Output Image.
+	 */
+	private void cvErode(Mat src, Mat kernel, Point anchor, double iterations, int borderType, Scalar borderValue,
+			Mat dst)
+	{
+		if (kernel == null)
+		{
+			kernel = new Mat();
+		}
+		if (anchor == null)
+		{
+			anchor = new Point(-1, -1);
+		}
+		if (borderValue == null)
+		{
+			borderValue = new Scalar(-1);
+		}
+		Imgproc.erode(src, dst, kernel, anchor, (int) iterations, borderType, borderValue);
+	}
+
+	/**
+	 * Segment an image based on color ranges.
+	 * 
 	 * @param input
-	 *            The image on which to perform the HSL threshold.
-	 * @param hue
-	 *            The min and max hue
-	 * @param sat
-	 *            The min and max saturation
-	 * @param val
-	 *            The min and max value
+	 *            The image on which to perform the RGB threshold.
+	 * @param red
+	 *            The min and max red.
+	 * @param green
+	 *            The min and max green.
+	 * @param blue
+	 *            The min and max blue.
 	 * @param output
 	 *            The image in which to store the output.
 	 */
-	private void hsvThreshold(Mat input, double[] hue, double[] sat, double[] val, Mat out)
+	private void rgbThreshold(Mat input, double[] red, double[] green, double[] blue, Mat out)
 	{
-		Imgproc.cvtColor(input, out, Imgproc.COLOR_BGR2HSV);
-		Core.inRange(out, new Scalar(hue[0], sat[0], val[0]), new Scalar(hue[1], sat[1], val[1]), out);
+		Imgproc.cvtColor(input, out, Imgproc.COLOR_BGR2RGB);
+		Core.inRange(out, new Scalar(red[0], green[0], blue[0]), new Scalar(red[1], green[1], blue[1]), out);
 	}
 
 	/**
