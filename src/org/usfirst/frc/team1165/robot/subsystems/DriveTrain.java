@@ -25,12 +25,6 @@ public class DriveTrain extends Subsystem
 	private int rearLeftVal = 0;
 	private int rearRightVal = 1;
 
-/*	Encoder leftBackEncoder;
-	Encoder rightBackEncoder;*/
-
-	/*PIDController leftBackPID;
-	PIDController rightBackPID;*/
-
 	private static final double Kp = 0.3;
 	private static final double Ki = 0.0;
 	private static final double Kd = 0.0;
@@ -70,7 +64,7 @@ public class DriveTrain extends Subsystem
 
 	public boolean atDistance(double distance)
 	{
-		return averageEncoderDistance() > distance && distance > -1;
+		return Math.abs(averageEncoderDistance()) > Math.abs(distance) && distance != -1;
 	}
 	public double distancePower(double distance, double forwardSpeed)
 	{
@@ -115,17 +109,18 @@ public class DriveTrain extends Subsystem
 	
 	public double leftEncoderDistance()
 	{
-		return  Math.abs(ticksToDistance(frontLeft.getEncPosition()));
+		return  -ticksToDistance(frontLeft.getEncPosition());
 	}
 	
 	public double rightEncoderDistance()
 	{
-		return  Math.abs(ticksToDistance(frontRight.getEncPosition()));
+		return  ticksToDistance(frontRight.getEncPosition());
 	}
 	
 	public void report()
 	{
-		SmartDashboard.putNumber("Left Encoder", ticksToDistance(frontLeft.getEncPosition()));
-		SmartDashboard.putNumber("Right Encoder", ticksToDistance(frontRight.getEncPosition()));
+		SmartDashboard.putNumber("Left Encoder", leftEncoderDistance()); //ticksToDistance(frontLeft.getEncPosition()));
+		SmartDashboard.putNumber("Right Encoder", rightEncoderDistance()); //ticksToDistance(frontRight.getEncPosition()));
+		SmartDashboard.putNumber("Avg Distance",  averageEncoderDistance());
 	}
 }

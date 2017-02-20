@@ -2,6 +2,7 @@ package org.usfirst.frc.team1165.robot;
 
 import org.usfirst.frc.team1165.robot.commands.Climb;
 import org.usfirst.frc.team1165.robot.commands.DriveShooter;
+import org.usfirst.frc.team1165.robot.commands.DriveStraightDistance;
 import org.usfirst.frc.team1165.robot.commands.DriveStraightNavX;
 import org.usfirst.frc.team1165.robot.commands.EnableUltrasonicSetpoint;
 import org.usfirst.frc.team1165.robot.commands.LineWithVisionTape;
@@ -35,7 +36,9 @@ public class OI
 	
 	JoystickButton visionSonar = new JoystickButton(stick, 8);
 	
-	JoystickButton encoderReset = new JoystickButton(stick, 11);
+	//JoystickButton encoderReset = new JoystickButton(stick, 11);
+	
+	JoystickButton driveStraight = new JoystickButton(stick, 11);
 
 	JoystickButton climb = new JoystickButton(stick, RobotMap.climbButton);//9
 	JoystickButton rotateN180 = new JoystickButton(stick, RobotMap.rotateRobotN180);//3
@@ -55,7 +58,7 @@ public class OI
 	{
 		shooterRPMButton.whenPressed(new DriveShooter());
 		ultrasonicPIDButton.whenPressed(new EnableUltrasonicSetpoint());
-		encoderReset.whenPressed(new ResetEncoder());		
+		//encoderReset.whenPressed(new ResetEncoder());		
 		climb.whenPressed(new Climb());
 		
 		visionPIDButton.whenPressed(new LineWithVisionTape());
@@ -66,6 +69,7 @@ public class OI
 		rotateN90.whenPressed(new RotateToHeading(-90));
 		rotate90.whenPressed(new RotateToHeading(90));
 		
-		driveStraightButton.whenPressed(new DriveStraightNavX(0.4, -40, true));		
+		driveStraight.whenPressed(new DriveStraightDistance(40, true));
+		driveStraightButton.whenPressed(new DriveStraightDistance(-40, true));		
 	}
 }

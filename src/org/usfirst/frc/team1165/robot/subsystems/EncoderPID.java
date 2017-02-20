@@ -41,19 +41,14 @@ public class EncoderPID extends PIDSubsystem
 		// Return your input value for the PID loop
 		// e.g. a sensor, like a potentiometer:
 		// yourPot.getAverageVoltage() / kYourMaxVoltage;
-		if(this.getSetpoint() < 0)
-			return -Robot.driveTrain.averageEncoderDistance();
 		return Robot.driveTrain.averageEncoderDistance();
-	}
-	
-	public void setSetpoint(double setpoint)
-	{
-		super.setSetpoint(setpoint);
 	}
 
 	protected void usePIDOutput(double output)
 	{
 		forwardSpeed = output;
 		SmartDashboard.putNumber("Encoder PID Output", output);
+		SmartDashboard.putNumber("Encoder Setpoint", this.getSetpoint());
+
 	}
 }

@@ -11,7 +11,7 @@ public class PlaceGearAutonomous extends CommandGroup
 
 	public PlaceGearAutonomous()
 	{
-		addSequential(new DriveStraightNavX(1, 40, true));
+		addSequential(new DriveStraightNavX(0.4, 40, true));
 		addSequential(new RotateToHeading(-90.0));
 	}
 }

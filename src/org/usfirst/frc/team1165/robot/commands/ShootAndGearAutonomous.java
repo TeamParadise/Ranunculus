@@ -14,7 +14,7 @@ public class ShootAndGearAutonomous extends CommandGroup
 		addSequential(new EnableUltrasonicSetpoint(), 2);
 		addSequential(new DriveShooter(), 2);
 		addSequential(new RotateToHeading(-45));
-		addSequential(new DriveStraightNavX(1, -50, true));
+		addSequential(new DriveStraightNavX(0.4, -50, true));
 		addSequential(new RotateToHeading(-135.0));
 	}
 }
