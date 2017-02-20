@@ -11,30 +11,51 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class RunAgitator extends Command
 {
 
-	Timer timer;
+	public static Timer timer;
+	int period = 0;
 	public static double power = -0.5;
 
 	public RunAgitator()
 	{
 		// Use requires() here to declare subsystem dependencies
+		period = 0;
 		requires(Robot.agitator);
-		timer = new Timer();
+	}
+
+	public RunAgitator(int reversalTime)
+	{
+		this();
+		period = reversalTime;
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize()
 	{
+		timer = new Timer();
+		if (period != 0)
+			timer.schedule(new ReverseMotor(period), 0,  1000);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute()
 	{
-		if (Robot.shooter.isRunning() && Robot.servo.isServoUp())
-			Robot.agitator.set(power);
-		else if(Robot.shooter.isRunning() && !Robot.servo.isServoUp())
-			Robot.agitator.set(-power);
-		else
-			Robot.agitator.set(0);
+		if (period == 0)
+		{
+			if (Robot.shooter.isRunning() && Robot.servo.isServoUp())
+				Robot.agitator.set(power);
+			else if (Robot.shooter.isRunning() && !Robot.servo.isServoUp())
+				Robot.agitator.set(-power);
+			else
+				Robot.agitator.set(0);
+		} else
+		{
+			if (Robot.shooter.isRunning() && Robot.servo.isServoUp())
+			{
+
+				Robot.agitator.set(power);
+			} else
+				Robot.agitator.set(0);
+		}
 		SmartDashboard.putNumber("Agitator Power", Robot.agitator.getSpeed());
 	}
 
@@ -58,8 +79,32 @@ public class RunAgitator extends Command
 
 class ReverseMotor extends TimerTask
 {
+	int reverseCount=-1;
+	int cycles = 1;
+	public ReverseMotor(int forwardtime)
+	{
+		reverseCount = forwardtime/1000;
+	}
 	public void run()
 	{
-		RunAgitator.power *= -1;
+		if (reverseCount > 0)
+		{
+			if (cycles++ > reverseCount || RunAgitator.power > 0)
+			{
+				cycles = 1;
+				RunAgitator.power *= -1;
+			}
+		}
+		else RunAgitator.power *= -1;
+		/*try
+		{
+			this.wait(1000);
+			Robot.agitator.set(RunAgitator.power);
+		} catch (InterruptedException e)
+		{
+			
+		}
+		this.notify();
+		RunAgitator.power *= -1;*/
 	}
 }

@@ -66,17 +66,6 @@ public class DriveTrain extends Subsystem
 	{
 		return Math.abs(averageEncoderDistance()) > Math.abs(distance) && distance != -1;
 	}
-	public double distancePower(double distance, double forwardSpeed)
-	{
-		if(Math.abs(averageEncoderDistance() - distance) < 30 && distance > -1)
-		{
-			if( Math.abs(averageEncoderDistance() - distance) / 30.0 * forwardSpeed < 0.1)
-				return 0.15;
-			else
-				return Math.abs(averageEncoderDistance() - distance) / 30.0;
-		}
-		return forwardSpeed;
-	}
 
 	public void driveCartesian(double x, double y, double twist, double gyroAngle)
 	{
@@ -119,8 +108,8 @@ public class DriveTrain extends Subsystem
 	
 	public void report()
 	{
-		SmartDashboard.putNumber("Left Encoder", leftEncoderDistance()); //ticksToDistance(frontLeft.getEncPosition()));
-		SmartDashboard.putNumber("Right Encoder", rightEncoderDistance()); //ticksToDistance(frontRight.getEncPosition()));
+		SmartDashboard.putNumber("Left Encoder", leftEncoderDistance());
+		SmartDashboard.putNumber("Right Encoder", rightEncoderDistance());
 		SmartDashboard.putNumber("Avg Distance",  averageEncoderDistance());
 	}
 }

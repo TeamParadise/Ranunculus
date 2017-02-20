@@ -10,8 +10,8 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team1165.robot.commands.PlaceGearAutonomous;
-import org.usfirst.frc.team1165.robot.commands.ShootAndGearAutonomous;
+import org.usfirst.frc.team1165.robot.commands.AutoPlaceGear;
+import org.usfirst.frc.team1165.robot.commands.AutoShootAndGear;
 import org.usfirst.frc.team1165.robot.subsystems.Agitator;
 import org.usfirst.frc.team1165.robot.subsystems.Climber;
 import org.usfirst.frc.team1165.robot.subsystems.DriveTrain;
@@ -72,8 +72,8 @@ public class Robot extends IterativeRobot
 	{
 		oi = new OI();
 		autoChooser = new SendableChooser();
-		autoChooser.addDefault("Place Gear On Center", new PlaceGearAutonomous());
-		autoChooser.addObject("Shoot and Gear Autonomous", new ShootAndGearAutonomous());
+		autoChooser.addDefault("Place Gear On Center", new AutoPlaceGear());
+		autoChooser.addObject("Shoot and Gear Autonomous", new AutoShootAndGear());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 
 		SmartDashboard.putNumber(RobotMap.getShooterWheelString, 3500); //3500);
@@ -142,9 +142,7 @@ public class Robot extends IterativeRobot
 	@Override
 	public void autonomousInit()
 	{
-		//autonomousCommand = (Command)autoChooser.getSelected();
-
-		autonomousCommand = (Command)new ShootAndGearAutonomous();
+		autonomousCommand = (Command)autoChooser.getSelected();
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand

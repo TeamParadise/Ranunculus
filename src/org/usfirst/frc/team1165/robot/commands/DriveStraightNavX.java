@@ -64,7 +64,7 @@ public class DriveStraightNavX extends Command
 			Robot.encoder.disable();
 			Robot.encoder.setSetpoint(encoderDistance);
 			SmartDashboard.putNumber("Desired Distance", encoderDistance);
-			// Robot.encoder.setInputRange(-forwardSpeed, forwardSpeed);
+			Robot.encoder.setOutputRange(-forwardSpeed, forwardSpeed);
 			Robot.encoder.enable();
 		}
 		initialAngle = Robot.navXSource.getHeading();
@@ -78,7 +78,6 @@ public class DriveStraightNavX extends Command
 		if (enableDistanceToWall)
 			powerCorrection = Robot.ultrasonicSensorSource.distancePower(distanceToWall, forwardSpeed);
 		else if (enableEncoder)
-
 			powerCorrection = Robot.encoder.forwardSpeed;
 		else
 			powerCorrection = forwardSpeed;
@@ -93,8 +92,9 @@ public class DriveStraightNavX extends Command
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished()
 	{
-		return isTimedOut() || Robot.encoder.onTarget() || Robot.ultrasonicSensorSource.atDistance(distanceToWall)
-				|| Robot.driveTrain.atDistance(encoderDistance);
+		return isTimedOut() || (Robot.encoder.onTarget() && enableEncoder)
+				|| (Robot.ultrasonicSensorSource.atDistance(distanceToWall) && enableDistanceToWall);
+				//|| Robot.driveTrain.atDistance(encoderDistance);
 	}
 
 	// Called once after isFinished returns true

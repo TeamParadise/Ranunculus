@@ -68,7 +68,7 @@ public class OI
 		rotateN90.whenPressed(new RotateToHeading(-90));
 		rotate90.whenPressed(new RotateToHeading(90));
 		
-		driveStraight.whenPressed(new DriveStraightNavX(0.75,40, true));
-		driveStraightButton.whenPressed(new DriveStraightNavX(0.75, -40, true));		
+		driveStraight.whenPressed(new DriveStraightNavX(0.4,40, true));
+		driveStraightButton.whenPressed(new DriveStraightNavX(0.4, -40, true));		
 	}
 }

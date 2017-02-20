@@ -5,16 +5,16 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class ShootAndGearAutonomous extends CommandGroup
+public class AutoShootAndGear extends CommandGroup
 {
 
-	public ShootAndGearAutonomous()
+	public AutoShootAndGear()
 	{
 		addSequential(new RotateToHeading(-45.0));
 		addSequential(new EnableUltrasonicSetpoint(), 2);
 		addSequential(new DriveShooter(), 2);
 		addSequential(new RotateToHeading(-45));
-		addSequential(new DriveStraightNavX(0.4, -50, true));
+		addSequential(new DriveStraightNavX(0.4, -150, true));
 		addSequential(new RotateToHeading(-135.0));
 	}
 }

@@ -60,6 +60,11 @@ public class UltrasonicSensorSource extends Subsystem
 	{
 		return ultrasonicLeft.getRangeInches() < distance && distance > -1;
 	}
+	
+	public boolean gearUltrasonicAtDistance(double distance)
+	{
+		return gearUltrasonic.getRangeInches() < distance && distance > -1;
+	}
 
 	public void reportValues()
 	{

@@ -6,12 +6,13 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class PlaceGearAutonomous extends CommandGroup
+public class AutoPlaceGear extends CommandGroup
 {
 
-	public PlaceGearAutonomous()
+	public AutoPlaceGear()
 	{
-		addSequential(new DriveStraightNavX(0.4, 40, true));
+		addSequential(new DriveStraightNavX(0.4, 60, true));
 		addSequential(new RotateToHeading(-90.0));
+		addSequential(new StrafeToWall());
 	}
 }

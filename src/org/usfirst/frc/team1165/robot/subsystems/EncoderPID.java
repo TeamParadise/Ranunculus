@@ -25,11 +25,16 @@ public class EncoderPID extends PIDSubsystem
 	public EncoderPID()
 	{
 		super(kP, kI, kD);
-		setInputRange(-100, 100);
-		setOutputRange(-1, 1);
+		setInputRange(-200, 200);
+		resetOutputRange();
 		setAbsoluteTolerance(absoluteTolerance);
 	}
 
+	public void resetOutputRange()
+	{
+		setOutputRange(-1,1);
+	}
+	
 	public void initDefaultCommand()
 	{
 		// Set the default command for a subsystem here.
