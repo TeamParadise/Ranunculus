@@ -22,12 +22,12 @@ public class RotateToHeading extends Command
 		requires(Robot.driveTrain);
 		requires(Robot.navXSource);
 		targetHeading = heading;
-		initialHeading = Robot.navXSource.getHeading();
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize()
 	{
+		initialHeading = Robot.navXSource.getHeading();
 		Robot.navX.navXController.disable();
 		Robot.navXSource.reset();
 		//targetHeading = Robot.navXSource.getHeading() - targetHeading;

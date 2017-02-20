@@ -45,26 +45,28 @@ public class DriveStraightNavX extends Command
 		if (enableDistanceToWall)
 			distanceToWall = 10;
 	}
-	
+
 	public DriveStraightNavX(double forwardSpeed, double driveInches, boolean enableEncoder)
 	{
 		this();
 		this.forwardSpeed = forwardSpeed;
-		Robot.encoder.setInputRange(-forwardSpeed, forwardSpeed);
 		this.enableEncoder = enableEncoder;
 		encoderDistance = driveInches;
-		Robot.driveTrain.reset();
-		Robot.encoder.disable();
-		Robot.encoder.setSetpoint(encoderDistance);
-		SmartDashboard.putNumber("Desired Distance", encoderDistance);
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize()
 	{
 		// Robot.navXSource.reset();
-		if(enableEncoder)
+		if (enableEncoder)
+		{
+			Robot.driveTrain.reset();
+			Robot.encoder.disable();
+			Robot.encoder.setSetpoint(encoderDistance);
+			SmartDashboard.putNumber("Desired Distance", encoderDistance);
+			// Robot.encoder.setInputRange(-forwardSpeed, forwardSpeed);
 			Robot.encoder.enable();
+		}
 		initialAngle = Robot.navXSource.getHeading();
 	}
 
@@ -73,13 +75,11 @@ public class DriveStraightNavX extends Command
 	{
 		double powerCorrection = 0.25;
 		double twistCorrection = Robot.navXSource.getTwistCorrection(initialAngle);
-		if(enableDistanceToWall)
+		if (enableDistanceToWall)
 			powerCorrection = Robot.ultrasonicSensorSource.distancePower(distanceToWall, forwardSpeed);
-		else if(enableEncoder)
-		{
-			//Robot.encoder.enable();
+		else if (enableEncoder)
+
 			powerCorrection = Robot.encoder.forwardSpeed;
-		}
 		else
 			powerCorrection = forwardSpeed;
 		Robot.driveTrain.driveCartesian(0, powerCorrection, twistCorrection, 0);
@@ -93,7 +93,8 @@ public class DriveStraightNavX extends Command
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished()
 	{
-		return isTimedOut() || Robot.encoder.onTarget()|| Robot.ultrasonicSensorSource.atDistance(distanceToWall) || Robot.driveTrain.atDistance(encoderDistance);
+		return isTimedOut() || Robot.encoder.onTarget() || Robot.ultrasonicSensorSource.atDistance(distanceToWall)
+				|| Robot.driveTrain.atDistance(encoderDistance);
 	}
 
 	// Called once after isFinished returns true

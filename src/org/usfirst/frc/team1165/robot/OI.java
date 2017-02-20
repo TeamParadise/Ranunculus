@@ -2,7 +2,6 @@ package org.usfirst.frc.team1165.robot;
 
 import org.usfirst.frc.team1165.robot.commands.Climb;
 import org.usfirst.frc.team1165.robot.commands.DriveShooter;
-import org.usfirst.frc.team1165.robot.commands.DriveStraightDistance;
 import org.usfirst.frc.team1165.robot.commands.DriveStraightNavX;
 import org.usfirst.frc.team1165.robot.commands.EnableUltrasonicSetpoint;
 import org.usfirst.frc.team1165.robot.commands.LineWithVisionTape;
@@ -69,7 +68,7 @@ public class OI
 		rotateN90.whenPressed(new RotateToHeading(-90));
 		rotate90.whenPressed(new RotateToHeading(90));
 		
-		driveStraight.whenPressed(new DriveStraightDistance(40, true));
-		driveStraightButton.whenPressed(new DriveStraightDistance(-40, true));		
+		driveStraight.whenPressed(new DriveStraightNavX(0.75,40, true));
+		driveStraightButton.whenPressed(new DriveStraightNavX(0.75, -40, true));		
 	}
 }

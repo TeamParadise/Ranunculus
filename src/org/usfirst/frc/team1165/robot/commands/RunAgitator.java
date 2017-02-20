@@ -31,6 +31,8 @@ public class RunAgitator extends Command
 	{
 		if (Robot.shooter.isRunning() && Robot.servo.isServoUp())
 			Robot.agitator.set(power);
+		else if(Robot.shooter.isRunning() && !Robot.servo.isServoUp())
+			Robot.agitator.set(-power);
 		else
 			Robot.agitator.set(0);
 		SmartDashboard.putNumber("Agitator Power", Robot.agitator.getSpeed());
