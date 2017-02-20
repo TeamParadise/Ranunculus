@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1165.robot.subsystems;
 
+import org.usfirst.frc.team1165.robot.RobotMap;
 import org.usfirst.frc.team1165.robot.commands.RunPickup;
 
 import com.ctre.CANTalon;
@@ -20,7 +21,7 @@ public class Pickup extends Subsystem
 	private boolean toggle = false;
 	public Pickup()
 	{
-		pickup = new CANTalon(7);
+		pickup = new CANTalon(RobotMap.CANTalonPickup);
 	}
 
 	public void initDefaultCommand()
@@ -29,16 +30,13 @@ public class Pickup extends Subsystem
 		setDefaultCommand(new RunPickup());
 	}
 	
+	public void set(double power)
+	{
+		pickup.set(power);
+	}
+	
 	public void toggle()
 	{
 		toggle = !toggle;
-	}
-	
-	public void run()
-	{
-		if(toggle)
-			pickup.set(0.5);
-		else
-			pickup.set(0);
 	}
 }

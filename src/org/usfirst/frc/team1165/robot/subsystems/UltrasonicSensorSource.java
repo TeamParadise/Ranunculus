@@ -19,6 +19,7 @@ public class UltrasonicSensorSource extends Subsystem
 
 	Ultrasonic ultrasonicLeft;
 	Ultrasonic ultrasonicRight;
+	Ultrasonic gearUltrasonic;
 
 	double previousReading = 0;
 	double currentReading;
@@ -26,14 +27,17 @@ public class UltrasonicSensorSource extends Subsystem
 	// Initialize your subsystem here
 	public UltrasonicSensorSource()
 	{
-		ultrasonicLeft = new Ultrasonic(RobotMap.ultrasonicLeftPingChannel, RobotMap.ultrasonicLeftEchoChannel);
-		ultrasonicRight = new Ultrasonic(RobotMap.ultrasonicRightPingChannel, RobotMap.ultrasonicRightEchoChannel);
+		ultrasonicLeft = new Ultrasonic(RobotMap.ultrasonicPickupLeftPingChannel, RobotMap.ultrasonicPickupLeftEchoChannel);
+		ultrasonicRight = new Ultrasonic(RobotMap.ultrasonicPickupRightPingChannel, RobotMap.ultrasonicPickupRightEchoChannel);
+		gearUltrasonic = new Ultrasonic(RobotMap.ultrasonicGearPingChannel, RobotMap.ultrasonicGearEchoChannel);
 		// Enable
 		ultrasonicLeft.setAutomaticMode(true);
 		ultrasonicRight.setAutomaticMode(true);
+		gearUltrasonic.setAutomaticMode(true);
 		// set default value to inches
 		ultrasonicLeft.setDistanceUnits(Unit.kInches);
 		ultrasonicRight.setDistanceUnits(Unit.kInches);
+	    gearUltrasonic.setDistanceUnits(Unit.kInches);
 	}
 
 	public void initDefaultCommand()
@@ -61,6 +65,7 @@ public class UltrasonicSensorSource extends Subsystem
 	{
 		SmartDashboard.putNumber(RobotMap.displayUltrasonicLeftString, ultrasonicLeft.getRangeInches());
 		SmartDashboard.putNumber(RobotMap.displayUltrasonicRightString, ultrasonicRight.getRangeInches());
+		SmartDashboard.putNumber(RobotMap.displayGearUltrasonicString, gearUltrasonic.getRangeInches());
 		inchesPerSecond();
 	}
 

@@ -1,11 +1,12 @@
 package org.usfirst.frc.team1165.robot;
 
+import org.usfirst.frc.team1165.robot.commands.Climb;
 import org.usfirst.frc.team1165.robot.commands.DriveShooter;
 import org.usfirst.frc.team1165.robot.commands.DriveStraightNavX;
 import org.usfirst.frc.team1165.robot.commands.EnableUltrasonicSetpoint;
 import org.usfirst.frc.team1165.robot.commands.LineWithVisionTape;
+import org.usfirst.frc.team1165.robot.commands.ResetEncoder;
 import org.usfirst.frc.team1165.robot.commands.RotateToHeading;
-import org.usfirst.frc.team1165.robot.commands.ToggleServo;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -24,21 +25,23 @@ public class OI
 	// number it is.
 	public Joystick stick = new Joystick(RobotMap.joystickPort);
 
-	JoystickButton shooterRPMButton = new JoystickButton(stick, RobotMap.shooterRPMPortNumber);
+	JoystickButton shooterRPMButton = new JoystickButton(stick, RobotMap.shooterRPMPortNumber);//1
 
-	JoystickButton ultrasonicPIDButton = new JoystickButton(stick, RobotMap.enableUltrasonicPID);
+	JoystickButton ultrasonicPIDButton = new JoystickButton(stick, RobotMap.enableUltrasonicPID);//10
 	
-	JoystickButton visionPIDButton = new JoystickButton(stick, RobotMap.enableVisionPID);
+	JoystickButton visionPIDButton = new JoystickButton(stick, RobotMap.enableVisionPID);//12
 	
 	JoystickButton driveStraightButton = new JoystickButton(stick, 7);
 	
 	JoystickButton visionSonar = new JoystickButton(stick, 8);
+	
+	JoystickButton encoderReset = new JoystickButton(stick, 11);
 
-	JoystickButton servoButton = new JoystickButton(stick, RobotMap.rightServoButtonNumber);
-	JoystickButton rotateN180 = new JoystickButton(stick, RobotMap.rotateRobotN180);
-	JoystickButton rotate180 = new JoystickButton(stick, RobotMap.rotateRobot180);
-	JoystickButton rotateN90 = new JoystickButton(stick, RobotMap.rotateRobotN90);
-	JoystickButton rotate90 = new JoystickButton(stick, RobotMap.rotateRobot90);
+	JoystickButton climb = new JoystickButton(stick, RobotMap.climbButton);//9
+	JoystickButton rotateN180 = new JoystickButton(stick, RobotMap.rotateRobotN180);//3
+	JoystickButton rotate180 = new JoystickButton(stick, RobotMap.rotateRobot180);//4
+	JoystickButton rotateN90 = new JoystickButton(stick, RobotMap.rotateRobotN90);//5
+	JoystickButton rotate90 = new JoystickButton(stick, RobotMap.rotateRobot90);//6
 	// Button button = new JoystickButton(stick, buttonNumber);
 
 	// There are a few additional built in buttons you can use. Additionally,
@@ -52,19 +55,17 @@ public class OI
 	{
 		shooterRPMButton.whenPressed(new DriveShooter());
 		ultrasonicPIDButton.whenPressed(new EnableUltrasonicSetpoint());
-
-		servoButton.whenPressed(new ToggleServo());
+		encoderReset.whenPressed(new ResetEncoder());		
+		climb.whenPressed(new Climb());
 		
 		visionPIDButton.whenPressed(new LineWithVisionTape());
 		visionSonar.whenPressed(new LineWithVisionTape(20));
 		// Rotate To Heading
-		rotateN180.whenPressed(new RotateToHeading(RobotMap.rotateRobotN180));
-		rotate180.whenPressed(new RotateToHeading(RobotMap.rotateRobot180));
-		rotateN90.whenPressed(new RotateToHeading(RobotMap.rotateRobotN90));
-		rotate90.whenPressed(new RotateToHeading(RobotMap.rotateRobot90));
+		rotateN180.whenPressed(new RotateToHeading(-180));
+		rotate180.whenPressed(new RotateToHeading(180));
+		rotateN90.whenPressed(new RotateToHeading(-90));
+		rotate90.whenPressed(new RotateToHeading(90));
 		
-		driveStraightButton.whenPressed(new DriveStraightNavX(0.5, true));
-		
-		SmartDashboard.putData(new ToggleServo());
+		driveStraightButton.whenPressed(new DriveStraightNavX(0.4, -40, true));		
 	}
 }

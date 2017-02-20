@@ -43,7 +43,7 @@ public class NavX_MXP_PID implements PIDOutput
 		navXController = new PIDController(kP, kI, kD, Robot.navXSource.ahrs, this);
 		navXController.setInputRange(-180.0f, 180.0f);
 		//Reversed to account for direction of turn
-		navXController.setOutputRange(-0.5, 0.5);
+		navXController.setOutputRange(-0.85, 0.85);
 		navXController.setAbsoluteTolerance(kToleranceDegrees);
 		navXController.setContinuous(true);
 	}
@@ -67,7 +67,8 @@ public class NavX_MXP_PID implements PIDOutput
 		// TODO Auto-generated method stub
 		if(Math.abs(getTargetDifference()) < 20)
 			output /= 2;
-		SmartDashboard.putNumber("NavX PID Output", output);
-		rotateToAngleRate = output;
+		//If robot turns wrong way and never finishes, invert output(You're welcome, future programmers)
+		SmartDashboard.putNumber("NavX PID Output", -output);
+		rotateToAngleRate = -output;
 	}
 }

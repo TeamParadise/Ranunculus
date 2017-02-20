@@ -5,6 +5,7 @@ import org.usfirst.frc.team1165.robot.RobotMap;
 import org.usfirst.frc.team1165.robot.commands.DriveWithJoystick;
 
 import com.ctre.CANTalon;
+import com.ctre.CANTalon.FeedbackDevice;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
@@ -16,19 +17,19 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveTrain extends Subsystem
 {
-	CANTalon frontLeft = new CANTalon(0);
-	CANTalon rearLeft = new CANTalon(1);
-	CANTalon frontRight = new CANTalon(2);
-	CANTalon rearRight = new CANTalon(3);
+	CANTalon frontLeft = new CANTalon(RobotMap.CANTalonDriveFrontLeft);
+	CANTalon rearLeft = new CANTalon(RobotMap.CANTalonDriveRearLeft);
+	CANTalon frontRight = new CANTalon(RobotMap.CANTalonDriveFrontRight);
+	CANTalon rearRight = new CANTalon(RobotMap.CANTalonDriveRearRight);
 	
 	private int rearLeftVal = 0;
 	private int rearRightVal = 1;
 
-	Encoder leftBackEncoder;
-	Encoder rightBackEncoder;
+/*	Encoder leftBackEncoder;
+	Encoder rightBackEncoder;*/
 
-	PIDController leftBackPID;
-	PIDController rightBackPID;
+	/*PIDController leftBackPID;
+	PIDController rightBackPID;*/
 
 	private static final double Kp = 0.3;
 	private static final double Ki = 0.0;
@@ -40,32 +41,23 @@ public class DriveTrain extends Subsystem
 
 	public RobotDrive robotDrive;
 	
+	private boolean isRunning = false;
+	
     protected final int m_invertedMotors[] = {1,1};
 
 	public DriveTrain()
 	{
 		robotDrive = new RobotDrive(frontLeft, rearLeft, frontRight, rearRight);
+		
+		frontLeft.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+		frontRight.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+		
+		frontLeft.setEncPosition(0);
+		frontLeft.configEncoderCodesPerRev(4085);
+		
+		frontRight.setEncPosition(0);
+		frontRight.configEncoderCodesPerRev(4085);
 		// invert the right motors
-		leftBackEncoder = new Encoder(RobotMap.backLeftEncoderPort1, RobotMap.backLeftEncoderPort2, true,
-				Encoder.EncodingType.k2X);
-		rightBackEncoder = new Encoder(RobotMap.backRightEncoderPort1, RobotMap.backRightEncoderPort2, true,
-				Encoder.EncodingType.k2X);
-
-		leftBackEncoder.setDistancePerPulse(2 * 3 * 3.14 / 360 / 12);
-		rightBackEncoder.setDistancePerPulse(2 * 3 * 3.14 / 360 / 12);
-
-		leftBackEncoder.setSamplesToAverage(100);
-		rightBackEncoder.setSamplesToAverage(100);
-
-		leftBackEncoder.reset();
-		rightBackEncoder.reset();
-
-		leftBackPID = new PIDController(Kp, Ki, Kd, leftBackEncoder, rearLeft);
-		rightBackPID = new PIDController(Kp, Ki, Kd, rightBackEncoder, rearRight);
-
-		leftBackPID.enable();
-		rightBackPID.enable();
-
 		robotDrive.setInvertedMotor(MotorType.kFrontLeft, true);
 		robotDrive.setInvertedMotor(MotorType.kRearLeft, true);
 	}
@@ -76,58 +68,64 @@ public class DriveTrain extends Subsystem
 		setDefaultCommand(new DriveWithJoystick());
 	}
 
+	public boolean atDistance(double distance)
+	{
+		return averageEncoderDistance() > distance && distance > -1;
+	}
+	public double distancePower(double distance, double forwardSpeed)
+	{
+		if(Math.abs(averageEncoderDistance() - distance) < 30 && distance > -1)
+		{
+			if( Math.abs(averageEncoderDistance() - distance) / 30.0 * forwardSpeed < 0.1)
+				return 0.15;
+			else
+				return Math.abs(averageEncoderDistance() - distance) / 30.0;
+		}
+		return forwardSpeed;
+	}
+
 	public void driveCartesian(double x, double y, double twist, double gyroAngle)
 	{
+		isRunning = x >= 0.2 && y >= 0.2 && twist >= 0.2 ? true : false;
 		robotDrive.mecanumDrive_Cartesian(x, y, twist, gyroAngle);
 		// SmartDashboard.putNumber("Heading", Robot.navXSource.getHeading());
-
 	}
 	
-	public void driveCartesianEncoders(double x, double y, double twist, double gyroAngle)
+	public boolean isRunning()
 	{
-		double xIn = x;
-        double yIn = y;
-        // Negate y for the joystick.
-        yIn = -yIn;
-
-        double wheelSpeeds[] = new double[kMaxNumberOfMotors];
-        
-        wheelSpeeds[rearLeftVal] = -xIn + yIn + twist;
-        wheelSpeeds[rearRightVal] = xIn + yIn - twist;
-        
-        normalize(wheelSpeeds);
-
-        rearLeft.set(wheelSpeeds[rearLeftVal] * m_invertedMotors[rearLeftVal] * maxOutput);
-        rearRight.set(wheelSpeeds[rearRightVal] * m_invertedMotors[rearRightVal] * maxOutput);
-	}
-
-	protected static void normalize(double wheelSpeeds[])
-	{
-		double maxMagnitude = Math.abs(wheelSpeeds[0]);
-		int i;
-		for (i = 1; i < kMaxNumberOfMotors; i++)
-		{
-			double temp = Math.abs(wheelSpeeds[i]);
-			if (maxMagnitude < temp)
-				maxMagnitude = temp;
-		}
-		if (maxMagnitude > 1.0)
-		{
-			for (i = 0; i < kMaxNumberOfMotors; i++)
-			{
-				wheelSpeeds[i] = wheelSpeeds[i] / maxMagnitude;
-			}
-		}
+		return isRunning;
 	}
 	
 	public void reset()
 	{
-		leftBackEncoder.reset();
-		rightBackEncoder.reset();
+		frontRight.setEncPosition(0);
+		frontLeft.setEncPosition(0);
 	}
 	
 	public double averageEncoderDistance()
 	{
-		return (leftBackEncoder.getDistance() + rightBackEncoder.getDistance())/2.0;
+		return (leftEncoderDistance() + rightEncoderDistance())/2.0;
+	}
+	
+	public double ticksToDistance(double ticks)
+	{
+		//convert To Inches
+		return ticks*Math.PI*6.0/4085;
+	}
+	
+	public double leftEncoderDistance()
+	{
+		return  Math.abs(ticksToDistance(frontLeft.getEncPosition()));
+	}
+	
+	public double rightEncoderDistance()
+	{
+		return  Math.abs(ticksToDistance(frontRight.getEncPosition()));
+	}
+	
+	public void report()
+	{
+		SmartDashboard.putNumber("Left Encoder", ticksToDistance(frontLeft.getEncPosition()));
+		SmartDashboard.putNumber("Right Encoder", ticksToDistance(frontRight.getEncPosition()));
 	}
 }

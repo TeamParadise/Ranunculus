@@ -11,13 +11,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class ServoSystem extends Subsystem
 {
 
-	Servo servo;
 	Servo shooterServo;
 	private boolean toggle = false;
+	public int servoUp = 30;
+	public int servoDown = 90;
 
 	public ServoSystem()
 	{
-		servo = new Servo(RobotMap.rightServoPortNumber);
 		shooterServo = new Servo(RobotMap.shooterServoPortNumber);
 	}
 
@@ -37,14 +37,14 @@ public class ServoSystem extends Subsystem
 		shooterServo.setAngle(angle);
 	}
 	
-	public void setServoPosition(double angle)
+	public boolean isServoUp()
 	{
-		servo.setAngle(angle);
+		return shooterServo.getAngle() == servoUp;
 	}
 
 	public double findServoAngle()
 	{
-		return toggle ? 90 : -90;
+		return toggle ? servoUp : servoDown;
 	}
 
 	public void toggleServo()
@@ -54,6 +54,6 @@ public class ServoSystem extends Subsystem
 
 	public void report()
 	{
-		SmartDashboard.putNumber("Servo Angle", servo.getAngle());
+		SmartDashboard.putNumber("Shooter Servo Angle", shooterServo.getAngle());
 	}
 }

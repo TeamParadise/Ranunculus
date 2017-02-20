@@ -1,5 +1,5 @@
 package org.usfirst.frc.team1165.robot.subsystems;
-
+ 
 import org.usfirst.frc.team1165.robot.RobotMap;
 import org.usfirst.frc.team1165.robot.commands.RunAgitator;
 
@@ -18,25 +18,27 @@ public class Agitator extends Subsystem
 	private boolean toggle = false;
 	public Agitator()
 	{
-		agitator = new CANTalon(RobotMap.arbitraryCANTalonNumber);
+		agitator = new CANTalon(RobotMap.CANTalonAgitator);
 	}
 
 	public void initDefaultCommand()
 	{
 		// Set the default command for a subsystem here.
 		setDefaultCommand(new RunAgitator());
+ 	}
+	
+	public double getSpeed()
+	{
+		return agitator.get();
+	}
+ 	
+	public void set(double power)
+	{
+		agitator.set(power);
 	}
 	
-	public void toggle()
+ 	public void toggle()
 	{
 		toggle = !toggle;
-	}
-	
-	public void run()
-	{
-		if(toggle)
-			agitator.set(0.5);
-		else
-			agitator.set(0);
 	}
 }

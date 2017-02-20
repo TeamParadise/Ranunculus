@@ -27,8 +27,8 @@ public class DriveWithJoystick extends Command
 	protected void execute()
 	{
 		// Reducing sensitivity of Joystick
-		double x = -Robot.oi.stick.getX() * Robot.oi.stick.getX() * Robot.oi.stick.getX();
-		double y = -Robot.oi.stick.getY() * Robot.oi.stick.getY() * Robot.oi.stick.getY();
+		double x = -Robot.oi.stick.getX(); // * Robot.oi.stick.getX() * Robot.oi.stick.getX();
+		double y = -Robot.oi.stick.getY(); // * Robot.oi.stick.getY() * Robot.oi.stick.getY();
 		double twist = -Robot.oi.stick.getTwist() * Robot.oi.stick.getTwist() * Robot.oi.stick.getTwist();
 		// stick.getTwist();
 		if (Math.abs(x) < 0.1)
@@ -39,6 +39,7 @@ public class DriveWithJoystick extends Command
 			twist = 0;
 		Robot.driveTrain.driveCartesian(x, y, twist, 0);
 		Robot.navXSource.report();
+		Robot.driveTrain.report();
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

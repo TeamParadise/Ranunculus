@@ -15,19 +15,21 @@ public class RobotMap
 
 	public static final int joystickPort = 0;
 
-	public static final int shooterRPMPortNumber = 9;
+	public static final int shooterRPMPortNumber = 1;
+	
+	public static final int climbButton = 9;
 
-	public static final int ultrasonicLeftPingChannel = 0;
-	public static final int ultrasonicLeftEchoChannel = 1;
-	public static final int ultrasonicRightPingChannel = 2;
-	public static final int ultrasonicRightEchoChannel = 3;
+	public static final int ultrasonicPickupLeftPingChannel = 0;
+	public static final int ultrasonicPickupLeftEchoChannel = 1;
+	public static final int ultrasonicPickupRightPingChannel = 2;
+	public static final int ultrasonicPickupRightEchoChannel = 3;
 
 	public static final int shooterWheelPortNumber = 4;
 	public static final int feederWheelPortNumber = 5;
+	public static final double shooterTolerance = 100;
 
-	public static final int rightServoPortNumber = 0;
-	public static final int shooterServoPortNumber = 1;
-	public static final int rightServoButtonNumber = 11;
+	public static final int shooterServoPortNumber = 0;
+	public static final int shooterServoButtonNumber = 11;
 
 	public static final int rotateRobotN180 = 3;
 	public static final int rotateRobot180 = 4;
@@ -45,6 +47,9 @@ public class RobotMap
 	public static final int backRightEncoderPort1 = 2;
 	public static final int backRightEncoderPort2 = 3;
 
+	public static final int ultrasonicGearPingChannel = 4;
+	public static final int ultrasonicGearEchoChannel = 5;
+
 	public static final String getShooterWheelString = "Shooter Wheel RPM";
 	public static final String getFeederWheelString = "Feeder Wheel RPM";
 
@@ -59,6 +64,20 @@ public class RobotMap
 
 	public static final String displayUltrasonicLeftString = "Ultrasonic Left";
 	public static final String displayUltrasonicRightString = "Ultrasonic Right";
+	public static final String displayGearUltrasonicString = "Gear Ultrasonic";
+	
+	public static final int CANTalonDriveFrontLeft = 0;
+	public static final int CANTalonDriveRearLeft = 1;
+	public static final int CANTalonDriveFrontRight =2;
+	public static final int CANTalonDriveRearRight = 3;
+	public static final int CANTalonShooter = 4;
+	public static final int CANTalonShooterFeeder = 5;
+	public static final int CANTalonAgitator = 6;
+	public static final int CANTalonPickup= 7;
+	public static final int CANTalonClimber= 8;
+	
+	
+	
 	// If you are using multiple modules, make sure to define both the port
 	// number and the module. For example you with a rangefinder:
 	// public static int rangefinderPort = 1;

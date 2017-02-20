@@ -10,9 +10,15 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team1165.robot.commands.PlaceGearAutonomous;
+import org.usfirst.frc.team1165.robot.commands.ShootAndGearAutonomous;
+import org.usfirst.frc.team1165.robot.subsystems.Agitator;
+import org.usfirst.frc.team1165.robot.subsystems.Climber;
 import org.usfirst.frc.team1165.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team1165.robot.subsystems.EncoderPID;
 import org.usfirst.frc.team1165.robot.subsystems.NavX_MXP_PID;
 import org.usfirst.frc.team1165.robot.subsystems.NavX_MXP_Source;
+import org.usfirst.frc.team1165.robot.subsystems.Pickup;
 import org.usfirst.frc.team1165.robot.subsystems.ServoSystem;
 import org.usfirst.frc.team1165.robot.subsystems.Shooter;
 import org.usfirst.frc.team1165.robot.subsystems.UltrasonicPID;
@@ -38,8 +44,13 @@ public class Robot extends IterativeRobot
 	public static final ServoSystem servo = new ServoSystem();
 	public static final Shooter shooter = new Shooter();
 	public static final NavX_MXP_PID navX = new NavX_MXP_PID();
+	public static final Climber climber = new Climber();
+	public static final EncoderPID encoder = new EncoderPID();
 	public static final GripContoursPipeline pipeline = new GripContoursPipeline();
 	public static final VisionPID visionPID = new VisionPID();
+	
+	public static final Pickup pickup = new Pickup();
+	public static final Agitator agitator = new Agitator();
 
 	private final int usbCameraImageWidth = 640;
 	private final int usbCameraImageHeight = 480;
@@ -50,7 +61,7 @@ public class Robot extends IterativeRobot
 	public static OI oi;
 
 	Command autonomousCommand;
-	SendableChooser<Command> chooser = new SendableChooser<>();
+	SendableChooser autoChooser;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -60,7 +71,9 @@ public class Robot extends IterativeRobot
 	public void robotInit()
 	{
 		oi = new OI();
-		// chooser.addDefault("Default Auto", new DriveWithJoystick());
+		autoChooser = new SendableChooser();
+		autoChooser.addDefault("Place Gear On Center", new PlaceGearAutonomous());
+		autoChooser.addObject("Shoot and Gear Autonomous", new ShootAndGearAutonomous());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 
 		SmartDashboard.putNumber(RobotMap.getShooterWheelString, 3500); //3500);
@@ -68,7 +81,7 @@ public class Robot extends IterativeRobot
 		SmartDashboard.putNumber(RobotMap.getShooterWheelValue, 0.5);
 		SmartDashboard.putNumber(RobotMap.getFeederWheelValue, 0.5);
 		
-		SmartDashboard.putData("Auto mode", chooser);
+		SmartDashboard.putData("Auto mode", autoChooser);
 		SmartDashboard.putBoolean("Camera Crashed", false);
 
 		// Do not delete this line
@@ -129,8 +142,9 @@ public class Robot extends IterativeRobot
 	@Override
 	public void autonomousInit()
 	{
-		autonomousCommand = chooser.getSelected();
+		//autonomousCommand = (Command)autoChooser.getSelected();
 
+		autonomousCommand = (Command)new ShootAndGearAutonomous();
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand

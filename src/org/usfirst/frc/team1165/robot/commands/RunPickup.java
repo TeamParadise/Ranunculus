@@ -7,10 +7,10 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class TogglePickup extends Command
+public class RunPickup extends Command
 {
 
-	public TogglePickup()
+	public RunPickup()
 	{
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.pickup);
@@ -19,18 +19,21 @@ public class TogglePickup extends Command
 	// Called just before this Command runs the first time
 	protected void initialize()
 	{
-		Robot.pickup.toggle();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute()
 	{
+		if(Robot.driveTrain.isRunning() ||Robot.shooter.isRunning())
+			Robot.pickup.set(1);
+		else
+			Robot.pickup.set(0);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished()
 	{
-		return true;
+		return false;
 	}
 
 	// Called once after isFinished returns true

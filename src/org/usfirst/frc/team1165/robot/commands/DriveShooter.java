@@ -25,28 +25,38 @@ public class DriveShooter extends Command
 	protected void execute()
 	{
 		if (SmartDashboard.getNumber(RobotMap.displayFeederWheelString) == 0)
-			Robot.shooter.setFeederWheelSpeed(SmartDashboard.getNumber(RobotMap.getFeederWheelValue));
+		{
+			Robot.shooter.setFeederWheelPower(SmartDashboard.getNumber(RobotMap.getFeederWheelValue));
+		}
 		else
+		{
 			Robot.shooter.driveFeederWheelAtRPM(Robot.shooter.getFeederWheelSetpoint());
+		}
 
 		if (SmartDashboard.getNumber(RobotMap.displayShooterWheelString) == 0)
-			Robot.shooter.setShooterWheelSpeed(SmartDashboard.getNumber(RobotMap.getShooterWheelValue));
+		{
+			Robot.shooter.setShooterWheelPower(SmartDashboard.getNumber(RobotMap.getShooterWheelValue));
+		}
 		else
+		{
 			Robot.shooter.driveShooterWheelAtRPM(Robot.shooter.getShooterWheelSetpoint());
+		}
 		Robot.shooter.report();
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished()
 	{
-		return !Robot.oi.stick.getRawButton(RobotMap.shooterRPMPortNumber);
+		return !Robot.oi.stick.getRawButton(RobotMap.shooterRPMPortNumber) || isTimedOut();
 	}
 
 	// Called once after isFinished returns true
 	protected void end()
 	{
-		Robot.shooter.feederWheel.set(0);
-		Robot.shooter.shooterWheel.set(0);
+		//instead of set 0 set the power to 0 so the motor doesn't run to hold 0 rpm
+		Robot.shooter.setFeederWheelPower(0);
+		Robot.shooter.setShooterWheelPower(0);
+		Robot.agitator.set(0);
 	}
 
 	// Called when another command which requires one or more of the same

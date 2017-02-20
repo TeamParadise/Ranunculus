@@ -19,28 +19,9 @@ public class RotateToHeading extends Command
 
 	public RotateToHeading(double heading)
 	{
-		targetHeading = heading;
-	}
-	public RotateToHeading(int buttonNumber)
-	{
-		// Use requires() here to declare subsystem dependencies
 		requires(Robot.driveTrain);
-		this.buttonNumber = buttonNumber;
-		try
-		{
-			if (buttonNumber == 3)
-				targetHeading = -179.9f;
-			else if (buttonNumber == 4)
-				targetHeading = 179.9f;
-			else if (buttonNumber == 5)
-				targetHeading = -90f;
-			else if (buttonNumber == 6)
-				targetHeading = 90.0f;
-		} catch (Exception e)
-		{
-			DriverStation.reportError(e.getMessage(), false);
-		}
-		// SmartDashboard.putNumber("Button Number", buttonNumber);
+		requires(Robot.navXSource);
+		targetHeading = heading;
 		initialHeading = Robot.navXSource.getHeading();
 	}
 

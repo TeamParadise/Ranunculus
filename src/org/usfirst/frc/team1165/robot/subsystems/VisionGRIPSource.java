@@ -38,7 +38,7 @@ public class VisionGRIPSource extends Subsystem
 	{
 		date = new Date();
 	}
-	
+
 	public void findCenter()
 	{
 		try
@@ -64,34 +64,40 @@ public class VisionGRIPSource extends Subsystem
 		center = new double[Robot.pipeline.filterContoursOutput.size()];
 		average = 0;
 		SmartDashboard.putNumber("Length", center.length);
-		for (int i = 0; i < center.length; i++)
+		if (center.length <= 2)
 		{
-			if (!Robot.pipeline.filterContoursOutput().isEmpty())
+			for (int i = 0; i < center.length; i++)
 			{
-				Rect r = Imgproc.boundingRect(Robot.pipeline.filterContoursOutput().get(i));
-				synchronized (imgLock)
+				if (!Robot.pipeline.filterContoursOutput().isEmpty())
 				{
-					centerX = r.x + (r.width / 2);
-					center[i] = centerX;
+					Rect r = Imgproc.boundingRect(Robot.pipeline.filterContoursOutput().get(i));
+					synchronized (imgLock)
+					{
+						centerX = r.x + (r.width / 2);
+						center[i] = centerX;
+					}
 				}
+				average += centerX;
 			}
-			average += centerX;
 		}
 		average /= center.length;
 	}
-	
+
 	public boolean filterContoursEmpty()
 	{
-		if(center.length == 0)
+		if (center.length == 0)
 			return true;
 		return false;
-	}	
+	}
 
 	public void report()
 	{
-		for (int i = 0; i < center.length; i++)
+		if (center.length <= 2)
 		{
-			SmartDashboard.putNumber("Center" + (i + 1), center[i]);
+			for (int i = 0; i < center.length; i++)
+			{
+				SmartDashboard.putNumber("Center" + (i + 1), center[i]);
+			}
 		}
 		SmartDashboard.putNumber("Number of Contours", center.length);
 		SmartDashboard.putNumber("Average", average);

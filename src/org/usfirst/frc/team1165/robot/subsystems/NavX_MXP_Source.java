@@ -82,13 +82,13 @@ public class NavX_MXP_Source extends Subsystem
 
 		if (Math.abs(difference) > bigAngle)
 		{
-			return difference > 0 ? -twistPower : twistPower;
+			return difference > 0 ? twistPower : -twistPower;
 		}
 		if (Math.abs(difference) < smallAngle)
 		{
 			return 0;
 		}
-		return difference > 0 ? -smallTwistPower : smallTwistPower;
+		return difference > 0 ? smallTwistPower : -smallTwistPower;
 	}
 	// Collision Detection Feature (Very Experimental)
 
