@@ -3,6 +3,7 @@ package org.usfirst.frc.team1165.robot;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.UsbCameraInfo;
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -12,6 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team1165.robot.commands.AutoPlaceGear;
 import org.usfirst.frc.team1165.robot.commands.AutoShootAndGear;
+import org.usfirst.frc.team1165.robot.commands.TestAlliance;
 import org.usfirst.frc.team1165.robot.subsystems.Agitator;
 import org.usfirst.frc.team1165.robot.subsystems.Climber;
 import org.usfirst.frc.team1165.robot.subsystems.DriveTrain;
@@ -143,6 +145,9 @@ public class Robot extends IterativeRobot
 	public void autonomousInit()
 	{
 		autonomousCommand = (Command)autoChooser.getSelected();
+		//final String autoCommandPlusAlliance = autoChooser.getSelected().toString()+DriverStation.getInstance().getAlliance();
+		//autonomousCommand = (Command)autoCommandPlusAlliance.;
+		
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand

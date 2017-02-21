@@ -69,7 +69,7 @@ public class DriveTrain extends Subsystem
 
 	public void driveCartesian(double x, double y, double twist, double gyroAngle)
 	{
-		isRunning = x >= 0.2 && y >= 0.2 && twist >= 0.2 ? true : false;
+		isRunning = Math.abs(x) >= 0.2 || Math.abs(y) >= 0.2 || Math.abs(twist) >= 0.2 ? true : false;
 		robotDrive.mecanumDrive_Cartesian(x, y, twist, gyroAngle);
 		// SmartDashboard.putNumber("Heading", Robot.navXSource.getHeading());
 	}

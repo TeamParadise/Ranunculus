@@ -56,6 +56,31 @@ public class UltrasonicSensorSource extends Subsystem
 		return power;
 	}
 	
+	public double gearDistancePower(double distance, double power)
+	{
+		if(gearUltrasonic.getRangeInches() < distance * 2 && distance > -1)
+		{
+			//forward
+			return -0.75;
+		}
+		return power;
+	}
+	
+	public double gearDistanceAway(double distance, double power)
+	{
+		if(gearUltrasonic.getRangeInches() < distance / 2 && distance > -1)
+		{
+			return power;
+		}
+		return 0.65;
+		
+	}
+	
+	public boolean gearUltrasonicAtDistanceAway(double distance)
+	{
+		return gearUltrasonic.getRangeInches() > distance && distance > -1;
+	}
+	
 	public boolean atDistance(double distance)
 	{
 		return ultrasonicLeft.getRangeInches() < distance && distance > -1;

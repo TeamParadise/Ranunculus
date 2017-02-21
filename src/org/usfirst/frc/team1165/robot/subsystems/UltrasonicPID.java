@@ -105,8 +105,8 @@ public class UltrasonicPID extends PIDSubsystem
 	{
 		// Use output to drive your system, like a motor
 		if (getUltrasonic() == StrafeType.LEFT)
-			Robot.driveTrain.driveCartesian(output, 0, 0, 0);
-		else if (getUltrasonic() == StrafeType.RIGHT)
 			Robot.driveTrain.driveCartesian(-output, 0, 0, 0);
+		else if (getUltrasonic() == StrafeType.RIGHT)
+			Robot.driveTrain.driveCartesian(output, 0, 0, 0);
 	}
 }

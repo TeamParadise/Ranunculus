@@ -12,34 +12,35 @@ public class RunAgitator extends Command
 {
 
 	public static Timer timer;
-	int period = 0;
+	int reversalTime = 0;
 	public static double power = -0.5;
+	public static int period = 2000;
 
 	public RunAgitator()
 	{
 		// Use requires() here to declare subsystem dependencies
-		period = 0;
+		reversalTime = 0;
 		requires(Robot.agitator);
 	}
 
 	public RunAgitator(int reversalTime)
 	{
 		this();
-		period = reversalTime;
+		this.reversalTime = reversalTime;
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize()
 	{
 		timer = new Timer();
-		if (period != 0)
-			timer.schedule(new ReverseMotor(period), 0,  1000);
+		if (reversalTime != 0)
+			timer.schedule(new ReverseMotor(reversalTime), 0, period);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute()
 	{
-		if (period == 0)
+		if (reversalTime == 0)
 		{
 			if (Robot.shooter.isRunning() && Robot.servo.isServoUp())
 				Robot.agitator.set(power);
@@ -79,32 +80,24 @@ public class RunAgitator extends Command
 
 class ReverseMotor extends TimerTask
 {
-	int reverseCount=-1;
+	int reverseCount = -1;
 	int cycles = 1;
+
 	public ReverseMotor(int forwardtime)
 	{
-		reverseCount = forwardtime/1000;
+		reverseCount = forwardtime / RunAgitator.period - 1;
 	}
+
 	public void run()
 	{
 		if (reverseCount > 0)
 		{
-			if (cycles++ > reverseCount || RunAgitator.power > 0)
+			if (cycles++ >= reverseCount || RunAgitator.power > 0)
 			{
 				cycles = 1;
 				RunAgitator.power *= -1;
 			}
-		}
-		else RunAgitator.power *= -1;
-		/*try
-		{
-			this.wait(1000);
-			Robot.agitator.set(RunAgitator.power);
-		} catch (InterruptedException e)
-		{
-			
-		}
-		this.notify();
-		RunAgitator.power *= -1;*/
+		} else
+			RunAgitator.power *= -1;
 	}
 }

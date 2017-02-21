@@ -25,7 +25,7 @@ public class RunPickup extends Command
 	protected void execute()
 	{
 		if(Robot.driveTrain.isRunning() ||Robot.shooter.isRunning())
-			Robot.pickup.set(1);
+			Robot.pickup.set(0.5);
 		else
 			Robot.pickup.set(0);
 	}

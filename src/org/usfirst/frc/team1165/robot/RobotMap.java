@@ -17,7 +17,7 @@ public class RobotMap
 
 	public static final int shooterRPMPortNumber = 1;
 	
-	public static final int climbButton = 9;
+	public static final int climbButton = 2;
 
 	public static final int ultrasonicPickupLeftPingChannel = 0;
 	public static final int ultrasonicPickupLeftEchoChannel = 1;

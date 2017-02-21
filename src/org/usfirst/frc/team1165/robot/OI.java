@@ -7,6 +7,8 @@ import org.usfirst.frc.team1165.robot.commands.EnableUltrasonicSetpoint;
 import org.usfirst.frc.team1165.robot.commands.LineWithVisionTape;
 import org.usfirst.frc.team1165.robot.commands.ResetEncoder;
 import org.usfirst.frc.team1165.robot.commands.RotateToHeading;
+import org.usfirst.frc.team1165.robot.commands.StrafeToWall;
+import org.usfirst.frc.team1165.robot.commands.TestAlliance;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -39,7 +41,7 @@ public class OI
 	
 	JoystickButton driveStraight = new JoystickButton(stick, 11);
 
-	JoystickButton climb = new JoystickButton(stick, RobotMap.climbButton);//9
+	JoystickButton climb = new JoystickButton(stick, RobotMap.climbButton);//2
 	JoystickButton rotateN180 = new JoystickButton(stick, RobotMap.rotateRobotN180);//3
 	JoystickButton rotate180 = new JoystickButton(stick, RobotMap.rotateRobot180);//4
 	JoystickButton rotateN90 = new JoystickButton(stick, RobotMap.rotateRobotN90);//5
@@ -68,7 +70,7 @@ public class OI
 		rotateN90.whenPressed(new RotateToHeading(-90));
 		rotate90.whenPressed(new RotateToHeading(90));
 		
-		driveStraight.whenPressed(new DriveStraightNavX(0.4,40, true));
+		driveStraight.whenPressed(new DriveStraightNavX(0.4, 40, true));
 		driveStraightButton.whenPressed(new DriveStraightNavX(0.4, -40, true));		
 	}
 }
