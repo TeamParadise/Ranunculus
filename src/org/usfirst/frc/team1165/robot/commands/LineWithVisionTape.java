@@ -46,8 +46,8 @@ public class LineWithVisionTape extends Command
 		if(useDistance)
 		{
 			double twistCorrection = Robot.navXSource.getTwistCorrection(initialAngle);
-			double powerCorrection = Robot.ultrasonicSensorSource.distancePower(distance, forwardSpeed);
-			Robot.driveTrain.driveCartesian(0, powerCorrection, twistCorrection, 0);
+			double powerCorrection = Robot.ultrasonicSensorSource.gearDistancePower(distance, forwardSpeed);
+			Robot.driveTrain.driveCartesian(powerCorrection, 0, twistCorrection, 0);
 		}
 	}
 

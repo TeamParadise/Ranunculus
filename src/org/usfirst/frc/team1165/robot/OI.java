@@ -8,7 +8,6 @@ import org.usfirst.frc.team1165.robot.commands.LineWithVisionTape;
 import org.usfirst.frc.team1165.robot.commands.ResetEncoder;
 import org.usfirst.frc.team1165.robot.commands.RotateToHeading;
 import org.usfirst.frc.team1165.robot.commands.StrafeToWall;
-import org.usfirst.frc.team1165.robot.commands.TestAlliance;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;

@@ -37,6 +37,16 @@ public class DriveWithJoystick extends Command
 			y = 0;
 		if (Math.abs(twist) < 0.2)
 			twist = 0;
+		/*Turns off x or y motion if the other is predominate (Lukes code)
+		 * if (Math.abs(x) >= .6 && Math.abs(y) < .6)
+		 * 	y = 0;
+		 * if (Math.abs(y) >= .6 && Math.abs(x) < .6)
+		 * 	x = 0;
+		 */
+		// Turns off twist while strafing (Lukes code)
+		//if (Math.abs(x) > .3)
+		 	//twist = 0;
+		 
 		Robot.driveTrain.driveCartesian(x, y, twist, 0);
 		Robot.navXSource.report();
 		Robot.driveTrain.report();

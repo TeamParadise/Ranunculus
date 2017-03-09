@@ -46,6 +46,10 @@ public class UltrasonicSensorSource extends Subsystem
 		setDefaultCommand(new ReportUltrasonicValues());
 	}
 	
+	public double getGearUltrasoniceReading()
+	{
+		return gearUltrasonic.getRangeInches();
+	}
 	public double distancePower(double distance, double power)
 	{
 		if(ultrasonicLeft.getRangeInches() < distance * 2 && distance > -1)
