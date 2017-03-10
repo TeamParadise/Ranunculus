@@ -23,7 +23,7 @@ public class StrafeToWall extends Command
 		requires(Robot.ultrasonicSensorSource);
 		requires(Robot.ultrasonicPID);
 		targetHeading = Robot.navXSource.getHeading();
-		distanceToWall = 7;
+		distanceToWall = 5;
 	}
 
 	// Called just before this Command runs the first time

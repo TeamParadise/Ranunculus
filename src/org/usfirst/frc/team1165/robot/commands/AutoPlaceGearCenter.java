@@ -17,8 +17,9 @@ public class AutoPlaceGearCenter extends CommandGroup
 	{
 			addSequential(new DriveStraightNavX(0.4, 60, true));
 			addSequential(new RotateToHeading(-90.0));
-			addSequential(new StrafeToWall());
-			addSequential(new WaitCommand(3));
+			addSequential(new LineWithVisionTape(),4);
+			//addSequential(new StrafeToWall(),4);
+			addSequential(new WaitCommand(5),5);
 			addSequential(new StrafeAwayFromWall(20), 3);
 			addSequential(new DriveStraightNavX(0.4, 72, true));
 			addSequential(new RotateToHeading(90));

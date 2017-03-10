@@ -24,7 +24,7 @@ public class Agitator extends Subsystem
 	public void initDefaultCommand()
 	{
 		// Set the default command for a subsystem here.
-		setDefaultCommand(new RunAgitator(4000));
+		setDefaultCommand(new RunAgitator(2000));
  	}
 	
 	public double getSpeed()

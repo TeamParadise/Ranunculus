@@ -27,6 +27,8 @@ public class VisionPID extends PIDSubsystem
 
 	private final int usbCameraImageWidth = 640;
 	private final int usbCameraImageHeight = 480;
+	
+	public double output;
 
 	// Initialize your subsystem here
 	public VisionPID()
@@ -59,7 +61,7 @@ public class VisionPID extends PIDSubsystem
 	protected void usePIDOutput(double output)
 	{
 		// Use output to drive your system, like a motor
-		Robot.driveTrain.driveCartesian(output, 0, 0, 0);
+		this.output = output;
 		SmartDashboard.putNumber("Vision PID Output", output);
 	}
 }

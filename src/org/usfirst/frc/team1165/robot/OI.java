@@ -62,14 +62,14 @@ public class OI
 		climb.whenPressed(new Climb());
 		
 		visionPIDButton.whenPressed(new LineWithVisionTape());
-		visionSonar.whenPressed(new LineWithVisionTape(20));
+		visionSonar.whenPressed(new LineWithVisionTape());
 		// Rotate To Heading
 		rotateN180.whenPressed(new RotateToHeading(-180));
 		rotate180.whenPressed(new RotateToHeading(180));
 		rotateN90.whenPressed(new RotateToHeading(-90));
 		rotate90.whenPressed(new RotateToHeading(90));
 		
-		driveStraight.whenPressed(new DriveStraightNavX(0.4, 40, true));
+		driveStraight.whenPressed(new DriveStraightNavX(0.4, true));
 		driveStraightButton.whenPressed(new DriveStraightNavX(0.4, -40, true));		
 	}
 }

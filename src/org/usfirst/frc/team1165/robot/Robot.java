@@ -4,6 +4,7 @@ import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.UsbCameraInfo;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -11,9 +12,11 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team1165.robot.commands.AutoGearAwayBolier;
+import org.usfirst.frc.team1165.robot.commands.AutoGearAwayBolierBlue;
+import org.usfirst.frc.team1165.robot.commands.AutoGearAwayBolierRed;
 import org.usfirst.frc.team1165.robot.commands.AutoPlaceGearCenter;
-import org.usfirst.frc.team1165.robot.commands.AutoShootAndGear;
+import org.usfirst.frc.team1165.robot.commands.AutoShootAndGearBlue;
+import org.usfirst.frc.team1165.robot.commands.AutoShootAndGearRed;
 import org.usfirst.frc.team1165.robot.subsystems.Agitator;
 import org.usfirst.frc.team1165.robot.subsystems.Climber;
 import org.usfirst.frc.team1165.robot.subsystems.DriveTrain;
@@ -73,10 +76,13 @@ public class Robot extends IterativeRobot
 	public void robotInit()
 	{
 		oi = new OI();
+		SmartDashboard.putBoolean("Blue Alliance" , DriverStation.getInstance().getAlliance() == Alliance.Red);
 		autoChooser = new SendableChooser();
-		autoChooser.addDefault("Place Gear On Center", new AutoPlaceGearCenter());
-		autoChooser.addObject("Shoot and Gear Autonomous", new AutoShootAndGear());
-		autoChooser.addObject("Place Gear Only(Red Backwards, Blue Forwards)", new AutoGearAwayBolier());
+		autoChooser.addDefault("Place Gear On Center(Forwards)", new AutoPlaceGearCenter());
+		autoChooser.addObject("Shoot and Gear Autonomous Red(Backwards)", new AutoShootAndGearRed());
+		autoChooser.addObject("Shoot and Gear Autonomous Blue(Backwards)", new AutoShootAndGearBlue());
+		autoChooser.addObject("Place Gear Only Red(Forwards)", new AutoGearAwayBolierRed());
+		autoChooser.addObject("Place Gear Only Blue(Backwards)", new AutoGearAwayBolierBlue());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 
 		SmartDashboard.putNumber(RobotMap.getShooterWheelString, 3500); //3500);

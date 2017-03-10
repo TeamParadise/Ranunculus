@@ -10,51 +10,40 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class LineWithVisionTape extends Command
 {
-
-	boolean useDistance = false;
-	private double distance = -1;
+	private double distanceToWall = 5;
 	private double targetHeading;
 	private double forwardSpeed = -0.75;
 	private double initialAngle;
+	private double distance;
 	public LineWithVisionTape()
 	{
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.visionPID);
 		requires(Robot.driveTrain);
 	}
-	
-	public LineWithVisionTape(double distance)
-	{
-		this();
-		useDistance = true;
-		this.distance = distance;
-		targetHeading = Robot.navXSource.getHeading();
-	}
-
 	// Called just before this Command runs the first time
 	protected void initialize()
 	{
 		initialAngle = Robot.navXSource.getHeading();
 		Robot.visionPID.setSetpoint();
 		Robot.visionPID.enable();
+		distance = Robot.ultrasonicSensorSource.getGearUltrasoniceReading();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute()
 	{
-		SmartDashboard.putBoolean("Vision PID On Target", Robot.visionPID.onTarget());
-		if(useDistance)
-		{
+			SmartDashboard.putBoolean("Vision PID On Target", Robot.visionPID.onTarget());
 			double twistCorrection = Robot.navXSource.getTwistCorrection(initialAngle);
-			double powerCorrection = Robot.ultrasonicSensorSource.gearDistancePower(distance, forwardSpeed);
-			Robot.driveTrain.driveCartesian(powerCorrection, 0, twistCorrection, 0);
-		}
+			double powerCorrection = Robot.visionPID.output;
+			double strafeCorrection = Robot.ultrasonicSensorSource.gearDistancePower(distance, forwardSpeed)/2.0;
+			Robot.driveTrain.driveCartesian(strafeCorrection, powerCorrection, twistCorrection, 0);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished()
 	{
-		return useDistance?Robot.visionPID.onTarget() || Robot.visionGRIP.filterContoursEmpty():Robot.ultrasonicSensorSource.atDistance(distance);
+		return Robot.ultrasonicSensorSource.gearUltrasonicAtDistance(distanceToWall);
 	}
 
 	// Called once after isFinished returns true
