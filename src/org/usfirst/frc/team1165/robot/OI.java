@@ -33,8 +33,6 @@ public class OI
 	
 	JoystickButton visionSonar = new JoystickButton(stick, 8);
 	
-	//JoystickButton encoderReset = new JoystickButton(stick, 11);
-	
 	JoystickButton driveStraight = new JoystickButton(stick, 11);
 
 	JoystickButton climb = new JoystickButton(stick, RobotMap.climbButton);//2
@@ -55,7 +53,6 @@ public class OI
 	{
 		shooterRPMButton.whenPressed(new DriveShooter());
 		ultrasonicPIDButton.whenPressed(new EnableUltrasonicSetpoint());
-		//encoderReset.whenPressed(new ResetEncoder());		
 		climb.whenPressed(new Climb());
 		
 		visionPIDButton.whenPressed(new LineWithVisionTape());
