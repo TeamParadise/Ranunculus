@@ -66,7 +66,7 @@ public class Robot extends IterativeRobot
 	public static OI oi;
 
 	Command autonomousCommand;
-	SendableChooser autoChooser;
+	SendableChooser<Command> autoChooser;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -77,7 +77,7 @@ public class Robot extends IterativeRobot
 	{
 		oi = new OI();
 		SmartDashboard.putBoolean("Blue Alliance" , DriverStation.getInstance().getAlliance() == Alliance.Red);
-		autoChooser = new SendableChooser();
+		autoChooser = new SendableChooser<Command>();
 		autoChooser.addDefault("Place Gear On Center(Forwards)", new AutoPlaceGearCenter());
 		autoChooser.addObject("Shoot and Gear Autonomous Red(Backwards)", new AutoShootAndGearRed());
 		autoChooser.addObject("Shoot and Gear Autonomous Blue(Backwards)", new AutoShootAndGearBlue());
@@ -151,7 +151,7 @@ public class Robot extends IterativeRobot
 	@Override
 	public void autonomousInit()
 	{
-		autonomousCommand = (Command)autoChooser.getSelected();
+		autonomousCommand = autoChooser.getSelected();
 		//final String autoCommandPlusAlliance = autoChooser.getSelected().toString()+DriverStation.getInstance().getAlliance();
 		//autonomousCommand = (Command)autoCommandPlusAlliance.;
 		

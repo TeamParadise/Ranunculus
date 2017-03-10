@@ -51,11 +51,13 @@ public class StrafeAwayFromWall extends Command
 	// Called once after isFinished returns true
 	protected void end()
 	{
+		// Turn off drive train?
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted()
 	{
+		end();
 	}
 }

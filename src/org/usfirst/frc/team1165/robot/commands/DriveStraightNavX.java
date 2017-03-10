@@ -27,7 +27,7 @@ public class DriveStraightNavX extends Command
 	{
 		// Use requires() here to declare subsystem dependencies
 		this();
-		super.setTimeout(timeout);
+		setTimeout(timeout);
 	}
 
 	public DriveStraightNavX(double forwardSpeed, double timeout)
@@ -92,8 +92,8 @@ public class DriveStraightNavX extends Command
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished()
 	{
-		return isTimedOut() || (Robot.encoder.onTarget() && enableEncoder)
-				|| (Robot.ultrasonicSensorSource.atDistance(distanceToWall) && enableDistanceToWall);
+		return isTimedOut() || (enableEncoder && Robot.encoder.onTarget())
+				|| (enableDistanceToWall && Robot.ultrasonicSensorSource.atDistance(distanceToWall));
 				//|| Robot.driveTrain.atDistance(encoderDistance);
 	}
 
