@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveStraightNavX extends Command
 {
-	private double targetHeading;
 	private double forwardSpeed = -0.5;
 	private double initialAngle;
 	private double distanceToWall = -1;
@@ -20,7 +19,7 @@ public class DriveStraightNavX extends Command
 		requires(Robot.driveTrain);
 		requires(Robot.navXSource);
 		requires(Robot.encoder);
-		targetHeading = Robot.navXSource.getHeading();
+		Robot.navXSource.getHeading();
 	}
 
 	public DriveStraightNavX(double timeout)

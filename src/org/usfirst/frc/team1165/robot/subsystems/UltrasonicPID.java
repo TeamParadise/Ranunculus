@@ -19,9 +19,6 @@ public class UltrasonicPID extends PIDSubsystem
 	// distance in inches the robot wants to stay from an object
 	private static final double kHoldDistance = 4;
 
-	// maximun distance in inches we expect the robot to see
-	private static final double kMaxDistance = 15.0;
-
 	// Minimum and maximum allowable set point positions:
 	private final static double minPosition = 0;
 	private final static double maxPosition = 15;
@@ -29,11 +26,6 @@ public class UltrasonicPID extends PIDSubsystem
 	// Minimum and maximum allowable speeds:
 	private final static double minSpeed = -0.85;
 	private final static double maxSpeed = 0.85;
-
-	// Tolerance for reaching set point:
-	private final static double tolerance = 0.16;
-
-	private static int finished = 0;
 
 	public StrafeType direction = StrafeType.NONE;
 

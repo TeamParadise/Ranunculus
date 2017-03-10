@@ -26,7 +26,6 @@ public class VisionPID extends PIDSubsystem
 	private final static double tolerance = 5;
 
 	private final int usbCameraImageWidth = 640;
-	private final int usbCameraImageHeight = 480;
 	
 	public double output;
 

@@ -7,16 +7,9 @@ import org.opencv.imgproc.Imgproc;
 import org.usfirst.frc.team1165.robot.Robot;
 import org.usfirst.frc.team1165.robot.commands.DisplayContourCenter;
 
-import com.ctre.CANTalon;
-
-import Util.GripContoursPipeline;
-import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.vision.VisionThread;
-import edu.wpi.first.wpilibj.vision.VisionPipeline;
-import edu.wpi.first.wpilibj.vision.VisionRunner;
 
 public class VisionGRIPSource extends Subsystem
 {
@@ -24,8 +17,6 @@ public class VisionGRIPSource extends Subsystem
 	// here. Call these from Commands.
 	double center[];
 	double average = 0;
-	private static final int IMG_WIDTH = 320;
-	private static final int IMG_HEIGHT = 240;
 	public int centerX = 0;
 	int i = 7;
 

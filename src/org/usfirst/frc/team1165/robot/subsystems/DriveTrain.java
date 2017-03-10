@@ -1,17 +1,13 @@
 package org.usfirst.frc.team1165.robot.subsystems;
 
-import org.usfirst.frc.team1165.robot.Robot;
 import org.usfirst.frc.team1165.robot.RobotMap;
 import org.usfirst.frc.team1165.robot.commands.DriveWithJoystick;
 
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
 
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -22,16 +18,6 @@ public class DriveTrain extends Subsystem
 	CANTalon frontRight = new CANTalon(RobotMap.CANTalonDriveFrontRight);
 	CANTalon rearRight = new CANTalon(RobotMap.CANTalonDriveRearRight);
 	
-	private int rearLeftVal = 0;
-	private int rearRightVal = 1;
-
-	private static final double Kp = 0.3;
-	private static final double Ki = 0.0;
-	private static final double Kd = 0.0;
-	
-	private static final int kMaxNumberOfMotors = 2;
-	
-	private static final double maxOutput = 0.85;
 
 	public RobotDrive robotDrive;
 	

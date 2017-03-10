@@ -5,13 +5,10 @@ import org.usfirst.frc.team1165.robot.commands.DriveShooter;
 import org.usfirst.frc.team1165.robot.commands.DriveStraightNavX;
 import org.usfirst.frc.team1165.robot.commands.EnableUltrasonicSetpoint;
 import org.usfirst.frc.team1165.robot.commands.LineWithVisionTape;
-import org.usfirst.frc.team1165.robot.commands.ResetEncoder;
 import org.usfirst.frc.team1165.robot.commands.RotateToHeading;
-import org.usfirst.frc.team1165.robot.commands.StrafeToWall;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator

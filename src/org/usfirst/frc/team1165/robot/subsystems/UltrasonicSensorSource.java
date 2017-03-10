@@ -3,7 +3,6 @@ package org.usfirst.frc.team1165.robot.subsystems;
 import org.usfirst.frc.team1165.robot.RobotMap;
 import org.usfirst.frc.team1165.robot.commands.ReportUltrasonicValues;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.Ultrasonic.Unit;
 import edu.wpi.first.wpilibj.command.Subsystem;

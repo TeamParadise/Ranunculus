@@ -1,17 +1,9 @@
 package org.usfirst.frc.team1165.robot.subsystems;
 
 import org.usfirst.frc.team1165.robot.Robot;
-import org.usfirst.frc.team1165.robot.commands.ReportNavXValues;
 
-//import org.usfirst.frc.team1165.robot.commands.ReportNavXValues;
-
-import com.kauailabs.navx.frc.AHRS;
-
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class NavX_MXP_PID implements PIDOutput

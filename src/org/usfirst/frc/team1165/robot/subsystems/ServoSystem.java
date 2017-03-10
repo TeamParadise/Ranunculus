@@ -1,7 +1,6 @@
 package org.usfirst.frc.team1165.robot.subsystems;
 
 import org.usfirst.frc.team1165.robot.RobotMap;
-import org.usfirst.frc.team1165.robot.commands.MoveServo;
 import org.usfirst.frc.team1165.robot.commands.SetServoUsingRPM;
 
 import edu.wpi.first.wpilibj.Servo;

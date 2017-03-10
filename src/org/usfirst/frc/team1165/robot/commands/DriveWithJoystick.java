@@ -1,11 +1,8 @@
 package org.usfirst.frc.team1165.robot.commands;
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import org.usfirst.frc.team1165.robot.Robot;
-import org.usfirst.frc.team1165.robot.RobotMap;
+
+import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveWithJoystick extends Command
 {

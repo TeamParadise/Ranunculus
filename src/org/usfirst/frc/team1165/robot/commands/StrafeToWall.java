@@ -11,18 +11,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class StrafeToWall extends Command
 {
 
-	private double targetHeading;
 	private double forwardSpeed = -0.85;
 	private double initialAngle;
 	private double distanceToWall = -1;
-	private boolean enableDistanceToWall = false;
 	
 	public StrafeToWall()
 	{
 		requires(Robot.driveTrain);
 		requires(Robot.ultrasonicSensorSource);
 		requires(Robot.ultrasonicPID);
-		targetHeading = Robot.navXSource.getHeading();
+		Robot.navXSource.getHeading();
 		distanceToWall = 5;
 	}
 
