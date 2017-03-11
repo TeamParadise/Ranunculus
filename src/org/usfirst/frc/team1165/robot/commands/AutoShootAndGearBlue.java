@@ -19,7 +19,7 @@ public class AutoShootAndGearBlue extends CommandGroup
 			addSequential(new DriveStraightNavX(0.4, -116, true));
 			addSequential(new RotateToHeading(90));
 			//addSequential(new StrafeToWall());
-			addSequential(new LineWithVisionTape(), 5);
+			addSequential(new LineWithVisionTape(), 3);
 			addSequential(new StrafeToWall());
 	}
 }

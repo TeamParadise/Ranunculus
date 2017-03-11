@@ -47,8 +47,10 @@ public class RotateToHeading extends Command
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished()
 	{
-		return Math.abs(Robot.navX.getTargetDifference()) < NavX_MXP_PID.kToleranceDegrees
-		 && Robot.navX.navXController.onTarget();
+		return (Math.abs(Robot.navX.getTargetDifference()) < NavX_MXP_PID.kToleranceDegrees
+		 && Robot.navX.navXController.onTarget()); /* ||
+				(Math.abs(Robot.navX.getTargetDifference()) < NavX_MXP_PID.kToleranceDegrees*2 && Robot.navX.rotateToAngleRate < 0.2);
+				*/
 	}
 
 	// Called once after isFinished returns true

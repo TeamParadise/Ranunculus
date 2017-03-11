@@ -13,8 +13,8 @@ public class RunAgitator extends Command
 
 	public static Timer timer;
 	int reversalTime = 0;
-	public static double power = -0.3;
-	public static int period = 2000;
+	public static double power = -0.4;
+	public static int period = 500;
 
 	public RunAgitator()
 	{
@@ -46,7 +46,7 @@ public class RunAgitator extends Command
 			if (Robot.shooter.isRunning() && Robot.servo.isServoUp())
 				Robot.agitator.set(power);
 			else if (Robot.shooter.isRunning() && !Robot.servo.isServoUp())
-				Robot.agitator.set(-power);
+				Robot.agitator.set(0); //-power);
 			else
 				Robot.agitator.set(0);
 		} else

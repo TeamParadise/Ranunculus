@@ -9,14 +9,15 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class AutoGearAwayBolierBlue extends CommandGroup
+public class AutoGearAwayBoilerRed extends CommandGroup
 {
 
-	public AutoGearAwayBolierBlue()
+	public AutoGearAwayBoilerRed()
 	{
-			addSequential(new DriveStraightNavX(0.4, -85, true));
-			addSequential(new RotateToHeading(30));
-			addSequential(new LineWithVisionTape(), 5);
+			addSequential(new DriveStraightNavX(0.4, 85, true));
+			addSequential(new RotateToHeading(-30));
+			//addSequential(new StrafeToWall());
+			addSequential(new LineWithVisionTape(),5);
 			addSequential(new StrafeToWall());
 	}
 }
