@@ -27,7 +27,9 @@ public class OI
 
 	JoystickButton ultrasonicPIDButton = new JoystickButton(stick, RobotMap.enableUltrasonicPID);//10
 	
-	JoystickButton visionPIDButton = new JoystickButton(stick, RobotMap.enableVisionPID);//12
+	//JoystickButton visionPIDButton = new JoystickButton(stick, RobotMap.enableVisionPID);//12
+	
+	JoystickButton placeGearVisionButton = new JoystickButton(stick, RobotMap.placeGearButton);//12
 	
 	JoystickButton driveStraightButton = new JoystickButton(stick, 7);
 	
@@ -55,7 +57,7 @@ public class OI
 		ultrasonicPIDButton.whenPressed(new EnableUltrasonicSetpoint());
 		climb.whenPressed(new Climb());
 		
-		visionPIDButton.whenPressed(new LineWithVisionTape());
+		placeGearVisionButton.whenPressed(new LineWithVisionTape());
 		visionSonar.whenPressed(new LineWithVisionTape());
 		// Rotate To Heading
 		rotateN180.whenPressed(new RotateToHeading(-180));

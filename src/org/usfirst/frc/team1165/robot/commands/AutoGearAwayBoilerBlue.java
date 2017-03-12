@@ -5,10 +5,10 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class AutoGearAwayBolierBlue extends CommandGroup
+public class AutoGearAwayBoilerBlue extends CommandGroup
 {
 
-	public AutoGearAwayBolierBlue()
+	public AutoGearAwayBoilerBlue()
 	{
 			addSequential(new DriveStraightNavX(0.4, -85, true));
 			addSequential(new RotateToHeading(30));

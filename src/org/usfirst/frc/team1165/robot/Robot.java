@@ -12,8 +12,8 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team1165.robot.commands.AutoGearAwayBolierBlue;
-import org.usfirst.frc.team1165.robot.commands.AutoGearAwayBolierRed;
+import org.usfirst.frc.team1165.robot.commands.AutoGearAwayBoilerBlue;
+import org.usfirst.frc.team1165.robot.commands.AutoGearAwayBoilerRed;
 import org.usfirst.frc.team1165.robot.commands.AutoPlaceGearCenter;
 import org.usfirst.frc.team1165.robot.commands.AutoShootAndGearBlue;
 import org.usfirst.frc.team1165.robot.commands.AutoShootAndGearRed;
@@ -81,12 +81,12 @@ public class Robot extends IterativeRobot
 		autoChooser.addDefault("Place Gear On Center(Forwards)", new AutoPlaceGearCenter());
 		autoChooser.addObject("Shoot and Gear Autonomous Red(Backwards)", new AutoShootAndGearRed());
 		autoChooser.addObject("Shoot and Gear Autonomous Blue(Backwards)", new AutoShootAndGearBlue());
-		autoChooser.addObject("Place Gear Only Red(Forwards)", new AutoGearAwayBolierRed());
-		autoChooser.addObject("Place Gear Only Blue(Backwards)", new AutoGearAwayBolierBlue());
+		autoChooser.addObject("Place Gear Only Red(Forwards)", new AutoGearAwayBoilerRed());
+		autoChooser.addObject("Place Gear Only Blue(Backwards)", new AutoGearAwayBoilerBlue());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 
-		SmartDashboard.putNumber(RobotMap.getShooterWheelString, 3500); //3500);
-		SmartDashboard.putNumber(RobotMap.getFeederWheelString, 2400); //2400);
+		SmartDashboard.putNumber(RobotMap.getShooterWheelString, 3100); //3500);
+		SmartDashboard.putNumber(RobotMap.getFeederWheelString, 2600); //2400);
 		SmartDashboard.putNumber(RobotMap.getShooterWheelValue, 0.5);
 		SmartDashboard.putNumber(RobotMap.getFeederWheelValue, 0.5);
 		
