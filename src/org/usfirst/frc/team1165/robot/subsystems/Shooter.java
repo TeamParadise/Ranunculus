@@ -104,11 +104,13 @@ public class Shooter extends Subsystem
 	
 	public double getShooterWheelSetpoint()
 	{
+		// Avoid use of deprecated method by supplying default value:
 		return SmartDashboard.getNumber(RobotMap.getShooterWheelString);
 	}
 	
 	public double getFeederWheelSetpoint()
 	{
+		// Avoid use of deprecated method by supplying default value:
 		return SmartDashboard.getNumber(RobotMap.getFeederWheelString);
 	}
 

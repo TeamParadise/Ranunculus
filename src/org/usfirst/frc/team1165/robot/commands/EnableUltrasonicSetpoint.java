@@ -38,6 +38,7 @@ public class EnableUltrasonicSetpoint extends Command
 	// Called once after isFinished returns true
 	protected void end()
 	{
+		// Stop drive train?
 		Robot.ultrasonicPID.disable();
 	}
 
@@ -45,6 +46,6 @@ public class EnableUltrasonicSetpoint extends Command
 	// subsystems is scheduled to run
 	protected void interrupted()
 	{
-		Robot.ultrasonicPID.disable();
+		end();
 	}
 }

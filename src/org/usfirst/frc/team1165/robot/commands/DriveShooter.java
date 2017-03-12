@@ -22,8 +22,10 @@ public class DriveShooter extends Command
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute()
 	{
+		// Avoid use of deprecated method by supplying default value:
 		if (SmartDashboard.getNumber(RobotMap.displayFeederWheelString) == 0)
 		{
+			// Avoid use of deprecated method by supplying default value:
 			Robot.shooter.setFeederWheelPower(SmartDashboard.getNumber(RobotMap.getFeederWheelValue));
 		}
 		else
@@ -31,8 +33,10 @@ public class DriveShooter extends Command
 			Robot.shooter.driveFeederWheelAtRPM(Robot.shooter.getFeederWheelSetpoint());
 		}
 
+		// Avoid use of deprecated method by supplying default value:
 		if (SmartDashboard.getNumber(RobotMap.displayShooterWheelString) == 0)
 		{
+			// Avoid use of deprecated method by supplying default value:
 			Robot.shooter.setShooterWheelPower(SmartDashboard.getNumber(RobotMap.getShooterWheelValue));
 		}
 		else

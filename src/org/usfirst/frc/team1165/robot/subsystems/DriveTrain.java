@@ -71,6 +71,11 @@ public class DriveTrain extends Subsystem
 		frontLeft.setEncPosition(0);
 	}
 	
+	public void stop()
+	{
+		driveCartesian(0, 0, 0, 0);
+	}
+	
 	public double averageEncoderDistance()
 	{
 		return (leftEncoderDistance() + rightEncoderDistance())/2.0;

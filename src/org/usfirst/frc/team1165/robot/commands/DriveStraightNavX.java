@@ -100,7 +100,7 @@ public class DriveStraightNavX extends Command
 	protected void end()
 	{
 		Robot.navX.navXController.disable();
-		Robot.driveTrain.driveCartesian(0, 0, 0, 0);
+		Robot.driveTrain.stop();
 		Robot.driveTrain.reset();
 		Robot.encoder.disable();
 		SmartDashboard.putBoolean("Drive Straight Complete", true);

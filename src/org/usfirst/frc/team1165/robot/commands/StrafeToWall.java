@@ -49,7 +49,7 @@ public class StrafeToWall extends Command
 	// Called once after isFinished returns true
 	protected void end()
 	{
-		Robot.driveTrain.driveCartesian(0, 0, 0, 0);
+		Robot.driveTrain.stop();
 		SmartDashboard.putBoolean("Strafe To Wall Finished", true);
 	}
 

@@ -48,6 +48,7 @@ public class LineWithVisionTape extends Command
 	// Called once after isFinished returns true
 	protected void end()
 	{
+		// Stop drive train?
 		Robot.visionPID.disable();
 		SmartDashboard.putBoolean("Vision PID On Target", true);
 	}

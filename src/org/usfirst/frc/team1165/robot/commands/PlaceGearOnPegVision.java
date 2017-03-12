@@ -11,8 +11,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class PlaceGearOnPegVision extends Command
 {
-	private double distanceToWall = 5;
-	private double targetHeading;
 	private double forwardSpeed = -0.75;
 	private double initialAngle;
 	private double distance;
@@ -50,6 +48,7 @@ public class PlaceGearOnPegVision extends Command
 	// Called once after isFinished returns true
 	protected void end()
 	{
+		// Stop drive train?
 		Robot.visionPID.disable();
 		SmartDashboard.putBoolean("Vision PID On Target", true);
 	}

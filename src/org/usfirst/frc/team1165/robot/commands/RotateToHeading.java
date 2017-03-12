@@ -3,8 +3,6 @@ package org.usfirst.frc.team1165.robot.commands;
 import org.usfirst.frc.team1165.robot.Robot;
 import org.usfirst.frc.team1165.robot.subsystems.NavX_MXP_PID;
 
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -57,7 +55,7 @@ public class RotateToHeading extends Command
 	protected void end()
 	{
 		Robot.navX.navXController.disable();
-		Robot.driveTrain.driveCartesian(0, 0, 0, 0);
+		Robot.driveTrain.stop();
 	}
 
 	// Called when another command which requires one or more of the same
