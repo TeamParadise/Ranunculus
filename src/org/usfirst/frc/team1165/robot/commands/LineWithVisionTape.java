@@ -5,9 +5,7 @@ import org.usfirst.frc.team1165.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-/**
- *
- */
+
 public class LineWithVisionTape extends Command
 {
 	private double distanceToWall = 5;
@@ -37,6 +35,7 @@ public class LineWithVisionTape extends Command
 			double twistCorrection = Robot.navXSource.getTwistCorrection(initialAngle);
 			double powerCorrection = Robot.visionPID.output;
 			double strafeCorrection = Robot.ultrasonicSensorSource.gearDistancePower(distance, forwardSpeed)/2.0;
+			if (Math.abs(strafeCorrection) < 0.75) strafeCorrection = Math.signum(strafeCorrection)*0.75;
 			Robot.driveTrain.driveCartesian(strafeCorrection, powerCorrection, twistCorrection, 0);
 	}
 

@@ -5,9 +5,6 @@ import org.usfirst.frc.team1165.robot.Robot;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-/**
- *
- */
 public class VisionPID extends PIDSubsystem
 {
 	// proportional speed constant

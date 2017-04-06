@@ -17,7 +17,7 @@ public class AutoGearAwayBoilerRed extends CommandGroup
 			addSequential(new DriveStraightNavX(0.4, 85, true));
 			addSequential(new RotateToHeading(-30));
 			//addSequential(new StrafeToWall());
-			addSequential(new LineWithVisionTape(),5);
+			//addSequential(new LineWithVisionTape(),5);
 			addSequential(new StrafeToWall());
 	}
 }

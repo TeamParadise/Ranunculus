@@ -45,7 +45,11 @@ public class VisionGRIPSource extends Subsystem
 		{
 			visionThread = new VisionThread(Robot.usbCameras[0], Robot.pipeline, pipeline ->
 			{
-				if (!Robot.pipeline.filterContoursOutput().isEmpty())
+				/*if (visionThread.isInterrupted())
+					{
+						visionThread.stop();
+					}
+				else*/ if (!Robot.pipeline.filterContoursOutput().isEmpty())
 					SmartDashboard.putBoolean("Filter Contours Empty", false);
 				else
 					SmartDashboard.putBoolean("Filter Contours Empty", true);
@@ -59,6 +63,11 @@ public class VisionGRIPSource extends Subsystem
 		}
 	}
 
+	public void visionThreadStop()
+	{
+		if (visionThread.isAlive()) visionThread.stop(); //visionThread.interrupt();
+	}
+	
 	public void computeAverageCenter()
 	{
 		center = new double[Robot.pipeline.filterContoursOutput.size()];

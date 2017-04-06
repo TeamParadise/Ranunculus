@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1165.robot.commands;
+/*package org.usfirst.frc.team1165.robot.commands;
 
 import org.usfirst.frc.team1165.robot.Robot;
 import org.usfirst.frc.team1165.robot.RobotMap;
@@ -6,9 +6,9 @@ import org.usfirst.frc.team1165.robot.RobotMap;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-/**
+*//**
  *
- */
+ *//*
 public class PlaceGearOnPegVision extends Command
 {
 	private double distanceToWall = 5;
@@ -60,4 +60,4 @@ public class PlaceGearOnPegVision extends Command
 	{
 		end();
 	}
-}
+}*/

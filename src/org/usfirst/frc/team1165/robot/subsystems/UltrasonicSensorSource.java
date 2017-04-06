@@ -62,12 +62,12 @@ public class UltrasonicSensorSource extends Subsystem
 	
 	public double gearDistancePower(double distance, double power)
 	{
-		if(gearUltrasonic.getRangeInches() < distance * 2 && distance > -1)
+		if((gearUltrasonic.getRangeInches() < distance * 2 && distance > -1) || Math.abs(power)<0.75)
 		{
 			//forward
 			return -0.75;
 		}
-		return power;
+		else return power;
 	}
 	
 	public double gearDistanceAway(double distance, double power)

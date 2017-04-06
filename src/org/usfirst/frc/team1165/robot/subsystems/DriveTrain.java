@@ -43,6 +43,13 @@ public class DriveTrain extends Subsystem
 	{
 		robotDrive = new RobotDrive(frontLeft, rearLeft, frontRight, rearRight);
 		
+		//Fix Output Not Enabled Error
+		robotDrive.setSafetyEnabled(false);
+		frontLeft.setSafetyEnabled(false);
+		frontRight.setSafetyEnabled(false);
+		rearRight.setSafetyEnabled(false);
+		rearLeft.setSafetyEnabled(false);
+		
 		frontLeft.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		frontRight.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		

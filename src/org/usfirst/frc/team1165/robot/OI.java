@@ -4,7 +4,6 @@ import org.usfirst.frc.team1165.robot.commands.Climb;
 import org.usfirst.frc.team1165.robot.commands.DriveShooter;
 import org.usfirst.frc.team1165.robot.commands.DriveStraightNavX;
 import org.usfirst.frc.team1165.robot.commands.EnableUltrasonicSetpoint;
-import org.usfirst.frc.team1165.robot.commands.LineWithVisionTape;
 import org.usfirst.frc.team1165.robot.commands.ResetEncoder;
 import org.usfirst.frc.team1165.robot.commands.RotateToHeading;
 import org.usfirst.frc.team1165.robot.commands.StrafeToWall;
@@ -63,8 +62,8 @@ public class OI
 		//encoderReset.whenPressed(new ResetEncoder());		
 		climb.whenPressed(new Climb());
 		
-		placeGearVisionButton.whenPressed(new LineWithVisionTape());
-		visionSonar.whenPressed(new LineWithVisionTape());
+		/*placeGearVisionButton.whenPressed(new LineWithVisionTape());
+		visionSonar.whenPressed(new LineWithVisionTape());*/
 		// Rotate To Heading
 		rotateN180.whenPressed(new RotateToHeading(-180));
 		rotate180.whenPressed(new RotateToHeading(180));

@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -15,6 +16,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team1165.robot.commands.AutoGearAwayBoilerBlue;
 import org.usfirst.frc.team1165.robot.commands.AutoGearAwayBoilerRed;
 import org.usfirst.frc.team1165.robot.commands.AutoPlaceGearCenter;
+import org.usfirst.frc.team1165.robot.commands.AutoPlaceGearCenterAndLeave;
+import org.usfirst.frc.team1165.robot.commands.AutoPlaceGearCenterAndShootBlue;
+import org.usfirst.frc.team1165.robot.commands.AutoPlaceGearCenterAndShootRed;
 import org.usfirst.frc.team1165.robot.commands.AutoShootAndGearBlue;
 import org.usfirst.frc.team1165.robot.commands.AutoShootAndGearRed;
 import org.usfirst.frc.team1165.robot.subsystems.Agitator;
@@ -79,6 +83,9 @@ public class Robot extends IterativeRobot
 		SmartDashboard.putBoolean("Blue Alliance" , DriverStation.getInstance().getAlliance() == Alliance.Red);
 		autoChooser = new SendableChooser();
 		autoChooser.addDefault("Place Gear On Center(Forwards)", new AutoPlaceGearCenter());
+		autoChooser.addDefault("Place Gear On Center(Forwards) and leave", new AutoPlaceGearCenterAndLeave());
+		autoChooser.addDefault("Place Gear On Center(Forwards) and shoot Blue", new AutoPlaceGearCenterAndShootBlue());
+		autoChooser.addDefault("Place Gear On Center(Forwards) and shoot Red", new AutoPlaceGearCenterAndShootRed());
 		autoChooser.addObject("Shoot and Gear Autonomous Red(Backwards)", new AutoShootAndGearRed());
 		autoChooser.addObject("Shoot and Gear Autonomous Blue(Backwards)", new AutoShootAndGearBlue());
 		autoChooser.addObject("Place Gear Only Red(Forwards)", new AutoGearAwayBoilerRed());
@@ -163,6 +170,7 @@ public class Robot extends IterativeRobot
 		 */
 
 		// schedule the autonomous command (example)
+		visionGRIP = new VisionGRIPSource();
 		if (autonomousCommand != null)
 			autonomousCommand.start();
 	}
@@ -185,7 +193,6 @@ public class Robot extends IterativeRobot
 		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
-		visionGRIP = new VisionGRIPSource();
 	}
 
 	/**
@@ -194,7 +201,10 @@ public class Robot extends IterativeRobot
 	@Override
 	public void teleopPeriodic()
 	{
+		visionGRIP.visionThreadStop(); //we are done with vision and try catch will prevent exceptions
+		//kill the thread to drop roborio cpu usage
 		Scheduler.getInstance().run();
+		Timer.delay(0.005);
 	}
 
 	/**
