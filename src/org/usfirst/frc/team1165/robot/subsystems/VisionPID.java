@@ -17,21 +17,18 @@ public class VisionPID extends PIDSubsystem
 	private static final double kD = 0.0;
 
 	// Minimum and maximum allowable speeds:
-	private final static double minSpeed = -0.3; //-0.5;
-	private final static double maxSpeed = 0.3; // 0.5;
+	private final static double minSpeed = -0.3;
+	private final static double maxSpeed = 0.3;
 
 	private final static double tolerance = 5;
 
-	private final int usbCameraImageWidth = 640;
-	private final int usbCameraImageHeight = 480;
-	
 	public double output;
 
 	// Initialize your subsystem here
 	public VisionPID()
 	{
 		super(kP, kI, kD);
-		setInputRange(0, usbCameraImageWidth);
+		setInputRange(0, Robot.usbCameraImageWidth);
 		setOutputRange(minSpeed, maxSpeed);
 		setAbsoluteTolerance(tolerance);
 	}
@@ -44,7 +41,7 @@ public class VisionPID extends PIDSubsystem
 
 	public void setSetpoint()
 	{
-		super.setSetpoint(usbCameraImageWidth / 2.0);
+		super.setSetpoint(Robot.usbCameraImageWidth / 2.0);
 	}
 
 	protected double returnPIDInput()

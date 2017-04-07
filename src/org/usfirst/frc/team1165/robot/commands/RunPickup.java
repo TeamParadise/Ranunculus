@@ -24,7 +24,8 @@ public class RunPickup extends Command
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute()
 	{
-		if(Robot.driveTrain.isRunning() ||Robot.shooter.isRunning())
+//		if(Robot.driveTrain.isRunning() ||Robot.shooter.isRunning())
+		if (Robot.oi.stick.getPOV() >= 0) //the button has been moved
 			Robot.pickup.set(0.5);
 		else
 			Robot.pickup.set(0);

@@ -23,9 +23,8 @@ public class VisionGRIPSource extends Subsystem
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
 	double center[];
-	double average = 0;
-	private static final int IMG_WIDTH = 320;
-	private static final int IMG_HEIGHT = 240;
+	double midWidth = Robot.usbCameraImageWidth / 2.0;
+	double average = midWidth;
 	public int centerX = 0;
 	int i = 7;
 
@@ -50,7 +49,9 @@ public class VisionGRIPSource extends Subsystem
 						visionThread.stop();
 					}
 				else*/ if (!Robot.pipeline.filterContoursOutput().isEmpty())
+				{
 					SmartDashboard.putBoolean("Filter Contours Empty", false);
+				}
 				else
 					SmartDashboard.putBoolean("Filter Contours Empty", true);
 				computeAverageCenter();
@@ -70,11 +71,13 @@ public class VisionGRIPSource extends Subsystem
 	
 	public void computeAverageCenter()
 	{
+		average = midWidth; //no correction
 		center = new double[Robot.pipeline.filterContoursOutput.size()];
-		average = 0;
 		SmartDashboard.putNumber("Length", center.length);
 		if (center.length == 2) //go with two objects only <= 2)
 		{
+			//compute the average then transfer to make sure the PID doesn't check the average before it's complete
+			double newAverage = 0;
 			for (int i = 0; i < center.length; i++)
 			{
 				if (!Robot.pipeline.filterContoursOutput().isEmpty())
@@ -86,10 +89,11 @@ public class VisionGRIPSource extends Subsystem
 						center[i] = centerX;
 					}
 				}
-				average += centerX;
+				newAverage += centerX;
 			}
+			newAverage /= center.length;
+			average = newAverage; //we know the new average, let's set it for the PID controller to access
 		}
-		average /= center.length;
 	}
 
 	public boolean filterContoursEmpty()

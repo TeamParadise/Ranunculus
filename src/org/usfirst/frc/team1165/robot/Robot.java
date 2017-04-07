@@ -14,8 +14,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team1165.robot.commands.AutoCrossBaseline;
-import org.usfirst.frc.team1165.robot.commands.AutoGearAwayBoilerBlue;
-import org.usfirst.frc.team1165.robot.commands.AutoGearAwayBoilerRed;
+import org.usfirst.frc.team1165.robot.commands.AutoGearAwayBoilerBlueOrRightGearOnly;
+import org.usfirst.frc.team1165.robot.commands.AutoGearAwayBoilerRedOrLeftGearOnly;
 import org.usfirst.frc.team1165.robot.commands.AutoPlaceGearCenter;
 import org.usfirst.frc.team1165.robot.commands.AutoPlaceGearCenterAndLeave;
 import org.usfirst.frc.team1165.robot.commands.AutoPlaceGearCenterAndShootBlue;
@@ -63,8 +63,8 @@ public class Robot extends IterativeRobot
 	public static final Pickup pickup = new Pickup();
 	public static final Agitator agitator = new Agitator();
 
-	private final int usbCameraImageWidth = 640;
-	private final int usbCameraImageHeight = 480;
+	public static int usbCameraImageWidth = 640;
+	public static int usbCameraImageHeight = 480;
 	private final int usbCameraFrameRate = 10;
 	public static UsbCamera usbCameras[];
 
@@ -86,14 +86,16 @@ public class Robot extends IterativeRobot
 		autoChooser = new SendableChooser();
 		autoChooser.addDefault("Place Gear On Center(Forwards)", new AutoPlaceGearCenter());
 		autoChooser.addDefault("Place Gear On Center No Vision(Forwards)", new AutoPlaceGearCenterNoVision());
-		autoChooser.addDefault("Place Gear On Center(Forwards) and leave", new AutoPlaceGearCenterAndLeave());
+		autoChooser.addObject("Cross Baseline (Forwards)", new AutoCrossBaseline());
+		autoChooser.addObject("Place Gear Only Left Side (Forwards)", new AutoGearAwayBoilerRedOrLeftGearOnly());
+		autoChooser.addObject("Place Gear Only Right Side (Backwards)", new AutoGearAwayBoilerBlueOrRightGearOnly());
+		/*autoChooser.addDefault("Place Gear On Center(Forwards) and leave", new AutoPlaceGearCenterAndLeave());
 		autoChooser.addDefault("Place Gear On Center(Forwards) and shoot Blue", new AutoPlaceGearCenterAndShootBlue());
 		autoChooser.addDefault("Place Gear On Center(Forwards) and shoot Red", new AutoPlaceGearCenterAndShootRed());
 		autoChooser.addObject("Shoot and Gear Autonomous Red(Backwards)", new AutoShootAndGearRed());
 		autoChooser.addObject("Shoot and Gear Autonomous Blue(Backwards)", new AutoShootAndGearBlue());
-		autoChooser.addObject("Place Gear Only Red(Forwards)", new AutoGearAwayBoilerRed());
-		autoChooser.addObject("Place Gear Only Blue(Backwards)", new AutoGearAwayBoilerBlue());
-		autoChooser.addObject("Cross Baseline (Forwards)", new AutoCrossBaseline());
+		autoChooser.addObject("Place Gear Only Red(Forwards)", new AutoGearAwayBoilerRedOrLeftGearOnly());
+		autoChooser.addObject("Place Gear Only Blue(Backwards)", new AutoGearAwayBoilerBlueOrRightGearOnly());*/
 		// chooser.addObject("My Auto", new MyAutoCommand());
 
 		SmartDashboard.putNumber(RobotMap.getShooterWheelString, 3100); //3500);
