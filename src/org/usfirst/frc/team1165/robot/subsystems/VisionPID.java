@@ -17,8 +17,8 @@ public class VisionPID extends PIDSubsystem
 	private static final double kD = 0.0;
 
 	// Minimum and maximum allowable speeds:
-	private final static double minSpeed = -0.5;
-	private final static double maxSpeed = 0.5;
+	private final static double minSpeed = -0.3; //-0.5;
+	private final static double maxSpeed = 0.3; // 0.5;
 
 	private final static double tolerance = 5;
 

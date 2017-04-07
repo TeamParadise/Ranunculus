@@ -13,12 +13,14 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team1165.robot.commands.AutoCrossBaseline;
 import org.usfirst.frc.team1165.robot.commands.AutoGearAwayBoilerBlue;
 import org.usfirst.frc.team1165.robot.commands.AutoGearAwayBoilerRed;
 import org.usfirst.frc.team1165.robot.commands.AutoPlaceGearCenter;
 import org.usfirst.frc.team1165.robot.commands.AutoPlaceGearCenterAndLeave;
 import org.usfirst.frc.team1165.robot.commands.AutoPlaceGearCenterAndShootBlue;
 import org.usfirst.frc.team1165.robot.commands.AutoPlaceGearCenterAndShootRed;
+import org.usfirst.frc.team1165.robot.commands.AutoPlaceGearCenterNoVision;
 import org.usfirst.frc.team1165.robot.commands.AutoShootAndGearBlue;
 import org.usfirst.frc.team1165.robot.commands.AutoShootAndGearRed;
 import org.usfirst.frc.team1165.robot.subsystems.Agitator;
@@ -66,7 +68,7 @@ public class Robot extends IterativeRobot
 	private final int usbCameraFrameRate = 10;
 	public static UsbCamera usbCameras[];
 
-	public static VisionGRIPSource visionGRIP;
+	public static VisionGRIPSource visionGRIP = null;
 	public static OI oi;
 
 	Command autonomousCommand;
@@ -83,6 +85,7 @@ public class Robot extends IterativeRobot
 		SmartDashboard.putBoolean("Blue Alliance" , DriverStation.getInstance().getAlliance() == Alliance.Red);
 		autoChooser = new SendableChooser();
 		autoChooser.addDefault("Place Gear On Center(Forwards)", new AutoPlaceGearCenter());
+		autoChooser.addDefault("Place Gear On Center No Vision(Forwards)", new AutoPlaceGearCenterNoVision());
 		autoChooser.addDefault("Place Gear On Center(Forwards) and leave", new AutoPlaceGearCenterAndLeave());
 		autoChooser.addDefault("Place Gear On Center(Forwards) and shoot Blue", new AutoPlaceGearCenterAndShootBlue());
 		autoChooser.addDefault("Place Gear On Center(Forwards) and shoot Red", new AutoPlaceGearCenterAndShootRed());
@@ -90,6 +93,7 @@ public class Robot extends IterativeRobot
 		autoChooser.addObject("Shoot and Gear Autonomous Blue(Backwards)", new AutoShootAndGearBlue());
 		autoChooser.addObject("Place Gear Only Red(Forwards)", new AutoGearAwayBoilerRed());
 		autoChooser.addObject("Place Gear Only Blue(Backwards)", new AutoGearAwayBoilerBlue());
+		autoChooser.addObject("Cross Baseline (Forwards)", new AutoCrossBaseline());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 
 		SmartDashboard.putNumber(RobotMap.getShooterWheelString, 3100); //3500);
@@ -201,7 +205,7 @@ public class Robot extends IterativeRobot
 	@Override
 	public void teleopPeriodic()
 	{
-		visionGRIP.visionThreadStop(); //we are done with vision and try catch will prevent exceptions
+		if (visionGRIP != null) visionGRIP.visionThreadStop(); //we are done with vision and try catch will prevent exceptions
 		//kill the thread to drop roborio cpu usage
 		Scheduler.getInstance().run();
 		Timer.delay(0.005);

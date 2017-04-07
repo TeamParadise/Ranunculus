@@ -43,7 +43,8 @@ public class NavX_MXP_PID implements PIDOutput
 		navXController = new PIDController(kP, kI, kD, Robot.navXSource.ahrs, this);
 		navXController.setInputRange(-180.0f, 180.0f);
 		//Reversed to account for direction of turn
-		navXController.setOutputRange(-0.85, 0.85);
+		//navXController.setOutputRange(-0.85, 0.85);
+		navXController.setOutputRange(-0.80, 0.80);
 		navXController.setAbsoluteTolerance(kToleranceDegrees);
 		navXController.setContinuous(true);
 	}

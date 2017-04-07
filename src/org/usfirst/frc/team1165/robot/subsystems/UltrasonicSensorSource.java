@@ -23,6 +23,12 @@ public class UltrasonicSensorSource extends Subsystem
 
 	double previousReading = 0;
 	double currentReading;
+	double leftMin = 333;
+	double leftMax = -333;
+	double rightMin = 333;
+	double rightMax = -333;
+	double gearMin = 333;
+	double gearMax = -333;
 
 	// Initialize your subsystem here
 	public UltrasonicSensorSource()
@@ -97,12 +103,26 @@ public class UltrasonicSensorSource extends Subsystem
 
 	public void reportValues()
 	{
+		leftMin = Math.min(leftMin,ultrasonicLeft.getRangeInches());
+		leftMax = Math.max(leftMax,ultrasonicLeft.getRangeInches());
+		rightMin = Math.min(rightMin,ultrasonicRight.getRangeInches());
+		rightMax = Math.max(rightMax,ultrasonicRight.getRangeInches());
+		gearMin = Math.min(gearMin,gearUltrasonic.getRangeInches());
+		gearMax = Math.max(gearMax,gearUltrasonic.getRangeInches());
 		SmartDashboard.putNumber(RobotMap.displayUltrasonicLeftString, ultrasonicLeft.getRangeInches());
 		SmartDashboard.putNumber(RobotMap.displayUltrasonicRightString, ultrasonicRight.getRangeInches());
 		SmartDashboard.putNumber(RobotMap.displayGearUltrasonicString, gearUltrasonic.getRangeInches());
+		SmartDashboard.putString(RobotMap.displayUltrasonicLeftRangeString, RangeAsString(leftMin,leftMax));
+		SmartDashboard.putString(RobotMap.displayUltrasonicRightRangeString, RangeAsString(rightMin,rightMax));
+		SmartDashboard.putString(RobotMap.displayGearUltrasonicRangeString, RangeAsString(gearMin,gearMax));
 		inchesPerSecond();
 	}
 
+	public String RangeAsString(double min, double max)
+	{
+		return Integer.toString((int)min)+"-"+Integer.toString((int)max);
+	}
+	
 	public void inchesPerSecond()
 	{
 		currentReading = ultrasonicRight.getRangeInches();

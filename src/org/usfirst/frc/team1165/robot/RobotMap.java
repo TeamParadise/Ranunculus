@@ -67,6 +67,9 @@ public class RobotMap
 	public static final String displayUltrasonicLeftString = "Ultrasonic Left";
 	public static final String displayUltrasonicRightString = "Ultrasonic Right";
 	public static final String displayGearUltrasonicString = "Gear Ultrasonic";
+	public static final String displayUltrasonicLeftRangeString = "Ultrasonic Left Range";
+	public static final String displayUltrasonicRightRangeString = "Ultrasonic Right Range";
+	public static final String displayGearUltrasonicRangeString = "Gear Ultrasonic Range";
 	
 	public static final int CANTalonDriveFrontLeft = 0;
 	public static final int CANTalonDriveRearLeft = 1;

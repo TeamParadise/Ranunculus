@@ -73,7 +73,7 @@ public class VisionGRIPSource extends Subsystem
 		center = new double[Robot.pipeline.filterContoursOutput.size()];
 		average = 0;
 		SmartDashboard.putNumber("Length", center.length);
-		if (center.length <= 2)
+		if (center.length == 2) //go with two objects only <= 2)
 		{
 			for (int i = 0; i < center.length; i++)
 			{

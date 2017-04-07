@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class LineWithVisionTape extends Command
 {
-	private double distanceToWall = 5;
+	private double distanceToWall = 10;
 	private double targetHeading;
 	private double forwardSpeed = -0.75;
 	private double initialAngle;
