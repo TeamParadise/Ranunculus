@@ -10,14 +10,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class AutoPlaceGearCenter extends CommandGroup
+public class AutoPlaceGearCenterNoVision extends CommandGroup
 {
 
-	public AutoPlaceGearCenter()
+	public AutoPlaceGearCenterNoVision()
 	{
 			addSequential(new DriveStraightNavX(0.4, 60, true),5);
 			addSequential(new RotateToHeading(-90.0),3);
-			addSequential(new LineWithVisionTape(),2);
+			//addSequential(new LineWithVisionTape(),3);
 			addSequential(new StrafeToWall(),4);
 			/*addSequential(new WaitCommand(5),5);
 			addSequential(new StrafeAwayFromWall(20), 3);

@@ -71,7 +71,6 @@ public class VisionGRIPSource extends Subsystem
 	
 	public void computeAverageCenter()
 	{
-		average = midWidth; //no correction
 		center = new double[Robot.pipeline.filterContoursOutput.size()];
 		SmartDashboard.putNumber("Length", center.length);
 		if (center.length == 2) //go with two objects only <= 2)
@@ -93,7 +92,8 @@ public class VisionGRIPSource extends Subsystem
 			}
 			newAverage /= center.length;
 			average = newAverage; //we know the new average, let's set it for the PID controller to access
-		}
+		} else average = midWidth; //no correction
+
 	}
 
 	public boolean filterContoursEmpty()

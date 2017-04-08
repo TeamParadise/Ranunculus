@@ -55,7 +55,29 @@ public class VisionPID extends PIDSubsystem
 	protected void usePIDOutput(double output)
 	{
 		// Use output to drive your system, like a motor
-		this.output = output;
+		//this.output = output;
+		double midlow = 300;
+		double midhi = 340;
+		double nextlow = 250;
+		double nexthi = 390;
+		double lopower = 0.3;
+		double hipower = 0.4;
+		if (isBetweenInclusive(midlow,midhi,Robot.visionGRIP.average))
+			this.output = 0;
+		else if (isBetweenInclusive(nextlow,midlow,Robot.visionGRIP.average))
+			this.output = -lopower;
+		else if (isBetweenInclusive(midhi,nexthi,Robot.visionGRIP.average))
+			this.output = lopower;
+		else if (Robot.visionGRIP.average < nextlow)
+			this.output = -hipower;
+		else if (Robot.visionGRIP.average > nexthi)
+			this.output = hipower;
+		else this.output = 0;
 		SmartDashboard.putNumber("Vision PID Output", output);
+	}
+	
+	protected boolean isBetweenInclusive(double low, double high, double value)
+	{
+		return (value >= low && value <= high);
 	}
 }
